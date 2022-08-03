@@ -4,6 +4,7 @@
     {"id":{"name":"shd_lorikeet","path":"shaders/shd_lorikeet/shd_lorikeet.yy",},"order":16,},
     {"id":{"name":"spr_test_sprite","path":"sprites/spr_test_sprite/spr_test_sprite.yy",},"order":17,},
     {"id":{"name":"Object1","path":"objects/Object1/Object1.yy",},"order":15,},
+    {"id":{"name":"lorikeet_set","path":"scripts/lorikeet_set/lorikeet_set.yy",},"order":19,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":14,},
   ],
   "Options": [
