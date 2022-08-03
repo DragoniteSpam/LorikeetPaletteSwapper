@@ -1,6 +1,8 @@
 {
   "resources": [
+    {"id":{"name":"spr_test_palette","path":"sprites/spr_test_palette/spr_test_palette.yy",},"order":18,},
     {"id":{"name":"shd_lorikeet","path":"shaders/shd_lorikeet/shd_lorikeet.yy",},"order":16,},
+    {"id":{"name":"spr_test_sprite","path":"sprites/spr_test_sprite/spr_test_sprite.yy",},"order":17,},
     {"id":{"name":"Object1","path":"objects/Object1/Object1.yy",},"order":15,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":14,},
   ],
