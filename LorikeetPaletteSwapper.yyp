@@ -1,5 +1,6 @@
 {
   "resources": [
+    {"id":{"name":"shd_lorikeet","path":"shaders/shd_lorikeet/shd_lorikeet.yy",},"order":16,},
     {"id":{"name":"Object1","path":"objects/Object1/Object1.yy",},"order":15,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":14,},
   ],
