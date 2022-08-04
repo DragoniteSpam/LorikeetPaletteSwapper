@@ -57,6 +57,13 @@ self.LoadPalette = function() {
     return undefined;
 };
 
+self.SaveIndexedColor = function() {
+    var fn = get_save_filename("Image files|*.png", "");
+    if (fn != "") {
+        sprite_save(self.demo_sprite_indexed, 0, fn);
+    }
+};
+
 var ew = 320;
 var eh = 32;
 
@@ -70,6 +77,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         obj_demo.LoadPalette();
     }),
     new EmuButton(32, EMU_AUTO, ew / 2, eh, "Save Indexed Color", function() {
+        obj_demo.SaveIndexedColor();
     }),
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Save Palette", function() {
     }),
