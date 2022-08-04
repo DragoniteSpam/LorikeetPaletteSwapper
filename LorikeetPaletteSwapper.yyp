@@ -1,5 +1,6 @@
 {
   "resources": [
+    {"id":{"name":"lorikeet_extract_palette","path":"scripts/lorikeet_extract_palette/lorikeet_extract_palette.yy",},"order":2,},
     {"id":{"name":"spr_emu_close","path":"sprites/spr_emu_close/spr_emu_close.yy",},"order":7,},
     {"id":{"name":"spr_emu_help","path":"sprites/spr_emu_help/spr_emu_help.yy",},"order":9,},
     {"id":{"name":"draw_text_scribble_ext","path":"scripts/draw_text_scribble_ext/draw_text_scribble_ext.yy",},"order":1,},
