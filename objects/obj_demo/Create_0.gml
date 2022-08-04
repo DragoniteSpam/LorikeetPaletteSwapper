@@ -186,7 +186,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             draw_rectangle_color((i % hcells) * step, (i div hcells) * step, ((i % hcells) + 1) * step, ((i div hcells) + 1) * step, c, c, c, c, false);
         }
         
-        draw_sprite(spr_tile_selector, 0, mcx * step, mcy * step);
+        var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
+        if (mouse_in_view) {
+            draw_sprite(spr_tile_selector, 0, mcx * step, mcy * step);
+        }
         
         var max_row = ceil(array_length(palette) / hcells);
         var max_column = array_length(palette) % hcells;
