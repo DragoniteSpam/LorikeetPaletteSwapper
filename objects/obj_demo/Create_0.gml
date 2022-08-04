@@ -36,6 +36,27 @@ self.ResetSprite = function() {
     return palette_data.execution_time;
 };
 
+self.LoadPalette = function() {
+    var fn = get_open_filename("Image files|*.png;*.bmp", "");
+    if (file_exists(fn)) {
+        var image = sprite_add(fn, 0, false, false, 0, 0);
+        
+        if (sprite_exists(image)) {
+            if (sprite_get_height(image)) {
+                (new EmuDialog(400, 240, "Hey!")).AddContent([
+                    (new EmuText(32, 32, 400 - 32 - 32, 144, "Currently only palettes with one row of pixels can be loaded. All following rows will be discarded."))
+                        .SetAlign(fa_center, fa_middle)
+                ]).AddDefaultCloseButton().CenterInWindow();
+            }
+            sprite_delete(self.demo_palette);
+            self.demo_palette = image;
+            self.demo_palette_data = palette_to_array(image);
+        }
+    }
+    
+    return undefined;
+};
+
 var ew = 320;
 var eh = 32;
 
@@ -46,6 +67,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         self.GetSibling("TIME").text = "Palette extraction time: " + string(load_results) + " ms";
     }),
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Load Palette", function() {
+        obj_demo.LoadPalette();
     }),
     new EmuButton(32, EMU_AUTO, ew / 2, eh, "Save Indexed Color", function() {
     }),

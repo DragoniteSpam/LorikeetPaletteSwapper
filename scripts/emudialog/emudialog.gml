@@ -36,6 +36,12 @@ function EmuDialog(w, h, title, callback = function() { EmuOverlay.Pop(); }) : E
     EmuOverlay.AddContent(self);
     
     #region
+    self.CenterInWindow = function() {
+        self.x = floor((window_get_width() - self.width) / 2);
+        self.y = floor((window_get_height() - self.height) / 2);
+        return self;
+    };
+    
     self.AddDefaultCloseButton = function(name = "Close", callback = function() { self.root.Close(); }) {
         return self.AddContent([new EmuButton(self.width / 2 - EMU_DEFAULT_CLOSE_BUTTON_WIDTH / 2, self.height - 48, EMU_DEFAULT_CLOSE_BUTTON_WIDTH, EMU_DEFAULT_CLOSE_BUTTON_HEIGHT, name, callback)]);
     };
