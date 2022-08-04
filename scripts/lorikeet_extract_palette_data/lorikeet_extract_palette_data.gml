@@ -75,7 +75,10 @@ function lorikeet_extract_palette_data(sprite, index = 0, force_full_palette = f
     buffer_delete(palette_buffer);
     surface_free(palette_surface);
     
-    show_debug_message("Palette extraction took " + string((get_timer() - t) / 1000) + " ms");
-    
-    return { indexed_sprite: indexed_sprite, palette_array: palette_array, palette_sprite: palette_sprite };
+    return {
+        indexed_sprite: indexed_sprite,
+        palette_array: palette_array,
+        palette_sprite: palette_sprite,
+        execution_time: (get_timer() - t) / 1000
+    };
 }
