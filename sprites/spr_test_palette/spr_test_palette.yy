@@ -2,7 +2,7 @@
   "name": "spr_test_palette",
   "HTile": false,
   "VTile": false,
-  "For3D": true,
+  "For3D": false,
   "preMultiplyAlpha": false,
   "edgeFiltering": false,
   "collisionTolerance": 0,
