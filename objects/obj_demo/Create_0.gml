@@ -1,5 +1,5 @@
 self.demo_sprite = spr_test_sprite;
-var palette_data = lorikeet_extract_palette_data(self.demo_sprite, 0);
+var palette_data = lorikeet_extract_palette_data(self.demo_sprite);
 self.demo_sprite_indexed = palette_data.indexed_sprite;
 self.demo_palette_data = palette_data.palette_array;
 self.demo_palette = palette_data.palette_sprite;
