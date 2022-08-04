@@ -105,9 +105,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             draw_rectangle_color((i % hcells) * step, (i div hcells) * step, ((i % hcells) + 1) * step, ((i div hcells) + 1) * step, c, c, c, c, false);
         }
         
-        gpu_set_blendmode_ext(bm_dest_color, bm_inv_src_alpha);
-        draw_sprite(spr_palette_checker, 0, mcx * step, mcy * step);
-        gpu_set_blendenable(bm_normal);
+        draw_sprite(spr_tile_selector, 0, mcx * step, mcy * step);
         
         for (var i = 0; i < self.width; i += step) {
             draw_line_colour(i, 0, i, self.height, c_black, c_black);
@@ -139,7 +137,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             var index = mcy * hcells + mcx;
             picker.palette_index = index;
             picker.value = obj_demo.demo_palette_data[index];
-            picker.ShowPickerDialog();
+            picker.ShowPickerDialog().SetActiveShade(0);
         }
     }, function() {
         // create

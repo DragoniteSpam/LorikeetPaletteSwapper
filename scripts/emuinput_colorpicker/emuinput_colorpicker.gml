@@ -359,5 +359,7 @@ function EmuColorPicker(x, y, width, height, text, value, callback) : EmuCallbac
         var el_confirm = new EmuButton(dialog.width / 2 - b_width / 2, dialog.height - 32 - b_height / 2, b_width, b_height, "Done", emu_dialog_close_auto);
                     
         dialog.AddContent([dialog.el_picker_code, dialog.el_picker, dialog.el_channels, dialog.el_all, el_confirm]);
+        
+        return dialog;
     };
 }
