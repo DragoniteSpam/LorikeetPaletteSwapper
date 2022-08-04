@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "LorikeetPaletteSwapper",
-    "path": "LorikeetPaletteSwapper.yyp",
+    "name": "Lorikeet",
+    "path": "folders/Lorikeet.yy",
   },
   "resourceVersion": "1.0",
   "name": "lorikeet_set",

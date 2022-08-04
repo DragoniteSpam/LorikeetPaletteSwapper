@@ -46,8 +46,8 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "LorikeetPaletteSwapper",
-    "path": "LorikeetPaletteSwapper.yyp",
+    "name": "Testing",
+    "path": "folders/Testing.yy",
   },
   "resourceVersion": "1.0",
   "name": "Room1",

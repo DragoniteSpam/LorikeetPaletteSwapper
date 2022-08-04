@@ -70,8 +70,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "LorikeetPaletteSwapper",
-    "path": "LorikeetPaletteSwapper.yyp",
+    "name": "Testing",
+    "path": "folders/Testing.yy",
   },
   "resourceVersion": "1.0",
   "tags": [],
