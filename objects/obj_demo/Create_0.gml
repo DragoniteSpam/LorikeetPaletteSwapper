@@ -1,9 +1,26 @@
-self.demo_sprite = spr_test_sprite;
+self.demo_sprite = sprite_duplicate(spr_test_sprite);
 var palette_data = lorikeet_extract_palette_data(self.demo_sprite);
 self.demo_sprite_indexed = palette_data.indexed_sprite;
 self.demo_palette_data = palette_data.palette_array;
 self.demo_palette = palette_data.palette_sprite;
 self.demo_sprite_type = 0;
+
+self.LoadSprite = function() {
+    var fn = get_open_filename("Image files|*.png;*.bmp", "");
+    if (file_exists(fn)) {
+        var image = sprite_add(fn, 0, false, false, 0, 0);
+        
+        if (sprite_exists(image)) {
+            var palette_data = lorikeet_extract_palette_data(image);
+            sprite_delete(self.demo_sprite);
+            sprite_delete(self.demo_palette);
+            self.demo_sprite = image;
+            self.demo_sprite_indexed = palette_data.indexed_sprite;
+            self.demo_palette_data = palette_data.palette_array;
+            self.demo_palette = palette_data.palette_sprite;
+        }
+    }
+};
 
 var ew = 320;
 var eh = 32;
@@ -11,6 +28,7 @@ var eh = 32;
 self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddContent([
     new EmuText(32, EMU_AUTO, ew, eh, "[c_aqua]Lorikeet Palette Extraction"),
     new EmuButton(32, EMU_AUTO, ew / 2, eh, "Load Sprite", function() {
+        obj_demo.LoadSprite();
     }),
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Load Palette", function() {
     }),
@@ -40,7 +58,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }, function(mx, my) {
         // step
         if (!self.isActiveDialog()) return;
-        var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.width);
+        var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
         if (mouse_in_view) {
             var zoom_step = 0.5;
             if (mouse_wheel_down()) {
@@ -83,7 +101,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         }
     }, function() {
         // create
-        self.zoom = 4;
+        self.zoom = 8;
         self.map_x = 0;
         self.map_y = 0;
         self.panning = false;
@@ -92,13 +110,17 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }),
     new EmuRenderSurface(32 + 32 + 32 + ew + 528, EMU_BASE, 384, 704, function(mx, my) {
         // render
+        var palette = obj_demo.demo_palette_data;
+        
         var step = 32;
         var hcells = self.width div step;
         var mcx = mx div step;
         var mcy = my div step;
+        var index = min(mcy * hcells + mcx, array_length(palette) - 1);
+        mcx = index % hcells;
+        mcy = index div hcells;
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         
-        var palette = obj_demo.demo_palette_data;
         for (var i = 0, n = array_length(palette); i < n; i++) {
             var c = palette[i];
             if (c == -1) break;
@@ -106,6 +128,14 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         }
         
         draw_sprite(spr_tile_selector, 0, mcx * step, mcy * step);
+        
+        var max_row = ceil(array_length(palette) / hcells);
+        var max_column = array_length(palette) % hcells;
+        
+        draw_set_alpha(0.5);
+        draw_rectangle_colour(max_column * step, (max_row - 1) * step, self.width, max_row * step, c_black, c_black, c_black, c_black, false);
+        draw_rectangle_colour(0, max_row * step, self.width, self.height, c_black, c_black, c_black, c_black, false);
+        draw_set_alpha(1);
         
         for (var i = 0; i < self.width; i += step) {
             draw_line_colour(i, 0, i, self.height, c_black, c_black);
@@ -125,7 +155,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         });
         
         if (!self.isActiveDialog()) return;
-        var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.width);
+        var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
         if (!mouse_in_view) return;
         
         var step = 32;
