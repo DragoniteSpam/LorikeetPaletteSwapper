@@ -22,6 +22,16 @@ self.LoadSprite = function() {
     }
 };
 
+self.ResetSprite = function() {
+    sprite_delete(self.demo_sprite);
+    sprite_delete(self.demo_palette);
+    self.demo_sprite = sprite_duplicate(spr_test_sprite);
+    var palette_data = lorikeet_extract_palette_data(self.demo_sprite);
+    self.demo_sprite_indexed = palette_data.indexed_sprite;
+    self.demo_palette_data = palette_data.palette_array;
+    self.demo_palette = palette_data.palette_sprite;
+};
+
 var ew = 320;
 var eh = 32;
 
@@ -35,6 +45,9 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     new EmuButton(32, EMU_AUTO, ew / 2, eh, "Save Grayscale", function() {
     }),
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Save Palette", function() {
+    }),
+    new EmuButton(32, EMU_AUTO, ew, eh, "Reset Demo Sprite", function() {
+        obj_demo.ResetSprite();
     }),
     new EmuRadioArray(32, EMU_AUTO, ew, eh, "Display type:", 0, function() {
         obj_demo.demo_sprite_type = self.value;
