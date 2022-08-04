@@ -1,7 +1,8 @@
 self.demo_sprite = spr_test_sprite;
-self.demo_sprite_indexed = -1;
-self.demo_palette = spr_test_palette;
-self.demo_palette_data = lorikeet_extract_palette(self.demo_sprite, 0);
+var palette_data = lorikeet_extract_palette_data(self.demo_sprite, 0);
+self.demo_sprite_indexed = palette_data.indexed_sprite;
+self.demo_palette_data = palette_data.palette_array;
+self.demo_palette = palette_data.palette_sprite;
 self.demo_sprite_type = 0;
 
 var ew = 320;
@@ -19,20 +20,22 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }),
     new EmuRadioArray(32, EMU_AUTO, ew, eh, "Display type:", 0, function() {
         obj_demo.demo_sprite_type = self.value;
-    }).AddOptions(["Original", "Indexed"]),
+    }).AddOptions(["Original", "Indexed", "Indexed with Palette"]),
     new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 528, 704, function(mx, my) {
         // render
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
-        if (obj_demo.demo_sprite_type == 0) {
-            if (sprite_exists(obj_demo.demo_sprite)) {
-                draw_sprite(obj_demo.demo_sprite, 0, 0, 0);
-            }
-        } else {
-            if (sprite_exists(obj_demo.demo_sprite_indexed)) {
-                draw_sprite(obj_demo.demo_sprite_indexed, 0, 0, 0);
-            } else if (sprite_exists(obj_demo.demo_sprite)) {
-                draw_sprite(obj_demo.demo_sprite, 0, 0, 0);
-            }
+        switch (obj_demo.demo_sprite_type) {
+            case 0:
+                draw_sprite_ext(obj_demo.demo_sprite, 0, 0, 0, 8, 8, 0, c_white, 1);
+                break;
+            case 1:
+                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 8, 8, 0, c_white, 1);
+                break;
+            case 2:
+                lorikeet_set(obj_demo.demo_palette, 0);
+                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 8, 8, 0, c_white, 1);
+                shader_reset();
+                break;
         }
     }, function(mx, my) {
         // step

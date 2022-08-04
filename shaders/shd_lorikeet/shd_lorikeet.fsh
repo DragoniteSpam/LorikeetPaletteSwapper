@@ -5,7 +5,7 @@ uniform sampler2D samp_Palette;
 uniform float u_PaletteSlot;
 
 vec4 GetColor(vec4 data) {
-    return vec4(texture2D(samp_Palette, vec2(max(data.r - 0.001, 0.0), u_PaletteSlot)).rgb, data.a);
+    return vec4(texture2D(samp_Palette, vec2(min(data.r + 0.0002, 1.0), u_PaletteSlot)).rgb, data.a);
 }
 
 void main() {
