@@ -46,6 +46,7 @@
     {"id":{"name":"scribble_glyph_set","path":"scripts/scribble_glyph_set/scribble_glyph_set.yy",},"order":13,},
     {"id":{"name":"EmuTab","path":"scripts/EmuTab/EmuTab.yy",},"order":13,},
     {"id":{"name":"EmuException","path":"scripts/EmuException/EmuException.yy",},"order":6,},
+    {"id":{"name":"spr_test_sprite_indexed","path":"sprites/spr_test_sprite_indexed/spr_test_sprite_indexed.yy",},"order":5,},
     {"id":{"name":"shd_lorikeet","path":"shaders/shd_lorikeet/shd_lorikeet.yy",},"order":1,},
     {"id":{"name":"EmuText","path":"scripts/EmuText/EmuText.yy",},"order":15,},
     {"id":{"name":"__scribble_gen_8_position_glyphs","path":"scripts/__scribble_gen_8_position_glyphs/__scribble_gen_8_position_glyphs.yy",},"order":7,},

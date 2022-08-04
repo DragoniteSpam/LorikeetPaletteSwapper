@@ -1,7 +1,7 @@
 self.demo_sprite = spr_test_sprite;
 self.demo_sprite_indexed = -1;
 self.demo_palette = spr_test_palette;
-self.demo_palette_data = array_create(256, 0);
+self.demo_palette_data = lorikeet_extract_palette(self.demo_sprite, 0);
 self.demo_sprite_type = 0;
 
 var ew = 320;
@@ -45,6 +45,13 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var mcx = mx div step;
         var mcy = my div step;
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
+        
+        var palette = obj_demo.demo_palette_data;
+        for (var i = 0, n = array_length(palette); i < n; i++) {
+            var c = palette[i];
+            if (c == -1) break;
+            draw_rectangle_color((i % 12) * step, (i div 12) * step, ((i % 12) + 1) * step, ((i div 12) + 1) * step, c, c, c, c, false);
+        }
         
         gpu_set_blendmode_ext(bm_dest_color, bm_inv_src_alpha);
         draw_sprite(spr_palette_checker, 0, mcx * step, mcy * step);
