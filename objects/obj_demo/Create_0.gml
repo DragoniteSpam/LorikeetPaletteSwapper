@@ -93,6 +93,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     new EmuRenderSurface(32 + 32 + 32 + ew + 528, EMU_BASE, 384, 704, function(mx, my) {
         // render
         var step = 32;
+        var hcells = self.width div step;
         var mcx = mx div step;
         var mcy = my div step;
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
@@ -101,7 +102,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         for (var i = 0, n = array_length(palette); i < n; i++) {
             var c = palette[i];
             if (c == -1) break;
-            draw_rectangle_color((i % 12) * step, (i div 12) * step, ((i % 12) + 1) * step, ((i div 12) + 1) * step, c, c, c, c, false);
+            draw_rectangle_color((i % hcells) * step, (i div hcells) * step, ((i % hcells) + 1) * step, ((i div hcells) + 1) * step, c, c, c, c, false);
         }
         
         gpu_set_blendmode_ext(bm_dest_color, bm_inv_src_alpha);
@@ -116,6 +117,30 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         }
     }, function(mx, my) {
         // step
+        static picker = new EmuColorPicker(0, 0, 0, 0, "", c_black, function() {
+            var changed = (obj_demo.demo_palette_data[self.palette_index] != self.value);
+            obj_demo.demo_palette_data[self.palette_index] = self.value;
+            if (changed) {
+                sprite_delete(obj_demo.demo_palette);
+                obj_demo.demo_palette = lorikeet_generate_palette_sprite(obj_demo.demo_palette_data);
+            }
+        });
+        
+        if (!self.isActiveDialog()) return;
+        var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.width);
+        if (!mouse_in_view) return;
+        
+        var step = 32;
+        var hcells = self.width div step;
+        var mcx = mx div step;
+        var mcy = my div step;
+        
+        if (mouse_check_button_pressed(mb_left)) {
+            var index = mcy * hcells + mcx;
+            picker.palette_index = index;
+            picker.value = obj_demo.demo_palette_data[index];
+            picker.ShowPickerDialog();
+        }
     }, function() {
         // create
     }),
