@@ -26,21 +26,69 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         switch (obj_demo.demo_sprite_type) {
             case 0:
-                draw_sprite_ext(obj_demo.demo_sprite, 0, 0, 0, 8, 8, 0, c_white, 1);
+                draw_sprite_ext(obj_demo.demo_sprite, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 break;
             case 1:
-                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 8, 8, 0, c_white, 1);
+                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 break;
             case 2:
                 lorikeet_set(obj_demo.demo_palette, 0);
-                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 8, 8, 0, c_white, 1);
+                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 shader_reset();
                 break;
         }
     }, function(mx, my) {
         // step
+        if (!self.isActiveDialog()) return;
+        var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.width);
+        if (mouse_in_view) {
+            var zoom_step = 0.5;
+            if (mouse_wheel_down()) {
+                var cx = (mx - self.map_x) / self.zoom;
+                var cy = (my - self.map_y) / self.zoom;
+                self.zoom = max(1, self.zoom - zoom_step);
+                self.map_x = mx - self.zoom * cx;
+                self.map_y = my - self.zoom * cy;
+            } else if (mouse_wheel_up()) {
+                var cx = (mx - self.map_x) / self.zoom;
+                var cy = (my - self.map_y) / self.zoom;
+                self.zoom = min(16, self.zoom + zoom_step);
+                self.map_x = mx - self.zoom * cx;
+                self.map_y = my - self.zoom * cy;
+            }
+        }
+        
+        if (mouse_in_view && mouse_check_button_pressed(mb_middle)) {
+            self.panning = true;
+            self.pan_x = mx;
+            self.pan_y = my;
+        }
+        if (mouse_check_button(mb_middle)) {
+            self.map_x += mx - self.pan_x;
+            self.map_y += my - self.pan_y;
+            self.pan_x = mx;
+            self.pan_y = my;
+            window_set_cursor(cr_size_all);
+        } else {
+            self.panning = false;
+            window_set_cursor(cr_default);
+        }
+        if (keyboard_check_pressed(vk_enter)) {
+            self.zoom = 1;
+            self.map_x = 0;
+            self.map_y = 0;
+            self.panning = false;
+            self.pan_x = 0;
+            self.pan_y = 0;
+        }
     }, function() {
         // create
+        self.zoom = 4;
+        self.map_x = 0;
+        self.map_y = 0;
+        self.panning = false;
+        self.pan_x = 0;
+        self.pan_y = 0;
     }),
     new EmuRenderSurface(32 + 32 + 32 + ew + 528, EMU_BASE, 384, 704, function(mx, my) {
         // render
