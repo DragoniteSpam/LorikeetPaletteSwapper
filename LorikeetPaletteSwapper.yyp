@@ -24,6 +24,7 @@
     {"id":{"name":"__scribble_system_glyph_data","path":"scripts/__scribble_system_glyph_data/__scribble_system_glyph_data.yy",},"order":10,},
     {"id":{"name":"scribble_external_sound_remove","path":"scripts/scribble_external_sound_remove/scribble_external_sound_remove.yy",},"order":4,},
     {"id":{"name":"EmuInput_ColorPicker","path":"scripts/EmuInput_ColorPicker/EmuInput_ColorPicker.yy",},"order":8,},
+    {"id":{"name":"spr_palette_checker","path":"sprites/spr_palette_checker/spr_palette_checker.yy",},"order":4,},
     {"id":{"name":"scribble_font_force_bilinear_filtering","path":"scripts/scribble_font_force_bilinear_filtering/scribble_font_force_bilinear_filtering.yy",},"order":5,},
     {"id":{"name":"scribble_glyph_get","path":"scripts/scribble_glyph_get/scribble_glyph_get.yy",},"order":12,},
     {"id":{"name":"__scribble_config_behaviours","path":"scripts/__scribble_config_behaviours/__scribble_config_behaviours.yy",},"order":0,},
