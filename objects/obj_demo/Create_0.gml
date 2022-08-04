@@ -1,3 +1,5 @@
+scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_black, false);
+
 self.demo_sprite = sprite_duplicate(spr_test_sprite);
 var palette_data = lorikeet_extract_palette_data(self.demo_sprite);
 self.demo_sprite_indexed = palette_data.indexed_sprite;
@@ -114,6 +116,11 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 shader_reset();
                 break;
         }
+        
+        scribble("[fnt_emu_default_outline]Middle mouse button to pan")
+            .draw(32, 32);
+        scribble("[fnt_emu_default_outline]Mouse wheel to zoom")
+            .draw(32, 48);
     }, function(mx, my) {
         // step
         if (!self.isActiveDialog()) return;
