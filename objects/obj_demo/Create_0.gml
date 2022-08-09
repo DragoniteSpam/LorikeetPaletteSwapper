@@ -28,6 +28,15 @@ self.LoadSprite = function() {
     return undefined;
 };
 
+self.ReExtract = function() {
+    var palette_data = lorikeet_extract_palette_data(self.demo_sprite, 0, self.demo_force_full_palettes);
+    sprite_delete(self.demo_palette);
+    self.demo_sprite_indexed = palette_data.indexed_sprite;
+    self.demo_palette_data = palette_data.palette_array;
+    self.demo_palette = palette_data.palette_sprite;
+    return palette_data.execution_time;
+};
+
 self.ResetSprite = function() {
     sprite_delete(self.demo_sprite);
     sprite_delete(self.demo_palette);
