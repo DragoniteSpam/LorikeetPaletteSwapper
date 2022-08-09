@@ -5,6 +5,7 @@ var palette_data = lorikeet_extract_palette_data(self.demo_sprite);
 self.demo_sprite_indexed = palette_data.indexed_sprite;
 self.demo_palette_data = palette_data.palette_array;
 self.demo_palette = palette_data.palette_sprite;
+self.demo_palette_index = 0;
 self.demo_sprite_type = 0;
 self.demo_force_full_palettes = false;
 
@@ -114,7 +115,6 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }).AddOptions(["Original", "Indexed", "Indexed with Palette"]),
     new EmuText(32, EMU_AUTO, ew, eh, "Palette extraction time: " + string(palette_data.execution_time) + " ms")
         .SetID("TIME"),
-    new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 528, 704, function(mx, my) {
     new EmuRenderSurface(32, EMU_AUTO, ew, ew, function(mx, my) {
         // render
         var sprite = obj_demo.demo_palette;
@@ -128,6 +128,13 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }, function(mx, my) {
         // step
     }, emu_null),
+    (new EmuButton(32, EMU_AUTO, ew / 2, eh, "Add row", function() {
+        
+    })),
+    (new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Delete row", function() {
+        
+    })),
+    new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 762, 836, function(mx, my) {
         // render
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         switch (obj_demo.demo_sprite_type) {
@@ -201,7 +208,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         self.pan_x = 0;
         self.pan_y = 0;
     }),
-    new EmuRenderSurface(32 + 32 + 32 + ew + 528, EMU_BASE, 384, 704, function(mx, my) {
+    new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_BASE, 384, 836, function(mx, my) {
         // render
         var palette = obj_demo.demo_palette_data;
         
