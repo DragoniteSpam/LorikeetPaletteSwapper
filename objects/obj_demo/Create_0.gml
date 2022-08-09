@@ -210,7 +210,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }),
     new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_BASE, 384, 836, function(mx, my) {
         // render
-        var palette = obj_demo.demo_palette_data;
+        var palette = obj_demo.demo_palette_data[obj_demo.demo_palette_index];
         
         var step = 32;
         var hcells = self.width div step;
@@ -249,8 +249,9 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }, function(mx, my) {
         // step
         static picker = new EmuColorPicker(0, 0, 0, 0, "", c_black, function() {
-            var changed = (obj_demo.demo_palette_data[self.palette_index] != self.value);
-            obj_demo.demo_palette_data[self.palette_index] = self.value;
+            var palette_slot = obj_demo.demo_palette_data[obj_demo.demo_palette_index][self.palette_index];
+            var changed = (palette_slot != self.value);
+            obj_demo.demo_palette_data[obj_demo.demo_palette_index][self.palette_index] = self.value;
             if (changed) {
                 sprite_delete(obj_demo.demo_palette);
                 obj_demo.demo_palette = lorikeet_generate_palette_sprite(obj_demo.demo_palette_data);
@@ -269,7 +270,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         if (mouse_check_button_pressed(mb_left)) {
             var index = mcy * hcells + mcx;
             picker.palette_index = index;
-            picker.value = obj_demo.demo_palette_data[index];
+            picker.value = obj_demo.demo_palette_data[obj_demo.demo_palette_index][index];
             picker.ShowPickerDialog().SetActiveShade(0);
         }
     }, function() {

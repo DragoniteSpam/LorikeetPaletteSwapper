@@ -77,7 +77,7 @@ function lorikeet_extract_palette_data(sprite, index = 0, force_full_palette = f
     
     return {
         indexed_sprite: indexed_sprite,
-        palette_array: palette_array,
+        palette_array: [palette_array],
         palette_sprite: palette_sprite,
         execution_time: (get_timer() - t) / 1000
     };
