@@ -115,6 +115,19 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     new EmuText(32, EMU_AUTO, ew, eh, "Palette extraction time: " + string(palette_data.execution_time) + " ms")
         .SetID("TIME"),
     new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 528, 704, function(mx, my) {
+    new EmuRenderSurface(32, EMU_AUTO, ew, ew, function(mx, my) {
+        // render
+        var sprite = obj_demo.demo_palette;
+        draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
+        var hscale = self.width / sprite_get_width(sprite);
+        var sh = sprite_get_height(sprite);
+        var vscale = self.height / sh;
+        var scale = min(hscale, vscale);
+        draw_sprite_ext(sprite, 0, 0, 0, scale, scale, 0, c_white, 1);
+        draw_sprite_stretched_ext(spr_tile_selector, 0, 0, hscale * sh * obj_demo.demo_palette_index, self.width, hscale * sh, c_red, 1);
+    }, function(mx, my) {
+        // step
+    }, emu_null),
         // render
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         switch (obj_demo.demo_sprite_type) {
