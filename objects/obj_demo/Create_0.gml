@@ -6,6 +6,7 @@ self.demo_sprite_indexed = palette_data.indexed_sprite;
 self.demo_palette_data = palette_data.palette_array;
 self.demo_palette = palette_data.palette_sprite;
 self.demo_sprite_type = 0;
+self.demo_force_full_palettes = false;
 
 self.LoadSprite = function() {
     var fn = get_open_filename("Image files|*.png;*.bmp", "");
@@ -13,7 +14,7 @@ self.LoadSprite = function() {
         var image = sprite_add(fn, 0, false, false, 0, 0);
         
         if (sprite_exists(image)) {
-            var palette_data = lorikeet_extract_palette_data(image);
+            var palette_data = lorikeet_extract_palette_data(image, 0, self.demo_force_full_palettes);
             sprite_delete(self.demo_sprite);
             sprite_delete(self.demo_palette);
             self.demo_sprite = image;
@@ -31,7 +32,7 @@ self.ResetSprite = function() {
     sprite_delete(self.demo_sprite);
     sprite_delete(self.demo_palette);
     self.demo_sprite = sprite_duplicate(spr_test_sprite);
-    var palette_data = lorikeet_extract_palette_data(self.demo_sprite);
+    var palette_data = lorikeet_extract_palette_data(self.demo_sprite, 0, self.demo_force_full_palettes);
     self.demo_sprite_indexed = palette_data.indexed_sprite;
     self.demo_palette_data = palette_data.palette_array;
     self.demo_palette = palette_data.palette_sprite;
@@ -94,6 +95,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     new EmuButton(32, EMU_AUTO, ew, eh, "Reset Demo Sprite", function() {
         var load_results = obj_demo.ResetSprite();
         self.GetSibling("TIME").text = "Palette extraction time: " + string(load_results) + " ms";
+    }),
+    new EmuCheckbox(32, EMU_AUTO, ew, eh, "Extract full palettes?", self.demo_force_full_palettes, function() {
+        obj_demo.demo_force_full_palettes = self.value;
+        obj_demo.ReExtract();
     }),
     new EmuRadioArray(32, EMU_AUTO, ew, eh, "Display type:", 0, function() {
         obj_demo.demo_sprite_type = self.value;
