@@ -124,12 +124,14 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var vscale = self.height / sh;
         var scale = min(hscale, vscale);
         draw_sprite_ext(sprite, 0, 0, 0, scale, scale, 0, c_white, 1);
-        draw_sprite_stretched_ext(spr_tile_selector, 0, 0, hscale * sh * obj_demo.demo_palette_index, self.width, hscale * sh, c_red, 1);
+        draw_sprite_stretched_ext(spr_tile_selector, 0, 0, hscale * sh * obj_demo.demo_palette_index, self.width, hscale, c_red, 1);
     }, function(mx, my) {
         // step
     }, emu_null),
     (new EmuButton(32, EMU_AUTO, ew / 2, eh, "Add row", function() {
-        
+        var new_palette = lorikeet_palette_add_palette(obj_demo.demo_palette, obj_demo.demo_palette_index);
+        sprite_delete(obj_demo.demo_palette);
+        obj_demo.demo_palette = new_palette;
     })),
     (new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Delete row", function() {
         
