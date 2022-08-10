@@ -294,4 +294,23 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         sprite_delete(obj_demo.demo_palette);
         obj_demo.demo_palette = new_palette;
     }),
+    new EmuButton(32 + 32 + 32 + ew + 762 + 384 / 2, EMU_INLINE, 384 / 2, eh, "Shift Right", function() {
+        var data = obj_demo.demo_palette_data[obj_demo.demo_palette_index];
+        for (var i = array_length(data) - 1; i >= 0; i--) {
+            if (data[i] != -1) {
+                array_insert(data, 0, data[i]);
+                array_delete(data, i + 1, 1);
+                break;
+            }
+        }
+        var new_palette = lorikeet_palette_create(obj_demo.demo_palette_data);
+        sprite_delete(obj_demo.demo_palette);
+        obj_demo.demo_palette = new_palette;
+    }),
+    new EmuButton(32 + 32 + 32 + ew + 762, EMU_AUTO, 384 / 2, eh, "HSV", function() {
+        
+    }),
+    new EmuButton(32 + 32 + 32 + ew + 762 + 384 / 2, EMU_INLINE, 384 / 2, eh, "Color Channels", function() {
+        
+    }),
 ]);
