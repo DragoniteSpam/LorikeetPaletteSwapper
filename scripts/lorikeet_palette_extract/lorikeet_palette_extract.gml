@@ -1,4 +1,4 @@
-function lorikeet_extract_palette_data(sprite, index = 0, force_full_palette = false) {
+function lorikeet_palette_extract(sprite, index = 0, force_full_palette = false) {
     var t = get_timer();
     
     var sw = sprite_get_width(sprite);

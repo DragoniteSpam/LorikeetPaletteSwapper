@@ -1,7 +1,7 @@
 scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_black, false);
 
 self.demo_sprite = sprite_duplicate(spr_test_sprite);
-var palette_data = lorikeet_extract_palette_data(self.demo_sprite);
+var palette_data = lorikeet_palette_extract(self.demo_sprite);
 self.demo_sprite_indexed = palette_data.indexed_sprite;
 self.demo_palette_data = palette_data.palette_array;
 self.demo_palette = palette_data.palette_sprite;
@@ -15,7 +15,7 @@ self.LoadSprite = function() {
         var image = sprite_add(fn, 0, false, false, 0, 0);
         
         if (sprite_exists(image)) {
-            var palette_data = lorikeet_extract_palette_data(image, 0, self.demo_force_full_palettes);
+            var palette_data = lorikeet_palette_extract(image, 0, self.demo_force_full_palettes);
             sprite_delete(self.demo_sprite);
             sprite_delete(self.demo_palette);
             self.demo_sprite = image;
@@ -30,7 +30,7 @@ self.LoadSprite = function() {
 };
 
 self.ReExtract = function() {
-    var palette_data = lorikeet_extract_palette_data(self.demo_sprite, 0, self.demo_force_full_palettes);
+    var palette_data = lorikeet_palette_extract(self.demo_sprite, 0, self.demo_force_full_palettes);
     sprite_delete(self.demo_palette);
     self.demo_sprite_indexed = palette_data.indexed_sprite;
     self.demo_palette_data = palette_data.palette_array;
@@ -42,7 +42,7 @@ self.ResetSprite = function() {
     sprite_delete(self.demo_sprite);
     sprite_delete(self.demo_palette);
     self.demo_sprite = sprite_duplicate(spr_test_sprite);
-    var palette_data = lorikeet_extract_palette_data(self.demo_sprite, 0, self.demo_force_full_palettes);
+    var palette_data = lorikeet_palette_extract(self.demo_sprite, 0, self.demo_force_full_palettes);
     self.demo_sprite_indexed = palette_data.indexed_sprite;
     self.demo_palette_data = palette_data.palette_array;
     self.demo_palette = palette_data.palette_sprite;
@@ -255,7 +255,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             var changed = (palette_slot != self.value);
             obj_demo.demo_palette_data[obj_demo.demo_palette_index][self.palette_index] = self.value;
             if (changed) {
-                var new_palette = lorikeet_modify_palette_sprite(obj_demo.demo_palette, self.palette_index, obj_demo.demo_palette_index, self.value);
+                var new_palette = lorikeet_palette_modify(obj_demo.demo_palette, self.palette_index, obj_demo.demo_palette_index, self.value);
                 sprite_delete(obj_demo.demo_palette);
                 obj_demo.demo_palette = new_palette;
             }

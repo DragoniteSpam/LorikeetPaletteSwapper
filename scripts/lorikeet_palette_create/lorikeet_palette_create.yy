@@ -6,6 +6,6 @@
     "path": "folders/Lorikeet.yy",
   },
   "resourceVersion": "1.0",
-  "name": "lorikeet_extract_palette_data",
+  "name": "lorikeet_palette_create",
   "resourceType": "GMScript",
 }

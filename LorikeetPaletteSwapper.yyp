@@ -1,6 +1,6 @@
 {
   "resources": [
-    {"id":{"name":"lorikeet_extract_palette_data","path":"scripts/lorikeet_extract_palette_data/lorikeet_extract_palette_data.yy",},"order":2,},
+    {"id":{"name":"lorikeet_palette_extract","path":"scripts/lorikeet_palette_extract/lorikeet_palette_extract.yy",},"order":2,},
     {"id":{"name":"spr_emu_close","path":"sprites/spr_emu_close/spr_emu_close.yy",},"order":7,},
     {"id":{"name":"lorikeet_palette_add_palette","path":"scripts/lorikeet_palette_add_palette/lorikeet_palette_add_palette.yy",},"order":5,},
     {"id":{"name":"spr_emu_help","path":"sprites/spr_emu_help/spr_emu_help.yy",},"order":9,},
@@ -58,7 +58,7 @@
     {"id":{"name":"spr_emu_mask_bar_v","path":"sprites/spr_emu_mask_bar_v/spr_emu_mask_bar_v.yy",},"order":12,},
     {"id":{"name":"spr_emu_checkbox","path":"sprites/spr_emu_checkbox/spr_emu_checkbox.yy",},"order":4,},
     {"id":{"name":"spr_tile_selector","path":"sprites/spr_tile_selector/spr_tile_selector.yy",},"order":5,},
-    {"id":{"name":"lorikeet_modify_palette_sprite","path":"scripts/lorikeet_modify_palette_sprite/lorikeet_modify_palette_sprite.yy",},"order":4,},
+    {"id":{"name":"lorikeet_palette_modify","path":"scripts/lorikeet_palette_modify/lorikeet_palette_modify.yy",},"order":4,},
     {"id":{"name":"scribble_font_scale","path":"scripts/scribble_font_scale/scribble_font_scale.yy",},"order":9,},
     {"id":{"name":"scribble_external_sound_add","path":"scripts/scribble_external_sound_add/scribble_external_sound_add.yy",},"order":2,},
     {"id":{"name":"__scribble_system","path":"scripts/__scribble_system/__scribble_system.yy",},"order":9,},
@@ -127,7 +127,7 @@
     {"id":{"name":"scribble_anim_blink","path":"scripts/scribble_anim_blink/scribble_anim_blink.yy",},"order":0,},
     {"id":{"name":"scribble_anim_pulse","path":"scripts/scribble_anim_pulse/scribble_anim_pulse.yy",},"order":3,},
     {"id":{"name":"scribble_font_get_glyph_ranges","path":"scripts/scribble_font_get_glyph_ranges/scribble_font_get_glyph_ranges.yy",},"order":6,},
-    {"id":{"name":"lorikeet_generate_palette_sprite","path":"scripts/lorikeet_generate_palette_sprite/lorikeet_generate_palette_sprite.yy",},"order":3,},
+    {"id":{"name":"lorikeet_palette_create","path":"scripts/lorikeet_palette_create/lorikeet_palette_create.yy",},"order":3,},
     {"id":{"name":"scribble_font_add","path":"scripts/scribble_font_add/scribble_font_add.yy",},"order":0,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":1,},
   ],

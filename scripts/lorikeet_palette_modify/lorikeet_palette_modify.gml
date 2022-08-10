@@ -1,4 +1,4 @@
-function lorikeet_modify_palette_sprite(sprite, x, y, color) {
+function lorikeet_palette_modify(sprite, x, y, color) {
     var s = surface_create(sprite_get_width(sprite), sprite_get_height(sprite));
     surface_set_target(s);
     draw_clear_alpha(c_black, 0);

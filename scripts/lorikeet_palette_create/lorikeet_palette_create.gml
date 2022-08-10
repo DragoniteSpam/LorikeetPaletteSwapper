@@ -1,4 +1,4 @@
-function lorikeet_generate_palette_sprite(data) {
+function lorikeet_palette_create(data) {
     var s = surface_create(power(2, ceil(log2(array_length(data[0])))), array_length(data));
     surface_set_target(s);
     draw_clear(c_white);
