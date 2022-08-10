@@ -210,7 +210,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         self.pan_x = 0;
         self.pan_y = 0;
     }),
-    new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_BASE, 384, 836, function(mx, my) {
+    new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_BASE, 384, 704, function(mx, my) {
         // render
         var palette = obj_demo.demo_palette_data[obj_demo.demo_palette_index];
         
@@ -278,5 +278,20 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         }
     }, function() {
         // create
+    }),
+    new EmuButton(32 + 32 + 32 + ew + 762, EMU_AUTO, 384 / 2, eh, "Shift Left", function() {
+        var data = obj_demo.demo_palette_data[obj_demo.demo_palette_index];
+        var value0 = data[0];
+        array_delete(data, 0, 1);
+        array_push(data, -1);
+        for (var i = 0, n = array_length(data); i < n; i++) {
+            if (data[i] == -1) {
+                data[i] = value0;
+                break;
+            }
+        }
+        var new_palette = lorikeet_palette_create(obj_demo.demo_palette_data);
+        sprite_delete(obj_demo.demo_palette);
+        obj_demo.demo_palette = new_palette;
     }),
 ]);
