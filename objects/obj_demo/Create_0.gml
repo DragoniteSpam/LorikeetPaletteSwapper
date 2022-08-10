@@ -253,8 +253,9 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             var changed = (palette_slot != self.value);
             obj_demo.demo_palette_data[obj_demo.demo_palette_index][self.palette_index] = self.value;
             if (changed) {
+                var new_palette = lorikeet_modify_palette_sprite(obj_demo.demo_palette, self.palette_index, obj_demo.demo_palette_index, self.value);
                 sprite_delete(obj_demo.demo_palette);
-                obj_demo.demo_palette = lorikeet_generate_palette_sprite(obj_demo.demo_palette_data);
+                obj_demo.demo_palette = new_palette;
             }
         });
         
