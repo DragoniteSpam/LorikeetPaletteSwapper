@@ -138,7 +138,6 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         if (self.palette != undefined && sprite_exists(self.palette)) sprite_delete(self.palette);
         self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
         surface_free(s);
-        return sprite;
     };
     
     self.Refresh = function() {

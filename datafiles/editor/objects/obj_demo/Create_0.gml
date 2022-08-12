@@ -44,7 +44,6 @@ self.LoadSprite = function() {
 
 self.ReExtract = function() {
     var t0 = get_timer();
-    sprite_delete(self.demo_sprite);
     self.demo_sprite_indexed = self.demo_palette.ExtractPalette(self.demo_sprite, 0, self.demo_force_full_palettes);
     self.demo_palette_index = 0;
     return (get_timer() - t0) / 1000;
@@ -104,8 +103,12 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Save Palette", function() {
         obj_demo.SavePaletteSprite();
     }),
-    new EmuButton(32, EMU_AUTO, ew, eh, "Reset Demo Sprite", function() {
+    new EmuButton(32, EMU_AUTO, ew / 2, eh, "Reset Sprite", function() {
         var load_results = obj_demo.ResetSprite();
+        self.GetSibling("TIME").text = "Palette extraction time: " + string(load_results) + " ms";
+    }),
+    new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Reset Palette", function() {
+        var load_results = obj_demo.ReExtract();
         self.GetSibling("TIME").text = "Palette extraction time: " + string(load_results) + " ms";
     }),
     new EmuCheckbox(32, EMU_AUTO, ew, eh, "Extract full palettes?", self.demo_force_full_palettes, function() {
