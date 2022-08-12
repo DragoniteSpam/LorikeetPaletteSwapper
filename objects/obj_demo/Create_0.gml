@@ -371,4 +371,55 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         }
         obj_demo.demo_palette.Refresh();
     }),
+    new EmuButton(32 + 32 + 32 + ew + 762, EMU_AUTO, 384 / 2, eh, "Hue/Sat/Value", function() {
+        var ew = 480;
+        var eh = 32;
+        var dialog = (new EmuDialog(32 + 32 + 480, 360, "Hue/Saturation/Value")).AddContent([
+            new EmuText(32, EMU_AUTO, ew, eh, "Hue: +0")
+                .SetID("HUE"),
+            new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -180, 180, true, 0, function() {
+                self.GetSibling("HUE").text = "Hue: " + ((self.value > 0) ? "+" : "") + string(round(self.value));
+                self.root.stored_hue = self.value;
+                self.root.UpdateColors();
+            }),
+            new EmuText(32, EMU_AUTO, ew, eh, "Saturation: +0")
+                .SetID("SAT"),
+            new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -255, 255, true, 0, function() {
+                self.GetSibling("SAT").text = "Saturation: " + ((self.value > 0) ? "+" : "") + string(round(self.value));
+                self.root.stored_sat = self.value;
+                self.root.UpdateColors();
+            }),
+            new EmuText(32, EMU_AUTO, ew, eh, "Value: +0")
+                .SetID("VAL"),
+            new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -255, 255, true, 0, function() {
+                self.GetSibling("VAL").text = "Value: " + ((self.value > 0) ? "+" : "") + string(round(self.value));
+                self.root.stored_val = self.value;
+                self.root.UpdateColors();
+            }),
+        ]).AddDefaultConfirmCancelButtons("Done", function() {
+            self.root.Close();
+        }, "Cancel", function() {
+            obj_demo.demo_palette.data[obj_demo.demo_palette_index] = self.root.original_data;
+            obj_demo.demo_palette.Refresh();
+            self.root.Close();
+        });
+        
+        dialog.palette_data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
+        dialog.original_data = json_parse(json_stringify(obj_demo.demo_palette.data[obj_demo.demo_palette_index]));
+        dialog.stored_hue = 0;
+        dialog.stored_sat = 0;
+        dialog.stored_val = 0;
+        
+        dialog.UpdateColors = method(dialog, function() {
+            for (var i = 0, n = array_length(self.original_data); i < n; i++) {
+                var cc = self.original_data[i];
+                var hh = (colour_get_hue(cc) + self.stored_hue + 255) % 255;
+                var ss = clamp(colour_get_saturation(cc) + self.stored_sat - self.stored_val, 0, 255);
+                var vv = clamp(colour_get_value(cc) + self.stored_val, 0, 255);
+                self.palette_data[i] = make_colour_hsv(hh, ss, vv);
+            }
+            
+            obj_demo.demo_palette.Refresh();
+        });
+    }),
 ]);
