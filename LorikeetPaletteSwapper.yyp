@@ -4,6 +4,7 @@
     {"id":{"name":"spr_emu_close","path":"sprites/spr_emu_close/spr_emu_close.yy",},"order":7,},
     {"id":{"name":"lorikeet_palette_add_palette","path":"scripts/lorikeet_palette_add_palette/lorikeet_palette_add_palette.yy",},"order":5,},
     {"id":{"name":"spr_emu_help","path":"sprites/spr_emu_help/spr_emu_help.yy",},"order":9,},
+    {"id":{"name":"spr_controls","path":"sprites/spr_controls/spr_controls.yy",},"order":24,},
     {"id":{"name":"draw_text_scribble_ext","path":"scripts/draw_text_scribble_ext/draw_text_scribble_ext.yy",},"order":1,},
     {"id":{"name":"scribble_flush_everything","path":"scripts/scribble_flush_everything/scribble_flush_everything.yy",},"order":5,},
     {"id":{"name":"__scribble_class_font","path":"scripts/__scribble_class_font/__scribble_class_font.yy",},"order":2,},

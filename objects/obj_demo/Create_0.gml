@@ -146,6 +146,20 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         obj_demo.demo_palette = new_sprite;
         obj_demo.demo_palette_index = min(obj_demo.demo_palette_index, array_length(obj_demo.demo_palette_data) - 1);
     })),
+    (new EmuButtonImage(32 + 0 * ew / 4, EMU_AUTO, ew / 4, eh, spr_controls, 0, c_white, 1, false, function() {
+        // step back
+        obj_demo.demo_palette_index = (--obj_demo.demo_palette_index + array_length(obj_demo.demo_palette_data)) % array_length(obj_demo.demo_palette_data);
+    })),
+    (new EmuButtonImage(32 + 1 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 1, c_white, 1, false, function() {
+        // play
+    })),
+    (new EmuButtonImage(32 + 2 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 2, c_white, 1, false, function() {
+        // pause
+    })),
+    (new EmuButtonImage(32 + 3 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 3, c_white, 1, false, function() {
+        // step forward
+        obj_demo.demo_palette_index = ++obj_demo.demo_palette_index % array_length(obj_demo.demo_palette_data);
+    })),
     new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 762, 836, function(mx, my) {
         // render
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
