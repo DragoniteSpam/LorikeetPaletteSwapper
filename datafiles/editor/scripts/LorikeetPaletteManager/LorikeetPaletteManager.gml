@@ -159,7 +159,8 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
     };
     
     self.AddPaletteRow = function(source_row = -1) {
-        var final_row = self.data[array_length(self.data) - 1];
+        source_row = (source_row == -1) ? (array_length(self.data) - 1) : source_row;
+        var final_row = self.data[source_row];
         var new_row = array_create(array_length(final_row));
         array_copy(new_row, 0, final_row, 0, array_length(final_row));
         array_push(self.data, new_row);
