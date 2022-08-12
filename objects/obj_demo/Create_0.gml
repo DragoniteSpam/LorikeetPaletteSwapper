@@ -11,6 +11,16 @@ self.demo_palette_speed = 0;
 self.demo_sprite_type = 0;
 self.demo_force_full_palettes = false;
 
+self.demo_mode = EOperationModes.SELECTION;
+
+enum EOperationModes {
+    SELECTION,
+    EYEDROPPER,
+    BUCKET,
+}
+
+self.demo_copied_color = c_black;
+
 self.LoadSprite = function() {
     var fn = get_open_filename("Image files|*.png;*.bmp", "");
     if (file_exists(fn)) {
@@ -238,7 +248,16 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         self.pan_x = 0;
         self.pan_y = 0;
     }),
-    new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_BASE, 384, 704, function(mx, my) {
+    new EmuButtonImage(32 + 32 + 32 + ew + 762 + 0 * 384 / 3, EMU_BASE, 384 / 3, eh, spr_modes, 0, c_white, 1, false, function() {
+        obj_demo.demo_mode = EOperationModes.SELECTION;
+    }),
+    new EmuButtonImage(32 + 32 + 32 + ew + 762 + 1 * 384 / 3, EMU_INLINE, 384 / 3, eh, spr_modes, 1, c_white, 1, false, function() {
+        obj_demo.demo_mode = EOperationModes.EYEDROPPER;
+    }),
+    new EmuButtonImage(32 + 32 + 32 + ew + 762 + 2 * 384 / 3, EMU_INLINE, 384 / 3, eh, spr_modes, 2, c_white, 1, false, function() {
+        obj_demo.demo_mode = EOperationModes.BUCKET;
+    }),
+    new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_AUTO, 384, 704, function(mx, my) {
         // render
         var palette = obj_demo.demo_palette_data[obj_demo.demo_palette_index];
         
@@ -297,12 +316,27 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var hcells = self.width div step;
         var mcx = mx div step;
         var mcy = my div step;
+        var index = mcy * hcells + mcx;
         
         if (mouse_check_button_pressed(mb_left)) {
-            var index = mcy * hcells + mcx;
-            picker.palette_index = index;
-            picker.value = obj_demo.demo_palette_data[obj_demo.demo_palette_index][index];
-            picker.ShowPickerDialog().SetActiveShade(0);
+            switch (obj_demo.demo_mode) {
+                case EOperationModes.SELECTION:
+                    picker.palette_index = index;
+                    picker.value = obj_demo.demo_palette_data[obj_demo.demo_palette_index][index];
+                    picker.ShowPickerDialog().SetActiveShade(0);
+                    break;
+                case EOperationModes.EYEDROPPER:
+                    obj_demo.demo_copied_color = obj_demo.demo_palette_data[obj_demo.demo_palette_index][index];
+                    break;
+                case EOperationModes.BUCKET:
+                    if (obj_demo.demo_palette_data[obj_demo.demo_palette_index][index] != obj_demo.demo_copied_color) {
+                        obj_demo.demo_palette_data[obj_demo.demo_palette_index][index] = obj_demo.demo_copied_color;
+                        var new_palette = lorikeet_palette_modify(obj_demo.demo_palette, index, obj_demo.demo_palette_index, obj_demo.demo_copied_color);
+                        sprite_delete(obj_demo.demo_palette);
+                        obj_demo.demo_palette = new_palette;
+                    }
+                    break;
+            }
         }
     }, function() {
         // create
