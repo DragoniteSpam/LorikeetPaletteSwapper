@@ -1,3 +1,4 @@
+#macro DEMO_PLAY_SPEED_FPS          8
 scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_black, false);
 
 self.demo_sprite = sprite_duplicate(spr_test_sprite);
@@ -6,6 +7,7 @@ self.demo_sprite_indexed = palette_data.indexed_sprite;
 self.demo_palette_data = palette_data.palette_array;
 self.demo_palette = palette_data.palette_sprite;
 self.demo_palette_index = 0;
+self.demo_palette_speed = 0;
 self.demo_sprite_type = 0;
 self.demo_force_full_palettes = false;
 
@@ -118,11 +120,11 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var vscale = self.height / sh;
         var scale = min(hscale, vscale);
         draw_sprite_ext(sprite, 0, 0, 0, scale, scale, 0, c_white, 1);
-        draw_sprite_stretched_ext(spr_tile_selector, 0, 0, hscale * obj_demo.demo_palette_index, self.width, hscale, c_red, 1);
+        draw_sprite_stretched_ext(spr_tile_selector, 0, 0, hscale * floor(obj_demo.demo_palette_index), self.width, hscale, c_red, 1);
     }, function(mx, my) {
         // step
         if (mx < 0 || mx >= self.width || my < 0 || my >= self.height) return;
-        if (mouse_check_button_pressed(mb_left)) {
+        if (mouse_check_button(mb_left)) {
             var sprite = obj_demo.demo_palette;
             var hscale = self.width / sprite_get_width(sprite);
             var row = min(my div hscale, sprite_get_height(sprite) - 1);
@@ -151,10 +153,12 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         obj_demo.demo_palette_index = (--obj_demo.demo_palette_index + array_length(obj_demo.demo_palette_data)) % array_length(obj_demo.demo_palette_data);
     })),
     (new EmuButtonImage(32 + 1 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 1, c_white, 1, false, function() {
-        // play
+        // pause
+        obj_demo.demo_palette_speed = 0;
     })),
     (new EmuButtonImage(32 + 2 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 2, c_white, 1, false, function() {
-        // pause
+        // play
+        obj_demo.demo_palette_speed = DEMO_PLAY_SPEED_FPS;
     })),
     (new EmuButtonImage(32 + 3 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 3, c_white, 1, false, function() {
         // step forward
