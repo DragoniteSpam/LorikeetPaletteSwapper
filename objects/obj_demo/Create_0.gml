@@ -118,13 +118,24 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var vscale = self.height / sh;
         var scale = min(hscale, vscale);
         draw_sprite_ext(sprite, 0, 0, 0, scale, scale, 0, c_white, 1);
-        draw_sprite_stretched_ext(spr_tile_selector, 0, 0, hscale * sh * obj_demo.demo_palette_index, self.width, hscale, c_red, 1);
+        draw_sprite_stretched_ext(spr_tile_selector, 0, 0, hscale * obj_demo.demo_palette_index, self.width, hscale, c_red, 1);
     }, function(mx, my) {
         // step
+        if (mx < 0 || mx >= self.width || my < 0 || my >= self.height) return;
+        if (mouse_check_button_pressed(mb_left)) {
+            var sprite = obj_demo.demo_palette;
+            var hscale = self.width / sprite_get_width(sprite);
+            var row = min(my div hscale, sprite_get_height(sprite) - 1);
+            obj_demo.demo_palette_index = row;
+        }
     }, emu_null),
     (new EmuButton(32, EMU_AUTO, ew / 2, eh, "Add row", function() {
         var new_palette = lorikeet_palette_add_palette(obj_demo.demo_palette, obj_demo.demo_palette_index);
         sprite_delete(obj_demo.demo_palette);
+        var final_row = obj_demo.demo_palette_data[array_length(obj_demo.demo_palette_data) - 1];
+        var new_row = array_create(array_length(final_row));
+        array_copy(new_row, 0, final_row, 0, array_length(final_row));
+        array_push(obj_demo.demo_palette_data, new_row);
         obj_demo.demo_palette = new_palette;
     })),
     (new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Delete row", function() {
