@@ -1,4 +1,4 @@
-function Lorikeet() constructor {
+function Lorikeet(source_palette = undefined) constructor {
     self.palette = undefined;
     self.data = undefined;
     
@@ -84,13 +84,13 @@ function Lorikeet() constructor {
         surface_free(palette_surface);
         
         self.palette = palette_sprite;
-        self.data = palette_array;
+        self.data = [palette_array];
         
         return indexed_sprite;
     };
     
     self.FromImage = function(palette_sprite) {
-        if (sprite_exists(self.palette)) sprite_delete(self.palette);
+        if (self.palette != undefined && sprite_exists(self.palette)) sprite_delete(self.palette);
         
         var s = surface_create(sprite_get_width(palette_sprite), sprite_get_height(palette_sprite));
         surface_set_target(s);
@@ -135,7 +135,7 @@ function Lorikeet() constructor {
         gpu_set_blendmode(bm);
         draw_set_alpha(a);
         surface_reset_target();
-        if (sprite_exists(self.palette)) sprite_delete(self.palette);
+        if (self.palette != undefined && sprite_exists(self.palette)) sprite_delete(self.palette);
         self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
         surface_free(s);
         return sprite;
@@ -154,8 +154,8 @@ function Lorikeet() constructor {
         }
         draw_set_alpha(a);
         surface_reset_target();
-        if (sprite_exists(self.sprite)) sprite_delete(self.sprite);
-        self.sprite = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
+        if (sprite_exists(self.palette)) sprite_delete(self.palette);
+        self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
         surface_free(s);
     };
     
@@ -199,8 +199,12 @@ function Lorikeet() constructor {
         gpu_set_blendmode(bm);
         draw_set_alpha(a);
         surface_reset_target();
-        if (sprite_exists(self.palette)) sprite_delete(self.palette);
+        if (self.palette != undefined && sprite_exists(self.palette)) sprite_delete(self.palette);
         self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
         surface_free(s);
     };
+    
+    if (source_palette != undefined && sprite_exists(source_palette)) {
+        self.FromImage(source_palette);
+    }
 }

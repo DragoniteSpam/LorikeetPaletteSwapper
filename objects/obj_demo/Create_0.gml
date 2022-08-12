@@ -3,14 +3,16 @@
 
 scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_black, false);
 
-self.demo_sprite = sprite_duplicate(spr_test_sprite);
-var palette_data = lorikeet_palette_extract(self.demo_sprite);
-self.demo_sprite_indexed = palette_data.indexed_sprite;
-self.demo_palette = palette_data.palette_sprite;
-self.demo_palette_index = 0;
-self.demo_palette_speed = 0;
-self.demo_sprite_type = 2;
-self.demo_force_full_palettes = false;
+self.demo_sprite = sprite_duplicate(spr_test_sprite);                               // source sprite
+self.demo_palette = new Lorikeet();                                                 // palette data
+var t0 = get_timer();
+self.demo_sprite_indexed = self.demo_palette.ExtractPalette(self.demo_sprite);      // indexed color sprite
+var starting_extraction_time = (get_timer() - t0) / 1000;
+
+self.demo_palette_index = 0;                                                        // palette index
+self.demo_palette_speed = 0;                                                        // palette playback speed
+self.demo_sprite_type = 2;                                                          // display type
+self.demo_force_full_palettes = false;                                              // extract a palette of size 256?
 
 self.demo_mode = EOperationModes.SELECTION;
 
@@ -28,13 +30,11 @@ self.LoadSprite = function() {
         var image = sprite_add(fn, 0, false, false, 0, 0);
         
         if (sprite_exists(image)) {
-            var palette_data = lorikeet_palette_extract(image, 0, self.demo_force_full_palettes);
+            var t0 = get_timer();
             sprite_delete(self.demo_sprite);
-            sprite_delete(self.demo_palette);
             self.demo_sprite = image;
-            self.demo_sprite_indexed = palette_data.indexed_sprite;
-            self.demo_palette = palette_data.palette_sprite;
-            return palette_data.execution_time;
+            self.demo_sprite_indexed = self.demo_palette.ExtractPalette(image, 0, self.demo_force_full_palettes);
+            return (get_timer() - t0) / 1000;
         }
     }
     
@@ -42,21 +42,18 @@ self.LoadSprite = function() {
 };
 
 self.ReExtract = function() {
-    var palette_data = lorikeet_palette_extract(self.demo_sprite, 0, self.demo_force_full_palettes);
-    sprite_delete(self.demo_palette);
-    self.demo_sprite_indexed = palette_data.indexed_sprite;
-    self.demo_palette = palette_data.palette_sprite;
-    return palette_data.execution_time;
+    var t0 = get_timer();
+    sprite_delete(self.demo_sprite);
+    self.demo_sprite_indexed = self.demo_palette.ExtractPalette(self.demo_sprite, 0, self.demo_force_full_palettes);
+    return (get_timer() - t0) / 1000;
 };
 
 self.ResetSprite = function() {
+    var t0 = get_timer();
     sprite_delete(self.demo_sprite);
-    sprite_delete(self.demo_palette);
     self.demo_sprite = sprite_duplicate(spr_test_sprite);
-    var palette_data = lorikeet_palette_extract(self.demo_sprite, 0, self.demo_force_full_palettes);
-    self.demo_sprite_indexed = palette_data.indexed_sprite;
-    self.demo_palette = palette_data.palette_sprite;
-    return palette_data.execution_time;
+    self.demo_sprite_indexed = self.demo_palette.ExtractPalette(self.demo_sprite, 0, self.demo_force_full_palettes);
+    return (get_timer() - t0) / 1000;
 };
 
 self.LoadPalette = function() {
@@ -115,11 +112,11 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     new EmuRadioArray(32, EMU_AUTO, ew, eh, "Display type:", 0, function() {
         obj_demo.demo_sprite_type = self.value;
     }).AddOptions(["Original", "Indexed", "Indexed with Palette"]),
-    new EmuText(32, EMU_AUTO, ew, eh, "Palette extraction time: " + string(palette_data.execution_time) + " ms")
+    new EmuText(32, EMU_AUTO, ew, eh, "Palette extraction time: " + string(starting_extraction_time) + " ms")
         .SetID("TIME"),
     new EmuRenderSurface(32, EMU_AUTO, ew, ew, function(mx, my) {
         // render
-        var sprite = obj_demo.demo_palette;
+        var sprite = obj_demo.demo_palette.palette;
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         var hscale = self.width / sprite_get_width(sprite);
         var sh = sprite_get_height(sprite);
@@ -131,7 +128,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         // step
         if (mx < 0 || mx >= self.width || my < 0 || my >= self.height) return;
         if (mouse_check_button(mb_left)) {
-            var sprite = obj_demo.demo_palette;
+            var sprite = obj_demo.demo_palette.palette;
             var hscale = self.width / sprite_get_width(sprite);
             var row = min(my div hscale, sprite_get_height(sprite) - 1);
             obj_demo.demo_palette_index = row;
@@ -181,7 +178,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 break;
             case 2:
-                lorikeet_set(obj_demo.demo_palette, obj_demo.demo_palette_index);
+                lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index);
                 draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 shader_reset();
                 break;

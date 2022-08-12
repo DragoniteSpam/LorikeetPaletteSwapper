@@ -1,2 +1,2 @@
 self.demo_palette_index += self.demo_palette_speed * (game_get_speed(gamespeed_microseconds) / 1000000);
-self.demo_palette_index = (self.demo_palette_index + array_length(self.demo_palette_data)) % array_length(self.demo_palette_data);
+self.demo_palette_index = (self.demo_palette_index + array_length(self.demo_palette.data)) % array_length(self.demo_palette.data);
