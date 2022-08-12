@@ -413,7 +413,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         dialog.UpdateColors = method(dialog, function() {
             for (var i = 0, n = array_length(self.original_data); i < n; i++) {
                 var cc = self.original_data[i];
-                var hh = (colour_get_hue(cc) + self.stored_hue + 255) % 255;
+                var hh = (colour_get_hue(cc) + (self.stored_hue / 360 * 255) + 255) % 255;
                 var ss = clamp(colour_get_saturation(cc) + self.stored_sat - self.stored_val, 0, 255);
                 var vv = clamp(colour_get_value(cc) + self.stored_val, 0, 255);
                 self.palette_data[i] = make_colour_hsv(hh, ss, vv);
