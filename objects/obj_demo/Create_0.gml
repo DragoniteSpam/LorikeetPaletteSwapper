@@ -4,7 +4,7 @@
 scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_black, false);
 
 self.demo_sprite = sprite_duplicate(spr_test_sprite);                               // source sprite
-self.demo_palette = new Lorikeet();                                                 // palette data
+self.demo_palette = new LorikeetPaletteManager();                                                 // palette data
 var t0 = get_timer();
 self.demo_sprite_indexed = self.demo_palette.ExtractPalette(self.demo_sprite);      // indexed color sprite
 var starting_extraction_time = (get_timer() - t0) / 1000;

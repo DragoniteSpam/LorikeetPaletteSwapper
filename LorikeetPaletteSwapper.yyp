@@ -55,7 +55,7 @@
     {"id":{"name":"scribble_super_glyph_delete","path":"scripts/scribble_super_glyph_delete/scribble_super_glyph_delete.yy",},"order":4,},
     {"id":{"name":"scribble_typewriter_add_character_delay","path":"scripts/scribble_typewriter_add_character_delay/scribble_typewriter_add_character_delay.yy",},"order":6,},
     {"id":{"name":"__shd_scribble_msdf","path":"shaders/__shd_scribble_msdf/__shd_scribble_msdf.yy",},"order":5,},
-    {"id":{"name":"Lorikeet","path":"scripts/Lorikeet/Lorikeet.yy",},"order":7,},
+    {"id":{"name":"LorikeetPaletteManager","path":"scripts/LorikeetPaletteManager/LorikeetPaletteManager.yy",},"order":7,},
     {"id":{"name":"scribble_font_bake_outline_4dir","path":"scripts/scribble_font_bake_outline_4dir/scribble_font_bake_outline_4dir.yy",},"order":0,},
     {"id":{"name":"spr_emu_mask_bar_v","path":"sprites/spr_emu_mask_bar_v/spr_emu_mask_bar_v.yy",},"order":12,},
     {"id":{"name":"spr_emu_checkbox","path":"sprites/spr_emu_checkbox/spr_emu_checkbox.yy",},"order":4,},

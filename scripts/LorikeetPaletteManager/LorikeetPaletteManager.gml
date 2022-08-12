@@ -1,4 +1,4 @@
-function Lorikeet(source_palette = undefined) constructor {
+function LorikeetPaletteManager(source_palette = undefined) constructor {
     self.palette = undefined;
     self.data = undefined;
     
