@@ -1,8 +1,8 @@
-function __lorikeet_palette_class() constructor {
+function Lorikeet() constructor {
     self.palette = undefined;
     self.data = undefined;
     
-    self.Extract = function(sprite, index = 0, force_full_palette = false) {
+    self.ExtractPalette = function(sprite, index = 0, force_full_palette = false) {
         if (self.palette != undefined) sprite_delete(self.palette);
         var t = get_timer();
         
@@ -122,9 +122,48 @@ function __lorikeet_palette_class() constructor {
     self.Modify = function(x, y, color) {
     };
     
-    self.AddPalette = function() {
+    self.AddPaletteRow = function(source_row = -1) {
+        var final_row = self.data[array_length(self.data) - 1];
+        var new_row = array_create(array_length(final_row));
+        array_copy(new_row, 0, final_row, 0, array_length(final_row));
+        array_push(self.data, new_row);
+        
+        var s = surface_create(sprite_get_width(self.palette), sprite_get_height(self.palette) + 1);
+        surface_set_target(s);
+        draw_clear_alpha(c_black, 1);
+        var bm = gpu_get_blendmode();
+        gpu_set_blendmode(bm_add);
+        var a = draw_get_alpha();
+        draw_set_alpha(1);
+        draw_sprite(self.palette, 0, 0, 0);
+        gpu_set_blendmode(bm_normal);
+        if (source_row != -1) {
+            draw_sprite_part(self.palette, 0, 0, source_row, sprite_get_width(self.palette), 1, 0, sprite_get_height(self.palette));
+        }
+        gpu_set_blendmode(bm);
+        draw_set_alpha(a);
+        surface_reset_target();
+        self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
+        surface_free(s);
     };
     
-    self.RemovePalette = function() {
+    self.RemovePaletteRow = function(row = array_length(self.data) - 1) {
+        if (array_length(self.data) == 1) return;
+        array_delete(self.data, array_length(self.data) - 1, 1);
+        var s = surface_create(sprite_get_width(self.palette), sprite_get_height(self.palette) - 1);
+        surface_set_target(s);
+        draw_clear_alpha(c_black, 1);
+        var bm = gpu_get_blendmode();
+        gpu_set_blendmode(bm_add);
+        var a = draw_get_alpha();
+        draw_set_alpha(1);
+        draw_sprite_part(self.palette, 0, 0, 0, sprite_get_width(self.palette), row, 0, 0);
+        draw_sprite_part(self.palette, 0, 0, row + 1, sprite_get_width(self.palette), sprite_get_height(self.palette) - row, 0, row);
+        gpu_set_blendmode(bm);
+        draw_set_alpha(a);
+        surface_reset_target();
+        if (sprite_exists(self.palette)) sprite_delete(self.palette);
+        self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
+        surface_free(s);
     };
 }
