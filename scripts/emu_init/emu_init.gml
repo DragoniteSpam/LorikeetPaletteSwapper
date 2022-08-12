@@ -15,6 +15,7 @@
 #macro EMU_COLOR_RADIO_ACTIVE           0x009900
 #macro EMU_COLOR_SELECTED               0x4f4f4f
 #macro EMU_COLOR_WINDOWSKIN             0x339900
+#macro EMU_COLOR_SPRITE_INTERACTIVE     0xffffff
 
 #macro EMU_DIALOG_SHADE_ALPHA           0.5
 #macro EMU_DIALOG_SHADE_COLOR           0x000000

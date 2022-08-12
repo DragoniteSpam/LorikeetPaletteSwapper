@@ -13,6 +13,7 @@ function EmuButtonImage(x, y, width, height, sprite, index, blend, alpha, scale_
     self.color_hover = function() { return EMU_COLOR_HOVER; };
     self.color_back = function() { return EMU_COLOR_BACK; };
     self.color_disabled = function() { return EMU_COLOR_DISABLED; };
+    self.color_sprite_interactive = function() { return EMU_COLOR_SPRITE_INTERACTIVE; };
     
     self.checker_background = false;
     
@@ -59,7 +60,7 @@ function EmuButtonImage(x, y, width, height, sprite, index, blend, alpha, scale_
             self.callback();
         }
         
-        var back_color = self.getMouseHover(x1, y1, x2, y2) ? self.color_hover() : (self.GetInteractive() ? self.color_back() : self.color_disabled());
+        var back_color = self.getMouseHover(x1, y1, x2, y2) ? self.color_hover() : (self.GetInteractive() ? self.color_sprite_interactive() : self.color_disabled());
         draw_surface_ext(self.surface, x1, y1, 1, 1, 0, back_color, 1);
         draw_sprite_stretched_ext(self.sprite_nineslice, 0, x1, y1, x2 - x1, y2 - y1, self.color(), 1);
         

@@ -1,4 +1,6 @@
 #macro DEMO_PLAY_SPEED_FPS          8
+#macro C_BUTTON_SELECTED            c_yellow
+
 scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_black, false);
 
 self.demo_sprite = sprite_duplicate(spr_test_sprite);
@@ -165,11 +167,21 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     (new EmuButtonImage(32 + 1 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 1, c_white, 1, false, function() {
         // pause
         obj_demo.demo_palette_speed = 0;
-    })),
+    }))
+        .SetUpdate(function() {
+            self.color_sprite_interactive = function() {
+                return (obj_demo.demo_palette_speed == 0) ? C_BUTTON_SELECTED : EMU_COLOR_SPRITE_INTERACTIVE;
+            };
+        }),
     (new EmuButtonImage(32 + 2 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 2, c_white, 1, false, function() {
         // play
         obj_demo.demo_palette_speed = DEMO_PLAY_SPEED_FPS;
-    })),
+    }))
+        .SetUpdate(function() {
+            self.color_sprite_interactive = function() {
+                return (obj_demo.demo_palette_speed != 0) ? C_BUTTON_SELECTED : EMU_COLOR_SPRITE_INTERACTIVE;
+            };
+        }),
     (new EmuButtonImage(32 + 3 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 3, c_white, 1, false, function() {
         // step forward
         obj_demo.demo_palette_index = ++obj_demo.demo_palette_index % array_length(obj_demo.demo_palette_data);
@@ -248,15 +260,30 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         self.pan_x = 0;
         self.pan_y = 0;
     }),
-    new EmuButtonImage(32 + 32 + 32 + ew + 762 + 0 * 384 / 3, EMU_BASE, 384 / 3, eh, spr_modes, 0, c_white, 1, false, function() {
+    (new EmuButtonImage(32 + 32 + 32 + ew + 762 + 0 * 384 / 3, EMU_BASE, 384 / 3, eh, spr_modes, 0, c_white, 1, false, function() {
         obj_demo.demo_mode = EOperationModes.SELECTION;
-    }),
-    new EmuButtonImage(32 + 32 + 32 + ew + 762 + 1 * 384 / 3, EMU_INLINE, 384 / 3, eh, spr_modes, 1, c_white, 1, false, function() {
+    }))
+        .SetUpdate(function() {
+            self.color_sprite_interactive = function() {
+                return (obj_demo.demo_mode == EOperationModes.SELECTION) ? C_BUTTON_SELECTED : EMU_COLOR_SPRITE_INTERACTIVE;
+            };
+        }),
+    (new EmuButtonImage(32 + 32 + 32 + ew + 762 + 1 * 384 / 3, EMU_INLINE, 384 / 3, eh, spr_modes, 1, c_white, 1, false, function() {
         obj_demo.demo_mode = EOperationModes.EYEDROPPER;
-    }),
-    new EmuButtonImage(32 + 32 + 32 + ew + 762 + 2 * 384 / 3, EMU_INLINE, 384 / 3, eh, spr_modes, 2, c_white, 1, false, function() {
+    }))
+        .SetUpdate(function() {
+            self.color_sprite_interactive = function() {
+                return (obj_demo.demo_mode == EOperationModes.EYEDROPPER) ? C_BUTTON_SELECTED : EMU_COLOR_SPRITE_INTERACTIVE;
+            };
+        }),
+    (new EmuButtonImage(32 + 32 + 32 + ew + 762 + 2 * 384 / 3, EMU_INLINE, 384 / 3, eh, spr_modes, 2, c_white, 1, false, function() {
         obj_demo.demo_mode = EOperationModes.BUCKET;
-    }),
+    }))
+        .SetUpdate(function() {
+            self.color_sprite_interactive = function() {
+                return (obj_demo.demo_mode == EOperationModes.BUCKET) ? C_BUTTON_SELECTED : EMU_COLOR_SPRITE_INTERACTIVE;
+            };
+        }),
     new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_AUTO, 384, 704, function(mx, my) {
         // render
         var palette = obj_demo.demo_palette_data[obj_demo.demo_palette_index];
@@ -368,11 +395,5 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var new_palette = lorikeet_palette_create(obj_demo.demo_palette_data);
         sprite_delete(obj_demo.demo_palette);
         obj_demo.demo_palette = new_palette;
-    }),
-    new EmuButton(32 + 32 + 32 + ew + 762, EMU_AUTO, 384 / 2, eh, "HSV", function() {
-        
-    }),
-    new EmuButton(32 + 32 + 32 + ew + 762 + 384 / 2, EMU_INLINE, 384 / 2, eh, "Color Channels", function() {
-        
     }),
 ]);

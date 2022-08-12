@@ -7,6 +7,5 @@
   },
   "resourceVersion": "1.0",
   "name": "EmuButton_Image",
-  "tags": [],
   "resourceType": "GMScript",
 }
