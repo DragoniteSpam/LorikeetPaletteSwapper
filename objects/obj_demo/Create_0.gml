@@ -10,7 +10,7 @@ self.demo_palette_data = palette_data.palette_array;
 self.demo_palette = palette_data.palette_sprite;
 self.demo_palette_index = 0;
 self.demo_palette_speed = 0;
-self.demo_sprite_type = 0;
+self.demo_sprite_type = 2;
 self.demo_force_full_palettes = false;
 
 self.demo_mode = EOperationModes.SELECTION;
