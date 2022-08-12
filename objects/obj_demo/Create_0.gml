@@ -55,12 +55,6 @@ self.LoadPalette = function() {
         var image = sprite_add(fn, 0, false, false, 0, 0);
         
         if (sprite_exists(image)) {
-            if (sprite_get_height(image)) {
-                (new EmuDialog(400, 240, "Hey!")).AddContent([
-                    (new EmuText(32, 32, 400 - 32 - 32, 144, "Currently only palettes with one row of pixels can be loaded. All following rows will be discarded."))
-                        .SetAlign(fa_center, fa_middle)
-                ]).AddDefaultCloseButton().CenterInWindow();
-            }
             sprite_delete(self.demo_palette);
             self.demo_palette = image;
             self.demo_palette_data = palette_to_array(image);

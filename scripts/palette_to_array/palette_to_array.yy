@@ -7,6 +7,5 @@
   },
   "resourceVersion": "1.0",
   "name": "palette_to_array",
-  "tags": [],
   "resourceType": "GMScript",
 }
