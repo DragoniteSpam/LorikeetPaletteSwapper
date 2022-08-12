@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "EmuInput",
+  "name": "__lorikeet_class",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Core",
-    "path": "folders/Emu/Core.yy",
+    "name": "Lorikeet",
+    "path": "folders/Lorikeet.yy",
   },
 }
