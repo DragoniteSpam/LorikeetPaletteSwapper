@@ -81,7 +81,7 @@ self.SaveIndexedColor = function() {
 self.SavePaletteSprite = function() {
     var fn = get_save_filename("Image files|*.png", "");
     if (fn != "") {
-        sprite_save(self.demo_palette, 0, fn);
+        sprite_save(self.demo_palette.palette, 0, fn);
     }
 };
 
