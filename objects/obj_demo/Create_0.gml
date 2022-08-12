@@ -139,7 +139,12 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         obj_demo.demo_palette = new_palette;
     })),
     (new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Delete row", function() {
-        
+        if (array_length(obj_demo.demo_palette_data) == 1) return;
+        array_delete(obj_demo.demo_palette_data, array_length(obj_demo.demo_palette_data) - 1, 1);
+        var new_sprite = lorikeet_palette_delete_palette(obj_demo.demo_palette, obj_demo.demo_palette_index);
+        sprite_delete(obj_demo.demo_palette);
+        obj_demo.demo_palette = new_sprite;
+        obj_demo.demo_palette_index = min(obj_demo.demo_palette_index, array_length(obj_demo.demo_palette_data) - 1);
     })),
     new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 762, 836, function(mx, my) {
         // render

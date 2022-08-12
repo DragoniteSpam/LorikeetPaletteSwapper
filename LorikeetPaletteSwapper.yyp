@@ -35,6 +35,7 @@
     {"id":{"name":"__scribble_class_typist","path":"scripts/__scribble_class_typist/__scribble_class_typist.yy",},"order":5,},
     {"id":{"name":"spr_emu_scroll_arrow","path":"sprites/spr_emu_scroll_arrow/spr_emu_scroll_arrow.yy",},"order":18,},
     {"id":{"name":"scribble_font_add_all","path":"scripts/scribble_font_add_all/scribble_font_add_all.yy",},"order":1,},
+    {"id":{"name":"lorikeet_palette_delete_palette","path":"scripts/lorikeet_palette_delete_palette/lorikeet_palette_delete_palette.yy",},"order":6,},
     {"id":{"name":"scribble_anim_wave","path":"scripts/scribble_anim_wave/scribble_anim_wave.yy",},"order":7,},
     {"id":{"name":"scribble_super_glyph_copy_all","path":"scripts/scribble_super_glyph_copy_all/scribble_super_glyph_copy_all.yy",},"order":3,},
     {"id":{"name":"scribble","path":"scripts/scribble/scribble.yy",},"order":7,},
