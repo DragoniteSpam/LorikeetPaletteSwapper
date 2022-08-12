@@ -18,7 +18,9 @@ function lorikeet_palette_extract(sprite, index = 0, force_full_palette = false)
     
     var step = buffer_sizeof(buffer_u32);
     repeat (buffer_get_size(buffer_sprite) / step) {
-        var cc = buffer_read(buffer_sprite, buffer_u32) & 0x00ffffff;
+        var cc = buffer_read(buffer_sprite, buffer_u32);
+        if ((cc >> 24) == 0) continue;
+        cc &= 0x00ffffff;
         map[$ string(cc)] ??= { color: cc, count: 0, rank: -1 };
         map[$ string(cc)].count++;
     }
@@ -63,6 +65,7 @@ function lorikeet_palette_extract(sprite, index = 0, force_full_palette = false)
     
     for (var i = 0, n = buffer_get_size(buffer_sprite); i < n; i += step) {
         var cc = buffer_peek(buffer_sprite, i, buffer_u32);
+        if ((cc >> 24) == 0) continue;
         var rank = map[$ string(cc & 0x00ffffff)].rank * palette_color_spacing;
         buffer_poke(buffer_sprite, i, buffer_u32, (cc & 0xff000000) | make_colour_rgb(rank, rank, rank));
     }
