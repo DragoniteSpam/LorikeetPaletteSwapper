@@ -3,7 +3,6 @@
   "resourceVersion": "1.6",
   "name": "LorikeetPaletteSwapper",
   "resources": [
-    {"id":{"name":"lorikeet_palette_extract","path":"scripts/lorikeet_palette_extract/lorikeet_palette_extract.yy",},"order":2,},
     {"id":{"name":"spr_emu_close","path":"sprites/spr_emu_close/spr_emu_close.yy",},"order":7,},
     {"id":{"name":"spr_emu_help","path":"sprites/spr_emu_help/spr_emu_help.yy",},"order":9,},
     {"id":{"name":"spr_controls","path":"sprites/spr_controls/spr_controls.yy",},"order":7,},
