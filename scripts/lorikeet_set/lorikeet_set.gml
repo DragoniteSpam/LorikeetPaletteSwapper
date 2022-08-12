@@ -7,5 +7,5 @@ function lorikeet_set(palette_sprite, slot = 0, subimage = 0) {
     gpu_set_texfilter_ext(sampler_index, false);
     var bounds = sprite_get_uvs(palette_sprite, subimage);
     shader_set_uniform_f(slot_texture_bounds, bounds[0], bounds[1], bounds[2], bounds[3]);
-    shader_set_uniform_f(slot_index, clamp(slot, 0, 1));
+    shader_set_uniform_f(slot_index, clamp(slot / sprite_get_height(palette_sprite), 0, 1));
 }

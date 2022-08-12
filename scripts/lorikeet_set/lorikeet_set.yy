@@ -7,6 +7,5 @@
   },
   "resourceVersion": "1.0",
   "name": "lorikeet_set",
-  "tags": [],
   "resourceType": "GMScript",
 }

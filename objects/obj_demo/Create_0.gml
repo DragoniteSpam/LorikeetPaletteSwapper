@@ -152,7 +152,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 break;
             case 2:
-                lorikeet_set(obj_demo.demo_palette, 0);
+                lorikeet_set(obj_demo.demo_palette, obj_demo.demo_palette_index);
                 draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 shader_reset();
                 break;
