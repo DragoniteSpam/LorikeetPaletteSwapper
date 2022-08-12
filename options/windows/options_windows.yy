@@ -1,7 +1,7 @@
 {
   "option_windows_display_name": "Lorikeet: Palette Swapper",
   "option_windows_executable_name": "${project_name}.exe",
-  "option_windows_version": "0.1.0.0",
+  "option_windows_version": "0.2.0.0",
   "option_windows_company_info": "Michael the Wizardragon",
   "option_windows_product_info": "Lorikeet: Palette Swapper",
   "option_windows_copyright_info": "2022 Michael the Wizardragon",
@@ -30,6 +30,5 @@
   "option_windows_steam_use_alternative_launcher": false,
   "resourceVersion": "1.1",
   "name": "Windows",
-  "tags": [],
   "resourceType": "GMWindowsOptions",
 }
