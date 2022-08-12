@@ -4,13 +4,17 @@ varying vec4 v_vColour;
 uniform sampler2D samp_Palette;
 uniform vec4 u_TextureBounds;
 uniform float u_PaletteSlot;
+uniform float u_PaletteSlotCount;
 
 uniform float u_AlphaTest;
 uniform float u_AlphaTestRef;
 
 vec4 GetColor(vec4 data) {
-    vec2 uv = u_TextureBounds.xy + vec2(data.r, u_PaletteSlot) * (u_TextureBounds.zw - u_TextureBounds.xy);
-    return vec4(texture2D(samp_Palette, uv).rgb, data.a);
+    vec2 uv1 = u_TextureBounds.xy + vec2(data.r, floor(u_PaletteSlot) / u_PaletteSlotCount) * (u_TextureBounds.zw - u_TextureBounds.xy);
+    vec2 uv2 = u_TextureBounds.xy + vec2(data.r, ceil(u_PaletteSlot) / u_PaletteSlotCount) * (u_TextureBounds.zw - u_TextureBounds.xy);
+    vec4 c1 = texture2D(samp_Palette, uv1);
+    vec4 c2 = texture2D(samp_Palette, uv2);
+    return vec4(mix(c1, c2, fract(u_PaletteSlot)).rgb, data.a);
 }
 
 void main() {
