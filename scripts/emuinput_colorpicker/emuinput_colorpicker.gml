@@ -214,7 +214,7 @@ function EmuColorPicker(x, y, width, height, text, value, callback) : EmuCallbac
                     case EmuColorChannels.G: self.value = (ww << 16) | (current_axis << 8) | hh; break;
                     case EmuColorChannels.B: self.value = (current_axis << 16) | (hh << 8) | ww; break;
                 }
-                            
+                
                 shader_set(shd_emu_color_buckets);
                 shader_set_uniform_f(shader_get_uniform(shd_emu_color_buckets, "buckets"), buckets);
                 draw_rectangle_colour(vx1, vy1, vx2, vy2, c1, c2, c3, c4, false);
@@ -331,7 +331,31 @@ function EmuColorPicker(x, y, width, height, text, value, callback) : EmuCallbac
                 self.root.base_color_element.value = value_as_real | (floor(self.root.el_picker.alpha * 0xff) << 24);
                 self.root.base_color_element.callback();
             }
-        });
+        })
+            .SetUpdate(function() {
+                if (keyboard_check(vk_control) && keyboard_check_pressed(ord("V"))) {
+                    var text = clipboard_get_text();
+                    if (string_copy(text, 1, 1) == "#") {
+                        text = string_copy(text, 2, string_length(text) - 1);
+                    }
+                    if (string_length(text) == 6) {
+                        var current_value = self.value;
+                        try {
+                            var color = int64(ptr(text));
+                            var rr = colour_get_red(color);
+                            var gg = colour_get_green(color);
+                            var bb = colour_get_blue(color);
+                            color = make_colour_rgb(bb, gg, rr);
+                            self.value = text;
+                            self.root.el_picker.SetValue(color);
+                            self.root.base_color_element.value = color;
+                            self.root.base_color_element.callback();
+                        } catch (e) {
+                            self.value = current_value;
+                        }
+                    }
+                }
+            });
         dialog.el_picker_code.SetInputBoxPosition(vx1, vy1, vx2, vy2);
         dialog.el_picker_code.SetRealNumberBounds(0, 0xffffff);
                     

@@ -343,7 +343,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var hcells = self.width div step;
         var mcx = mx div step;
         var mcy = my div step;
-        var index = mcy * hcells + mcx;
+        var index = min(mcy * hcells + mcx, array_length(obj_demo.demo_palette_data[obj_demo.demo_palette_index]) - 1);
         
         if (mouse_check_button_pressed(mb_left)) {
             switch (obj_demo.demo_mode) {
@@ -354,6 +354,11 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     break;
                 case EOperationModes.EYEDROPPER:
                     obj_demo.demo_copied_color = obj_demo.demo_palette_data[obj_demo.demo_palette_index][index];
+                    var color_string = string(ptr(obj_demo.demo_copied_color));
+                    var rr = string_copy(color_string, string_length(color_string) - 1, 2);
+                    var gg = string_copy(color_string, string_length(color_string) - 3, 2);
+                    var bb = string_copy(color_string, string_length(color_string) - 5, 2);
+                    clipboard_set_text(rr + gg + bb);
                     break;
                 case EOperationModes.BUCKET:
                     if (obj_demo.demo_palette_data[obj_demo.demo_palette_index][index] != obj_demo.demo_copied_color) {
