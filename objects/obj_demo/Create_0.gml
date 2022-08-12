@@ -34,6 +34,7 @@ self.LoadSprite = function() {
             sprite_delete(self.demo_sprite);
             self.demo_sprite = image;
             self.demo_sprite_indexed = self.demo_palette.ExtractPalette(image, 0, self.demo_force_full_palettes);
+            self.demo_palette_index = 0;
             return (get_timer() - t0) / 1000;
         }
     }
@@ -45,6 +46,7 @@ self.ReExtract = function() {
     var t0 = get_timer();
     sprite_delete(self.demo_sprite);
     self.demo_sprite_indexed = self.demo_palette.ExtractPalette(self.demo_sprite, 0, self.demo_force_full_palettes);
+    self.demo_palette_index = 0;
     return (get_timer() - t0) / 1000;
 };
 
@@ -63,6 +65,7 @@ self.LoadPalette = function() {
         
         if (sprite_exists(image)) {
             self.demo_palette.FromImage(image);
+            self.demo_palette_index = 0;
         }
     }
     
@@ -109,7 +112,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         obj_demo.demo_force_full_palettes = self.value;
         obj_demo.ReExtract();
     }),
-    new EmuRadioArray(32, EMU_AUTO, ew, eh, "Display type:", 0, function() {
+    new EmuRadioArray(32, EMU_AUTO, ew, eh, "Display type:", self.demo_sprite_type, function() {
         obj_demo.demo_sprite_type = self.value;
     }).AddOptions(["Original", "Indexed", "Indexed with Palette"]),
     new EmuText(32, EMU_AUTO, ew, eh, "Palette extraction time: " + string(starting_extraction_time) + " ms")
@@ -135,7 +138,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         }
     }, emu_null),
     (new EmuButton(32, EMU_AUTO, ew / 2, eh, "Add row", function() {
-        obj_demo.demo_palette.AddPaletteRow();
+        obj_demo.demo_palette.AddPaletteRow(obj_demo.demo_palette_index);
     })),
     (new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Delete row", function() {
         obj_demo.demo_palette.RemovePaletteRow(obj_demo.demo_palette_index);
