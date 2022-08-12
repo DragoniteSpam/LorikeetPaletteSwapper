@@ -146,7 +146,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     })),
     (new EmuButtonImage(32 + 0 * ew / 4, EMU_AUTO, ew / 4, eh, spr_controls, 0, c_white, 1, false, function() {
         // step back
-        obj_demo.demo_palette_index = (--obj_demo.demo_palette_index + array_length(obj_demo.demo_palette_data)) % array_length(obj_demo.demo_palette_data);
+        obj_demo.demo_palette_index = (--obj_demo.demo_palette_index + array_length(obj_demo.demo_palette.data)) % array_length(obj_demo.demo_palette.data);
     })),
     (new EmuButtonImage(32 + 1 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 1, c_white, 1, false, function() {
         // pause
@@ -168,7 +168,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         }),
     (new EmuButtonImage(32 + 3 * ew / 4, EMU_INLINE, ew / 4, eh, spr_controls, 3, c_white, 1, false, function() {
         // step forward
-        obj_demo.demo_palette_index = ++obj_demo.demo_palette_index % array_length(obj_demo.demo_palette_data);
+        obj_demo.demo_palette_index = ++obj_demo.demo_palette_index % array_length(obj_demo.demo_palette.data);
     })),
     new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 762, 836, function(mx, my) {
         // render
@@ -270,7 +270,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         }),
     new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_AUTO, 384, 704, function(mx, my) {
         // render
-        var palette = obj_demo.demo_palette_data[obj_demo.demo_palette_index];
+        var palette = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
         
         var step = 32;
         var hcells = self.width div step;
@@ -309,14 +309,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }, function(mx, my) {
         // step
         static picker = new EmuColorPicker(0, 0, 0, 0, "", c_black, function() {
-            var palette_slot = obj_demo.demo_palette_data[obj_demo.demo_palette_index][self.palette_index];
-            var changed = (palette_slot != self.value);
-            obj_demo.demo_palette_data[obj_demo.demo_palette_index][self.palette_index] = self.value;
-            if (changed) {
-                var new_palette = lorikeet_palette_modify(obj_demo.demo_palette, self.palette_index, obj_demo.demo_palette_index, self.value);
-                sprite_delete(obj_demo.demo_palette);
-                obj_demo.demo_palette = new_palette;
-            }
+            obj_demo.demo_palette.Modify(self.palette_index, obj_demo.demo_palette_index, self.value);
         });
         
         if (!self.isActiveDialog()) return;
@@ -327,17 +320,17 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var hcells = self.width div step;
         var mcx = mx div step;
         var mcy = my div step;
-        var index = min(mcy * hcells + mcx, array_length(obj_demo.demo_palette_data[obj_demo.demo_palette_index]) - 1);
+        var index = min(mcy * hcells + mcx, array_length(obj_demo.demo_palette.data[obj_demo.demo_palette_index]) - 1);
         
         if (mouse_check_button_pressed(mb_left)) {
             switch (obj_demo.demo_mode) {
                 case EOperationModes.SELECTION:
                     picker.palette_index = index;
-                    picker.value = obj_demo.demo_palette_data[obj_demo.demo_palette_index][index];
+                    picker.value = obj_demo.demo_palette.data[obj_demo.demo_palette_index][index];
                     picker.ShowPickerDialog().SetActiveShade(0);
                     break;
                 case EOperationModes.EYEDROPPER:
-                    obj_demo.demo_copied_color = obj_demo.demo_palette_data[obj_demo.demo_palette_index][index];
+                    obj_demo.demo_copied_color = obj_demo.demo_palette.data[obj_demo.demo_palette_index][index];
                     var color_string = string(ptr(obj_demo.demo_copied_color));
                     var rr = string_copy(color_string, string_length(color_string) - 1, 2);
                     var gg = string_copy(color_string, string_length(color_string) - 3, 2);
@@ -345,11 +338,8 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     clipboard_set_text(rr + gg + bb);
                     break;
                 case EOperationModes.BUCKET:
-                    if (obj_demo.demo_palette_data[obj_demo.demo_palette_index][index] != obj_demo.demo_copied_color) {
-                        obj_demo.demo_palette_data[obj_demo.demo_palette_index][index] = obj_demo.demo_copied_color;
-                        var new_palette = lorikeet_palette_modify(obj_demo.demo_palette, index, obj_demo.demo_palette_index, obj_demo.demo_copied_color);
-                        sprite_delete(obj_demo.demo_palette);
-                        obj_demo.demo_palette = new_palette;
+                    if (obj_demo.demo_palette.data[obj_demo.demo_palette_index][index] != obj_demo.demo_copied_color) {
+                        obj_demo.demo_palette.Modify(index, obj_demo.demo_palette_index, obj_demo.demo_copied_color);
                     }
                     break;
             }
@@ -358,7 +348,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         // create
     }),
     new EmuButton(32 + 32 + 32 + ew + 762, EMU_AUTO, 384 / 2, eh, "Shift Left", function() {
-        var data = obj_demo.demo_palette_data[obj_demo.demo_palette_index];
+        var data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
         var value0 = data[0];
         array_delete(data, 0, 1);
         array_push(data, -1);
@@ -368,12 +358,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 break;
             }
         }
-        var new_palette = lorikeet_palette_create(obj_demo.demo_palette_data);
-        sprite_delete(obj_demo.demo_palette);
-        obj_demo.demo_palette = new_palette;
+        obj_demo.demo_palette.Refresh();
     }),
     new EmuButton(32 + 32 + 32 + ew + 762 + 384 / 2, EMU_INLINE, 384 / 2, eh, "Shift Right", function() {
-        var data = obj_demo.demo_palette_data[obj_demo.demo_palette_index];
+        var data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
         for (var i = array_length(data) - 1; i >= 0; i--) {
             if (data[i] != -1) {
                 array_insert(data, 0, data[i]);
@@ -381,8 +369,6 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 break;
             }
         }
-        var new_palette = lorikeet_palette_create(obj_demo.demo_palette_data);
-        sprite_delete(obj_demo.demo_palette);
-        obj_demo.demo_palette = new_palette;
+        obj_demo.demo_palette.Refresh();
     }),
 ]);

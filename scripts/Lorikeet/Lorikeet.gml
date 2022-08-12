@@ -120,6 +120,43 @@ function Lorikeet() constructor {
     };
     
     self.Modify = function(x, y, color) {
+        if (color == self.data[y][x]) return;
+        self.data[y][x] = color;
+        var s = surface_create(sprite_get_width(self.palette), sprite_get_height(self.palette));
+        surface_set_target(s);
+        draw_clear_alpha(c_black, 0);
+        var bm = gpu_get_blendmode();
+        gpu_set_blendmode(bm_add);
+        var a = draw_get_alpha();
+        draw_set_alpha(1);
+        draw_sprite(self.palette, 0, 0, 0);
+        gpu_set_blendmode(bm_normal);
+        draw_point_colour(x, y, color);
+        gpu_set_blendmode(bm);
+        draw_set_alpha(a);
+        surface_reset_target();
+        if (sprite_exists(self.palette)) sprite_delete(self.palette);
+        self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
+        surface_free(s);
+        return sprite;
+    };
+    
+    self.Refresh = function() {
+        var s = surface_create(power(2, ceil(log2(array_length(self.data[0])))), array_length(self.data));
+        surface_set_target(s);
+        draw_clear(c_white);
+        var a = draw_get_alpha();
+        draw_set_alpha(1);
+        for (var i = 0, n = array_length(self.data); i < n; i++) {
+            for (var j = 0, n2 = array_length(self.data[i]); j < n2; j++) {
+                draw_point_colour(j, i, self.data[i][j]);
+            }
+        }
+        draw_set_alpha(a);
+        surface_reset_target();
+        if (sprite_exists(self.sprite)) sprite_delete(self.sprite);
+        self.sprite = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
+        surface_free(s);
     };
     
     self.AddPaletteRow = function(source_row = -1) {
