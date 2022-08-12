@@ -9,7 +9,7 @@ uniform float u_AlphaTest;
 uniform float u_AlphaTestRef;
 
 vec4 GetColor(vec4 data) {
-    vec2 uv = u_TextureBounds.xy + vec2(min(data.x + 0.0002, 1.0), u_PaletteSlot) * (u_TextureBounds.zw - u_TextureBounds.xy);
+    vec2 uv = u_TextureBounds.xy + vec2(data.r, u_PaletteSlot) * (u_TextureBounds.zw - u_TextureBounds.xy);
     return vec4(texture2D(samp_Palette, uv).rgb, data.a);
 }
 
