@@ -89,6 +89,36 @@ function __lorikeet_palette_class() constructor {
         return indexed_sprite;
     };
     
+    self.FromImage = function(palette_sprite) {
+        if (sprite_exists(self.palette)) sprite_delete(self.palette);
+        
+        var s = surface_create(sprite_get_width(palette_sprite), sprite_get_height(palette_sprite));
+        surface_set_target(s);
+        draw_clear(c_black);
+        gpu_set_blendmode(bm_add);
+        draw_sprite(palette_sprite, 0, 0, 0);
+        gpu_set_blendmode(bm_normal);
+        surface_reset_target();
+    
+        var buffer = buffer_create(surface_get_width(s) * surface_get_height(s) * 4, buffer_fixed, 4);
+        buffer_get_surface(buffer, s, 0);
+    
+        var data = array_create(sprite_get_height(palette_sprite), -1);
+        buffer_seek(buffer, buffer_seek_start, 0);
+        for (var j = 0, nh = sprite_get_height(palette_sprite); j < nh; j++) {
+            data[j] = array_create(sprite_get_width(palette_sprite));
+            for (var i = 0, nw = sprite_get_width(palette_sprite); i < nw; i++) {
+                data[j][i] = buffer_read(buffer, buffer_u32) & 0x00ffffff;
+            }
+        }
+    
+        surface_free(s);
+        buffer_delete(buffer);
+        
+        self.palette = palette_sprite;
+        self.data = data;
+    };
+    
     self.Modify = function(x, y, color) {
     };
     

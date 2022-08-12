@@ -6,7 +6,6 @@ scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_
 self.demo_sprite = sprite_duplicate(spr_test_sprite);
 var palette_data = lorikeet_palette_extract(self.demo_sprite);
 self.demo_sprite_indexed = palette_data.indexed_sprite;
-self.demo_palette_data = palette_data.palette_array;
 self.demo_palette = palette_data.palette_sprite;
 self.demo_palette_index = 0;
 self.demo_palette_speed = 0;
@@ -34,7 +33,6 @@ self.LoadSprite = function() {
             sprite_delete(self.demo_palette);
             self.demo_sprite = image;
             self.demo_sprite_indexed = palette_data.indexed_sprite;
-            self.demo_palette_data = palette_data.palette_array;
             self.demo_palette = palette_data.palette_sprite;
             return palette_data.execution_time;
         }
@@ -47,7 +45,6 @@ self.ReExtract = function() {
     var palette_data = lorikeet_palette_extract(self.demo_sprite, 0, self.demo_force_full_palettes);
     sprite_delete(self.demo_palette);
     self.demo_sprite_indexed = palette_data.indexed_sprite;
-    self.demo_palette_data = palette_data.palette_array;
     self.demo_palette = palette_data.palette_sprite;
     return palette_data.execution_time;
 };
@@ -58,7 +55,6 @@ self.ResetSprite = function() {
     self.demo_sprite = sprite_duplicate(spr_test_sprite);
     var palette_data = lorikeet_palette_extract(self.demo_sprite, 0, self.demo_force_full_palettes);
     self.demo_sprite_indexed = palette_data.indexed_sprite;
-    self.demo_palette_data = palette_data.palette_array;
     self.demo_palette = palette_data.palette_sprite;
     return palette_data.execution_time;
 };
@@ -69,9 +65,7 @@ self.LoadPalette = function() {
         var image = sprite_add(fn, 0, false, false, 0, 0);
         
         if (sprite_exists(image)) {
-            sprite_delete(self.demo_palette);
-            self.demo_palette = image;
-            self.demo_palette_data = palette_to_array(image);
+            self.demo_palette.FromImage(image);
         }
     }
     

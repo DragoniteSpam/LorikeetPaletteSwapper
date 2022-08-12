@@ -32,7 +32,6 @@
     {"id":{"name":"EmuInput_ColorPicker","path":"scripts/EmuInput_ColorPicker/EmuInput_ColorPicker.yy",},"order":8,},
     {"id":{"name":"spr_palette_checker","path":"sprites/spr_palette_checker/spr_palette_checker.yy",},"order":4,},
     {"id":{"name":"scribble_font_force_bilinear_filtering","path":"scripts/scribble_font_force_bilinear_filtering/scribble_font_force_bilinear_filtering.yy",},"order":5,},
-    {"id":{"name":"palette_to_array","path":"scripts/palette_to_array/palette_to_array.yy",},"order":6,},
     {"id":{"name":"scribble_glyph_get","path":"scripts/scribble_glyph_get/scribble_glyph_get.yy",},"order":12,},
     {"id":{"name":"__scribble_config_behaviours","path":"scripts/__scribble_config_behaviours/__scribble_config_behaviours.yy",},"order":0,},
     {"id":{"name":"spr_emu_not_found","path":"sprites/spr_emu_not_found/spr_emu_not_found.yy",},"order":14,},
