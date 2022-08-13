@@ -15,5 +15,5 @@ function lorikeet_set(palette_sprite, palette_index = 0, subimage = 0) {
     shader_set_uniform_f(u_slot_index, palette_index);
     shader_set_uniform_f(u_slot_index_count, sprite_get_height(palette_sprite));
     shader_set_uniform_f(u_alpha_test, gpu_get_alphatestenable());
-    shader_set_uniform_f(u_alpha_test_ref, gpu_get_alphatestref());
+    shader_set_uniform_f(u_alpha_test_ref, gpu_get_alphatestref() / 255);
 }
