@@ -4,6 +4,8 @@ vertex_format_add_texcoord();
 vertex_format_add_colour();
 self.format = vertex_format_end();
 
+show_debug_overlay(true);
+
 var buffer = buffer_load("skybox.vbuff");
 self.skybox = vertex_create_buffer_from_buffer(buffer, self.format);
 buffer_delete(buffer);
@@ -35,4 +37,4 @@ window_set_size(1600, 900);
 surface_resize(application_surface, 1600, 900);
 application_surface_draw_enable(false);
 
-self.game_time = 0;
+self.game_time = 0.65;  // * 24 = 3:36 PM
