@@ -21,6 +21,5 @@ vec4 GetColor(vec4 data) {
 
 void main() {
     gl_FragColor = v_vColour * GetColor(texture2D(gm_BaseTexture, v_vTexcoord));
-    
     if (u_AlphaTest != 0.0) if (gl_FragColor.a < u_AlphaTestRef) discard;
 }

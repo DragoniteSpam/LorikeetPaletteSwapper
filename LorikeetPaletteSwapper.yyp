@@ -480,10 +480,10 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"spr_emu_nineslice.yy","CopyToMask":-1,"filePath":"datafiles/editor/sprites/spr_emu_nineslice",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"spr_emu_checkbox_border.yy","CopyToMask":-1,"filePath":"datafiles/editor/sprites/spr_emu_checkbox_border",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"spr_emu_progress.yy","CopyToMask":-1,"filePath":"datafiles/editor/sprites/spr_emu_progress",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"editor.yyp","CopyToMask":-1,"filePath":"datafiles/editor",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"lorikeet_set.gml","CopyToMask":-1,"filePath":"datafiles/editor/scripts/lorikeet_set",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"lorikeet_set.yy","CopyToMask":-1,"filePath":"datafiles/editor/scripts/lorikeet_set",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"skybox.vbuff","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"editor.yyp","CopyToMask":-1,"filePath":"datafiles/editor",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"lorikeet_set.yy","CopyToMask":-1,"filePath":"datafiles/editor/scripts/lorikeet_set",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"lorikeet_set.gml","CopyToMask":-1,"filePath":"datafiles/editor/scripts/lorikeet_set",},
   ],
   "MetaData": {
     "IDEVersion": "2022.800.0.191",
