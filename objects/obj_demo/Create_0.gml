@@ -13,9 +13,9 @@ self.camera.Update = method(self, function() {
     self.camera.zto = 0;
 });
 
-var layer_id = layer_get_id("Tiles_1");
+var layer_id = layer_get_id("Tiles_Ground");
 layer_set_visible(layer_id, false);
-self.ground_tilemap = layer_tilemap_get_id(layer_id);
+self.tilemap_ground = layer_tilemap_get_id(layer_id);
 
 window_set_size(1600, 900);
 surface_resize(application_surface, 1600, 900);
