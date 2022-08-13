@@ -9,11 +9,14 @@
   "solid": false,
   "visible": false,
   "managed": true,
-  "spriteMaskId": null,
+  "spriteMaskId": {
+    "name": "col_2x2",
+    "path": "sprites/col_2x2/col_2x2.yy",
+  },
   "persistent": false,
   "parentObjectId": {
-    "name": "obj_renderable",
-    "path": "objects/obj_renderable/obj_renderable.yy",
+    "name": "obj_solid",
+    "path": "objects/obj_solid/obj_solid.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,

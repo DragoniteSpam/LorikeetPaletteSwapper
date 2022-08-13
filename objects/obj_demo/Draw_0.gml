@@ -1,4 +1,4 @@
-draw_clear_alpha(c_black, 0);
+draw_clear_alpha(c_black, 1);
 gpu_set_ztestenable(true);
 gpu_set_zwriteenable(true);
 gpu_set_alphatestenable(true);
