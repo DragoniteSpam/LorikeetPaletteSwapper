@@ -60,17 +60,19 @@ function DragoCamera(x, y, z, xto, yto, zto, xup, yup, zup, fov, znear, zfar) co
     self.SetViewportAspect = function(width_function, height_function) {
         self.get_width = method(self, width_function);
         self.get_height = method(self, height_function);
+        return self;
     };
     
     self.SetCenter = function(cx, cy) {
         self.center.x = cx;
         self.center.y = cy;
+        return self;
     };
     
     self.SetSkybox = function(vertex_buffer, sprite) {
         self.skybox = sprite;
         self.skybox_mesh = vertex_buffer;
-        return sprite;
+        return self;
     };
     
     self.GetCameraSpeed = function(z = self.z) {
@@ -177,13 +179,8 @@ function DragoCamera(x, y, z, xto, yto, zto, xup, yup, zup, fov, znear, zfar) co
     self.DrawSkybox = function() {
         if (!sprite_exists(self.skybox)) return;
         if (self.skybox_mesh = -1) return;
-        draw_clear_alpha(c_black, 1);
-        gpu_set_zwriteenable(false);
-        gpu_set_ztestenable(false);
         matrix_set(matrix_world, matrix_build(self.x, self.y, self.z, 0, 0, 0, 1, 1, 1));
         vertex_submit(self.skybox_mesh, pr_trianglelist, sprite_get_texture(self.skybox, 0));
-        gpu_set_zwriteenable(true);
-        gpu_set_ztestenable(true);
     };
     
     self.DrawSkyboxOrtho = function() {

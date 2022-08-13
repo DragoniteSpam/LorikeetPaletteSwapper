@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_marker_water",
   "spriteId": {
-    "name": "col_1x1",
-    "path": "sprites/col_1x1/col_1x1.yy",
+    "name": "col_marker_water",
+    "path": "sprites/col_marker_water/col_marker_water.yy",
   },
   "solid": false,
   "visible": false,

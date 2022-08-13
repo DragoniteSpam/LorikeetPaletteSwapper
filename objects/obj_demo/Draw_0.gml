@@ -2,9 +2,16 @@ draw_clear_alpha(c_black, 1);
 
 self.camera.SetProjection();
 
-matrix_set(matrix_world, matrix_build(0, 0, -1, 0, 0, 0, 1, 1, 1));
+lorikeet_set(pal_sky_back, get_palette_index_by_time());
+self.camera.SetSkybox(self.skybox, idx_sky_back).DrawSkybox();
+gpu_set_alphatestenable(true);
+gpu_set_alphatestref(254);
+lorikeet_set(pal_sky_fore, get_palette_index_by_time());
+self.camera.SetSkybox(self.skybox, idx_sky_fore).DrawSkybox();
+gpu_set_alphatestenable(false);
 
 lorikeet_set(pal_water, 0, 0, shd_lorikeet_water_disp);
+matrix_set(matrix_world, matrix_build_identity());
 
 var sampler_disp_index = shader_get_sampler_index(shd_lorikeet_water_disp, "samp_Displace");
 texture_set_stage(sampler_disp_index, sprite_get_texture(spr_water_disp, 0));
