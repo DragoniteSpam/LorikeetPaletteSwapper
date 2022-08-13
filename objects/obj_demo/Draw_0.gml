@@ -1,3 +1,4 @@
+gpu_set_cullmode(cull_counterclockwise);
 draw_clear_alpha(c_black, 1);
 
 self.camera.SetProjection();
@@ -28,7 +29,7 @@ draw_tilemap(self.tilemap_ground, 0, 0);
 gpu_set_ztestenable(true);
 gpu_set_zwriteenable(true);
 gpu_set_alphatestenable(true);
-gpu_set_alphatestref(254);
+gpu_set_alphatestref(32);
 
 with (obj_renderable) event_perform(ev_draw, 0);
 
