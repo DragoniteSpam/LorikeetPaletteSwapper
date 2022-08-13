@@ -3,8 +3,11 @@
   "resourceVersion": "1.6",
   "name": "LorikeetPaletteSwapper",
   "resources": [
+    {"id":{"name":"ts_ground","path":"tilesets/ts_ground/ts_ground.yy",},"order":2,},
     {"id":{"name":"shd_lorikeet","path":"shaders/shd_lorikeet/shd_lorikeet.yy",},"order":1,},
+    {"id":{"name":"pal_ground","path":"sprites/pal_ground/pal_ground.yy",},"order":1,},
     {"id":{"name":"LorikeetPaletteManager","path":"scripts/LorikeetPaletteManager/LorikeetPaletteManager.yy",},"order":7,},
+    {"id":{"name":"idx_ground","path":"sprites/idx_ground/idx_ground.yy",},"order":0,},
     {"id":{"name":"idx_duck_left","path":"sprites/idx_duck_left/idx_duck_left.yy",},"order":1,},
     {"id":{"name":"pal_duck","path":"sprites/pal_duck/pal_duck.yy",},"order":4,},
     {"id":{"name":"obj_demo","path":"objects/obj_demo/obj_demo.yy",},"order":0,},
@@ -39,6 +42,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Testing","folderPath":"folders/Testing.yy","order":21,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Graphics","folderPath":"folders/Graphics.yy","order":30,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Duck","folderPath":"folders/Graphics/Duck.yy","order":5,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Ground","folderPath":"folders/Graphics/Ground.yy","order":6,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
