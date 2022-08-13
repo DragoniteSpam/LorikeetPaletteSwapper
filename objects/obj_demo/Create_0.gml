@@ -8,6 +8,9 @@ var buffer = buffer_load("skybox.vbuff");
 self.skybox = vertex_create_buffer_from_buffer(buffer, self.format);
 buffer_delete(buffer);
 
+scribble_font_bake_outline_8dir_2px("fnt_game_default", "fnt_game", c_black, false);
+scribble_font_set_default("fnt_game");
+
 self.depth = 0;
 self.player = instance_exists(obj_player) ? obj_player.id : instance_create_depth(64, 64, 0, obj_player);
 

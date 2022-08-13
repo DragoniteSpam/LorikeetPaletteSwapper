@@ -16,6 +16,7 @@
     {"id":{"name":"scribble_external_sound_exists","path":"scripts/scribble_external_sound_exists/scribble_external_sound_exists.yy",},"order":1,},
     {"id":{"name":"idx_sky_back","path":"sprites/idx_sky_back/idx_sky_back.yy",},"order":0,},
     {"id":{"name":"__shd_scribble","path":"shaders/__shd_scribble/__shd_scribble.yy",},"order":0,},
+    {"id":{"name":"fnt_game_default","path":"fonts/fnt_game_default/fnt_game_default.yy",},"order":0,},
     {"id":{"name":"pal_ground","path":"sprites/pal_ground/pal_ground.yy",},"order":3,},
     {"id":{"name":"idx_water","path":"sprites/idx_water/idx_water.yy",},"order":0,},
     {"id":{"name":"scribble_external_sound_add","path":"scripts/scribble_external_sound_add/scribble_external_sound_add.yy",},"order":0,},
@@ -180,6 +181,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Miscellaneous","folderPath":"folders/Scribble/Miscellaneous.yy","order":5,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Quick Functions","folderPath":"folders/Scribble/Quick Functions.yy","order":6,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Superfonts","folderPath":"folders/Scribble/Superfonts.yy","order":7,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"UI","folderPath":"folders/Graphics/UI.yy","order":11,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
