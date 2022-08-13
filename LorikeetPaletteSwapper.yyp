@@ -14,6 +14,7 @@
     {"id":{"name":"spr_water_disp","path":"sprites/spr_water_disp/spr_water_disp.yy",},"order":3,},
     {"id":{"name":"LorikeetPaletteManager","path":"scripts/LorikeetPaletteManager/LorikeetPaletteManager.yy",},"order":7,},
     {"id":{"name":"idx_duck_swim_up","path":"sprites/idx_duck_swim_up/idx_duck_swim_up.yy",},"order":5,},
+    {"id":{"name":"get_palette_index_by_time","path":"scripts/get_palette_index_by_time/get_palette_index_by_time.yy",},"order":3,},
     {"id":{"name":"pal_duck_swim","path":"sprites/pal_duck_swim/pal_duck_swim.yy",},"order":9,},
     {"id":{"name":"idx_duck_swim_down","path":"sprites/idx_duck_swim_down/idx_duck_swim_down.yy",},"order":6,},
     {"id":{"name":"pal_sky_back","path":"sprites/pal_sky_back/pal_sky_back.yy",},"order":2,},

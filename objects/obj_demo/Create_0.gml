@@ -31,3 +31,5 @@ self.tilemap_ground = layer_tilemap_get_id(layer_id);
 window_set_size(1600, 900);
 surface_resize(application_surface, 1600, 900);
 application_surface_draw_enable(false);
+
+self.game_time = 0;
