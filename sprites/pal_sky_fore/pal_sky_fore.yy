@@ -13,12 +13,12 @@
   "bbox_left": 0,
   "bbox_right": 127,
   "bbox_top": 0,
-  "bbox_bottom": 2,
+  "bbox_bottom": 23,
   "HTile": false,
   "VTile": false,
   "For3D": false,
   "width": 128,
-  "height": 3,
+  "height": 24,
   "textureGroupId": {
     "name": "Default",
     "path": "texturegroups/Default",
@@ -27,7 +27,7 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"c854713f-ed21-4422-b07d-b85c6c9d75cb",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"7b204869-95cd-4a8d-a199-a450b007eb91",},
   ],
   "sequence": {
     "resourceType": "GMSequence",
@@ -44,7 +44,7 @@
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore`1","elementType":"MomentsEventKeyframe",},
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
-            {"id":"ed745ae5-2afd-44df-8dfc-a6884bf21cc6","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"c854713f-ed21-4422-b07d-b85c6c9d75cb","path":"sprites/pal_sky_fore/pal_sky_fore.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe`1","elementType":"SpriteFrameKeyframe",},
+            {"id":"26acb51e-e1ac-4025-a231-858df84ceaac","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"7b204869-95cd-4a8d-a199-a450b007eb91","path":"sprites/pal_sky_fore/pal_sky_fore.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe`1","elementType":"SpriteFrameKeyframe",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore`1","elementType":"SpriteFrameKeyframe",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
@@ -63,11 +63,11 @@
     "eventStubScript": null,
   },
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"55783331-a732-43db-b23e-74cd54e458c4","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"a8ce1f73-b701-4d1b-bf16-f5c3edfff904","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Skybox",
-    "path": "folders/Graphics/Skybox.yy",
+    "name": "Palettes",
+    "path": "folders/Graphics/Palettes.yy",
   },
 }

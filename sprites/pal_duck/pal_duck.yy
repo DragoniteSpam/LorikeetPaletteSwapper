@@ -13,12 +13,12 @@
   "bbox_left": 0,
   "bbox_right": 31,
   "bbox_top": 0,
-  "bbox_bottom": 2,
+  "bbox_bottom": 23,
   "HTile": false,
   "VTile": false,
   "For3D": false,
   "width": 32,
-  "height": 3,
+  "height": 24,
   "textureGroupId": {
     "name": "Default",
     "path": "texturegroups/Default",
@@ -27,7 +27,7 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"f104db9f-5214-4d98-aab0-8bd267e9649c",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"82bd3793-f3ab-4812-afd7-e9f0bfac835e",},
   ],
   "sequence": {
     "resourceType": "GMSequence",
@@ -44,7 +44,7 @@
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore`1","elementType":"MomentsEventKeyframe",},
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
-            {"id":"b7c2c7d7-2cb3-44e6-8dc3-c4be6df8daf8","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"f104db9f-5214-4d98-aab0-8bd267e9649c","path":"sprites/pal_duck/pal_duck.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe`1","elementType":"SpriteFrameKeyframe",},
+            {"id":"9df90bc7-738c-4618-aa1b-1f39916a024c","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"82bd3793-f3ab-4812-afd7-e9f0bfac835e","path":"sprites/pal_duck/pal_duck.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe`1","elementType":"SpriteFrameKeyframe",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore`1","elementType":"SpriteFrameKeyframe",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
@@ -63,11 +63,11 @@
     "eventStubScript": null,
   },
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"b9c7ce6f-4545-4d89-a509-414fcf942b5d","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"2b8e1fe3-f6b0-426b-9c83-935e7a1e92be","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Duck",
-    "path": "folders/Graphics/Duck.yy",
+    "name": "Palettes",
+    "path": "folders/Graphics/Palettes.yy",
   },
 }
