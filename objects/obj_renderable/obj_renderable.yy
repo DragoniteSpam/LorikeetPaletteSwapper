@@ -31,7 +31,7 @@
   ],
   "overriddenProperties": [],
   "parent": {
-    "name": "LorikeetPaletteSwapper",
-    "path": "LorikeetPaletteSwapper.yyp",
+    "name": "Objects",
+    "path": "folders/Objects.yy",
   },
 }

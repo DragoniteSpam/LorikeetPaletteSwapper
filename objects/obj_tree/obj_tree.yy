@@ -1,10 +1,10 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_player",
+  "name": "obj_tree",
   "spriteId": {
-    "name": "idx_duck_down",
-    "path": "sprites/idx_duck_down/idx_duck_down.yy",
+    "name": "idx_trees_00",
+    "path": "sprites/idx_trees_00/idx_trees_00.yy",
   },
   "solid": false,
   "visible": false,
@@ -29,7 +29,9 @@
   "physicsShapePoints": [],
   "eventList": [],
   "properties": [],
-  "overriddenProperties": [],
+  "overriddenProperties": [
+    {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","propertyId":{"name":"palette_sprite","path":"objects/obj_renderable/obj_renderable.yy",},"objectId":{"name":"obj_renderable","path":"objects/obj_renderable/obj_renderable.yy",},"value":"pal_tree_00",},
+  ],
   "parent": {
     "name": "Objects",
     "path": "folders/Objects.yy",
