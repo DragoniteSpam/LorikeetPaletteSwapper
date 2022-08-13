@@ -1,13 +1,32 @@
-if (self.direction <= 45) {
-    self.sprite_index = idx_duck_right;
-} else if (self.direction < 135) {
-    self.sprite_index = idx_duck_up;
-} else if (self.direction <= 225) {
-    self.sprite_index = idx_duck_left;
-} else if (self.direction < 315) {
-    self.sprite_index = idx_duck_down;
-} else {
-    self.sprite_index = idx_duck_right;
+switch (self.state) {
+    case EDuckStates.WALKING:
+        if (self.direction <= 45) {
+            self.sprite_index = idx_duck_right;
+        } else if (self.direction < 135) {
+            self.sprite_index = idx_duck_up;
+        } else if (self.direction <= 225) {
+            self.sprite_index = idx_duck_left;
+        } else if (self.direction < 315) {
+            self.sprite_index = idx_duck_down;
+        } else {
+            self.sprite_index = idx_duck_right;
+        }
+        self.palette_sprite = pal_duck;
+        break;
+    case EDuckStates.SWIMMING:
+        if (self.direction <= 45) {
+            self.sprite_index = idx_duck_swim_right;
+        } else if (self.direction < 135) {
+            self.sprite_index = idx_duck_swim_up;
+        } else if (self.direction <= 225) {
+            self.sprite_index = idx_duck_swim_left;
+        } else if (self.direction < 315) {
+            self.sprite_index = idx_duck_swim_down;
+        } else {
+            self.sprite_index = idx_duck_swim_right;
+        }
+        self.palette_sprite = pal_duck_swim;
+        break;
 }
 
 if (self.velocity > 0) {

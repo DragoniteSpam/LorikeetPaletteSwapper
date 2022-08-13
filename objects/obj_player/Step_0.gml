@@ -30,3 +30,9 @@ self.velocity = point_distance(0, 0, dx, dy);
 if (self.velocity > 0) {
     self.direction = point_direction(0, 0, dx, dy);
 }
+
+if (place_meeting(self.x, self.y, obj_marker_water)) {
+    self.state = EDuckStates.SWIMMING;
+} else {
+    self.state = EDuckStates.WALKING;
+}
