@@ -33,8 +33,16 @@ var layer_id = layer_get_id("Tiles_Ground");
 layer_set_visible(layer_id, false);
 self.tilemap_ground = layer_tilemap_get_id(layer_id);
 
-window_set_size(1600, 900);
-surface_resize(application_surface, 1600, 900);
+self.game_time = 0.6;   // * 24 = 3:36 PM
+
 application_surface_draw_enable(false);
 
-self.game_time = 0.65;  // * 24 = 3:36 PM
+self.SetWindow = function(w, h, fps, fullscreen) {
+    window_set_size(w, h);
+    surface_resize(application_surface, w, h);
+    game_set_speed(fps, gamespeed_fps);
+    window_set_fullscreen(fullscreen);
+};
+
+self.settings_buffer = buffer_create(1024, buffer_grow, 1);
+self.settings_buffer_load_id = buffer_load_async(self.settings_buffer, SETTINGS_FILE, 0, -1);
