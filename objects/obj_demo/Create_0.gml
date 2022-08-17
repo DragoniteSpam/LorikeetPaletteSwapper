@@ -37,12 +37,34 @@ self.game_time = 0.6;   // * 24 = 3:36 PM
 
 application_surface_draw_enable(false);
 
-self.SetWindow = function(w, h, fps, fullscreen) {
-    window_set_size(w, h);
+self.SetWindow = function(
+        w = surface_get_width(application_surface),
+        h = surface_get_height(application_surface),
+        fps = game_get_speed(gamespeed_fps),
+        fullscreen = window_get_fullscreen()
+    ) {
+    window_set_size(min(w, display_get_width()), min(h, display_get_height()));
     surface_resize(application_surface, w, h);
     game_set_speed(fps, gamespeed_fps);
     window_set_fullscreen(fullscreen);
+    display_set_gui_maximize();
+};
+
+self.SaveSettings = function() {
+    var buffer = buffer_create(1024, buffer_grow, 1);
+    buffer_write(buffer, buffer_text, json_stringify({
+        w: surface_get_width(application_surface),
+        h: surface_get_height(application_surface),
+        fps: game_get_speed(gamespeed_fps),
+        fullscreen: window_get_fullscreen(),
+    }));
+    buffer_save_async(buffer, SETTINGS_FILE, 0, buffer_tell(buffer));
+    buffer_delete(buffer);
 };
 
 self.settings_buffer = buffer_create(1024, buffer_grow, 1);
 self.settings_buffer_load_id = buffer_load_async(self.settings_buffer, SETTINGS_FILE, 0, -1);
+
+call_later(10, time_source_units_seconds, function() {
+    self.SaveSettings();
+}, true);
