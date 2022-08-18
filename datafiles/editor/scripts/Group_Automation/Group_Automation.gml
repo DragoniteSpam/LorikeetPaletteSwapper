@@ -4,6 +4,21 @@ function LorikeetAutomation() constructor {
     self.Type = function() constructor {
         self.name = "";
         self.indices = [];
+        
+        self.Index = function() constructor {
+            self.name = "";
+            self.steps = [];
+        };
+        
+        self.AddIndex = function() {
+            var index = new self.Index();
+            index.name = "Index" + string(array_length(self.indices));
+            array_push(self.indices, index);
+        };
+        
+        self.RemoveIndex = function(index) {
+            array_push(self.indices, index, 1);
+        };
     };
     
     self.AddType = function() {
