@@ -4,7 +4,6 @@ function LorikeetAutomation() constructor {
     self.Type = function() constructor {
         self.name = "";
         self.indices = [];
-        self.builtin = false;
         
         self.Index = function() constructor {
             self.name = "";

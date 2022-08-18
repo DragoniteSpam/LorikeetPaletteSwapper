@@ -19,7 +19,6 @@ self.demo_mode = EOperationModes.SELECTION;
 self.automations = new LorikeetAutomation();
 var type_day_night = self.automations.AddType();
 type_day_night.name = "Day/Night Cycle";
-type_day_night.builtin = true;
 
 enum EOperationModes {
     SELECTION,
@@ -180,7 +179,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 }))
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "type")) {
-                            self.SetInteractive(!!data.type && !data.type.builtin);
+                            self.SetInteractive(!!data.type);
                         }
                     })
                     .SetInteractive(false)
