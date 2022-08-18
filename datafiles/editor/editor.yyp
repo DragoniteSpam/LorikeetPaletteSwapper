@@ -119,6 +119,7 @@
     {"id":{"name":"__shd_scribble_bake_outline_8dir_2px","path":"shaders/__shd_scribble_bake_outline_8dir_2px/__shd_scribble_bake_outline_8dir_2px.yy",},"order":3,},
     {"id":{"name":"scribble_typewriter_add_event","path":"scripts/scribble_typewriter_add_event/scribble_typewriter_add_event.yy",},"order":7,},
     {"id":{"name":"spr_modes","path":"sprites/spr_modes/spr_modes.yy",},"order":8,},
+    {"id":{"name":"Group_Automation","path":"scripts/Group_Automation/Group_Automation.yy",},"order":9,},
     {"id":{"name":"__shd_scribble_bake_outline_8dir","path":"shaders/__shd_scribble_bake_outline_8dir/__shd_scribble_bake_outline_8dir.yy",},"order":2,},
     {"id":{"name":"scribble_font_combine","path":"scripts/scribble_font_combine/scribble_font_combine.yy",},"order":5,},
     {"id":{"name":"spr_emu_checkbox_border","path":"sprites/spr_emu_checkbox_border/spr_emu_checkbox_border.yy",},"order":5,},
