@@ -584,7 +584,12 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 #endregion
             ])
             .AddDefaultConfirmCancelButtons("Apply", function() {
-                
+                var type = self.GetSibling("TYPE LIST").GetSelectedItem();
+                if (type) {
+                    var new_palette = type.Execute(obj_demo.demo_palette.data[0]);
+                    obj_demo.demo_palette.data = new_palette;
+                    obj_demo.demo_palette.Refresh();
+                }
                 self.root.Close();
             }, "Close", function() {
                 self.root.Close();

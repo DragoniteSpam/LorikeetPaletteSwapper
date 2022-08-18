@@ -23,12 +23,18 @@ function LorikeetAutomation() constructor {
                 self.name = "Shift Left 1";
                 self.count = 1;
                 self.id = EAutomationStepTypes.SHIFT_LEFT;
+                
+                self.Execute = function(palette) {
+                };
             };
             
             self.StepShiftRight = function() constructor {
                 self.name = "Shift Right 1";
                 self.count = 1;
                 self.id = EAutomationStepTypes.SHIFT_RIGHT;
+                
+                self.Execute = function(palette) {
+                };
             };
             
             self.StepHSV = function() constructor {
@@ -37,6 +43,9 @@ function LorikeetAutomation() constructor {
                 self.sat = 0;
                 self.val = 0;
                 self.id = EAutomationStepTypes.HSV;
+                
+                self.Execute = function(palette) {
+                };
             };
             
             self.StepHSVPercent = function() constructor {
@@ -45,6 +54,9 @@ function LorikeetAutomation() constructor {
                 self.sat = 1;
                 self.val = 1;
                 self.id = EAutomationStepTypes.HSV_PERCENT;
+                
+                self.Execute = function(palette) {
+                };
             };
             
             self.StepColor = function() constructor {
@@ -53,6 +65,9 @@ function LorikeetAutomation() constructor {
                 self.g = 0;
                 self.b = 0;
                 self.id = EAutomationStepTypes.COLOR;
+                
+                self.Execute = function(palette) {
+                };
             };
             
             self.StepColorPercent = function() constructor {
@@ -61,6 +76,9 @@ function LorikeetAutomation() constructor {
                 self.g = 1;
                 self.b = 1;
                 self.id = EAutomationStepTypes.COLOR_PERCENT;
+                
+                self.Execute = function(palette) {
+                };
             };
             
             self.choices = [
@@ -71,6 +89,12 @@ function LorikeetAutomation() constructor {
                 self.StepColor,
                 self.StepColorPercent,
             ];
+            
+            self.Execute = function(palette) {
+                for (var i = 0, n = array_length(self.steps); i < n; i++) {
+                    self.steps[i].Execute(palette);
+                }
+            };
         };
         
         self.AddIndex = function() {
@@ -82,6 +106,18 @@ function LorikeetAutomation() constructor {
         
         self.RemoveIndex = function(index) {
             array_delete(self.indices, index, 1);
+        };
+        
+        self.Execute = function(source_palette) {
+            var new_palette = array_create(array_length(self.indices));
+            
+            for (var i = 0, n = array_length(self.indices); i < n; i++) {
+                new_palette[i] = array_create(array_length(source_palette));
+                array_copy(new_palette[i], 0, source_palette, 0, array_length(source_palette));
+                self.indices[i].Execute(new_palette[i]);
+            }
+            
+            return new_palette;
         };
     };
     
