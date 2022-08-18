@@ -11,7 +11,9 @@ function LorikeetAutomation() constructor {
             self.steps = [];
             
             self.AddStep = function(type) {
-                array_push(self.steps, new type());
+                var addition = new type();
+                array_push(self.steps, addition);
+                return addition;
             };
             
             self.RemoveStep = function(index) {
@@ -38,6 +40,14 @@ function LorikeetAutomation() constructor {
                 self.id = EAutomationStepTypes.HSV;
             };
             
+            self.StepHSVPercent = function() constructor {
+                self.name = "HSV: 1.00/1.00/1.00";
+                self.hue = 1;
+                self.sat = 1;
+                self.val = 1;
+                self.id = EAutomationStepTypes.HSV_PERCENT;
+            };
+            
             self.StepColor = function() constructor {
                 self.name = "Color: 0/0/0";
                 self.r = 0;
@@ -46,11 +56,21 @@ function LorikeetAutomation() constructor {
                 self.id = EAutomationStepTypes.COLOR;
             };
             
+            self.StepColorPercent = function() constructor {
+                self.name = "Color: 1.00/1.00/1.00";
+                self.r = 1;
+                self.g = 1;
+                self.b = 1;
+                self.id = EAutomationStepTypes.COLOR_PERCENT;
+            };
+            
             self.choices = [
                 self.StepShiftLeft,
                 self.StepShiftRight,
                 self.StepHSV,
+                self.StepHSVPercent,
                 self.StepColor,
+                self.StepColorPercent,
             ];
         };
         
@@ -82,5 +102,7 @@ enum EAutomationStepTypes {
     SHIFT_LEFT,
     SHIFT_RIGHT,
     HSV,
+    HSV_PERCENT,
     COLOR,
+    COLOR_PERCENT,
 }

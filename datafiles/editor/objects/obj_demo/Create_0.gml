@@ -310,17 +310,21 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     
                     self.GetSibling("PANEL:SHIFT").SetEnabled(false);
                     self.GetSibling("PANEL:HSV").SetEnabled(false);
+                    self.GetSibling("PANEL:HSVPERCENT").SetEnabled(false);
                     self.GetSibling("PANEL:COLORS").SetEnabled(false);
+                    self.GetSibling("PANEL:COLORSPERCENT").SetEnabled(false);
                     
                     switch (self.value) {
                         case EAutomationStepTypes.SHIFT_LEFT: self.GetSibling("PANEL:SHIFT").SetEnabled(true).Refresh(refresh_data); break;
                         case EAutomationStepTypes.SHIFT_RIGHT: self.GetSibling("PANEL:SHIFT").SetEnabled(true).Refresh(refresh_data); break;
                         case EAutomationStepTypes.HSV: self.GetSibling("PANEL:HSV").SetEnabled(true).Refresh(refresh_data); break;
+                        case EAutomationStepTypes.HSV_PERCENT: self.GetSibling("PANEL:HSVPERCENT").SetEnabled(true).Refresh(refresh_data); break;
                         case EAutomationStepTypes.COLOR: self.GetSibling("PANEL:COLORS").SetEnabled(true).Refresh(refresh_data); break;
+                        case EAutomationStepTypes.COLOR_PERCENT: self.GetSibling("PANEL:COLORSPERCENT").SetEnabled(true).Refresh(refresh_data); break;
                     }
                 }))
                     .AddOptions([
-                        "Shift Left", "Shift Right", "Edit HSV", "Edit Colors",
+                        "Shift Left", "Shift Right", "Edit HSV", "Edit HSV (Percent)", "Edit Colors", "Edit Colors (Percent)",
                     ])
                     .SetRefresh(function(data) {
                         self.SetInteractive(false);
@@ -356,7 +360,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     .AddContent([
                         (new EmuInput(c1, EMU_BASE, ew, eh, "Hue:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
                             self.data.hue = real(self.value);
-                            self.data.name = "HSV: " + string(self.data.hue) + "/" + string(self.data.sat) + "/" + string(self.data.val);
+                            self.root.name_update_cb(self.data);
                         }))
                         .SetRealNumberBounds(-180, 180)
                         .SetRefresh(function(data) {
@@ -367,7 +371,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                         }),
                         (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "-100 to +100", 4, E_InputTypes.INT, function() {
                             self.data.sat = real(self.value);
-                            self.data.name = "HSV: " + string(self.data.hue) + "/" + string(self.data.sat) + "/" + string(self.data.val);
+                            self.root.name_update_cb(self.data);
                         }))
                         .SetRealNumberBounds(-100, 100)
                         .SetRefresh(function(data) {
@@ -376,9 +380,9 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                                 self.SetValue(self.data.sat);
                             }
                         }),
-                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "-180 to + 180", 4, E_InputTypes.INT, function() {
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
                             self.data.val = real(self.value);
-                            self.data.name = "HSV: " + string(self.data.hue) + "/" + string(self.data.sat) + "/" + string(self.data.val);
+                            self.root.name_update_cb(self.data);
                         }))
                         .SetRealNumberBounds(-100, 100)
                         .SetRefresh(function(data) {
@@ -390,17 +394,156 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     ])
                     .SetRefresh(function() {
                         self.override_root_check = true;
+                        self.name_update_cb = method(self, function(data) {
+                            data.name = "HSV: " +
+                                (data.hue > 0 ? "+" : "") + string(data.hue) + "/" +
+                                (data.sat > 0 ? "+" : "") + string(data.sat) + "/" +
+                                (data.val > 0 ? "+" : "") + string(data.val);
+                        });
                     })
                     .SetEnabled(false)
                     .SetID("PANEL:HSV"),
                 (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
                     .AddContent([
+                        (new EmuInput(c1, EMU_BASE, ew, eh, "Hue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                            self.data.hue = real(self.value);
+                            self.root.name_update_cb(self.data);
+                        }))
+                        .SetRealNumberBounds(0, 10)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.hue);
+                            }
+                        }),
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                            self.data.sat = real(self.value);
+                            self.root.name_update_cb(self.data);
+                        }))
+                        .SetRealNumberBounds(0, 10)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.sat);
+                            }
+                        }),
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                            self.data.val = real(self.value);
+                            self.root.name_update_cb(self.data);
+                        }))
+                        .SetRealNumberBounds(0, 10)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.val);
+                            }
+                        })
                     ])
                     .SetRefresh(function() {
                         self.override_root_check = true;
+                        self.name_update_cb = method(self, function(data) {
+                            data.name = "HSV: " +
+                                string_format(data.hue, 1, 2) + "/" +
+                                string_format(data.sat, 1, 2) + "/" +
+                                string_format(data.val, 1, 2);
+                        });
+                    })
+                    .SetEnabled(false)
+                    .SetID("PANEL:HSVPERCENT"),
+                (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+                    .AddContent([
+                        (new EmuInput(c1, EMU_BASE, ew, eh, "Red:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
+                            self.data.r = real(self.value);
+                            self.root.name_update_cb(self.data);
+                        }))
+                        .SetRealNumberBounds(-255, 255)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.r);
+                            }
+                        }),
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Green:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
+                            self.data.g = real(self.value);
+                            self.root.name_update_cb(self.data);
+                        }))
+                        .SetRealNumberBounds(-255, 255)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.g);
+                            }
+                        }),
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Blue:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
+                            self.data.b = real(self.value);
+                            self.root.name_update_cb(self.data);
+                        }))
+                        .SetRealNumberBounds(-255, 255)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.b);
+                            }
+                        }),
+                    ])
+                    .SetRefresh(function() {
+                        self.override_root_check = true;
+                        self.name_update_cb = method(self, function(data) {
+                            data.name = "RGB: " +
+                                (data.r > 0 ? "+" : "-") + string(data.r) + "/" +
+                                (data.g > 0 ? "+" : "-") + string(data.g) + "/" +
+                                (data.b > 0 ? "+" : "-") + string(data.b);
+                        });
                     })
                     .SetEnabled(false)
                     .SetID("PANEL:COLORS"),
+                (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+                    .AddContent([
+                        (new EmuInput(c1, EMU_BASE, ew, eh, "Red:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                            self.data.r = real(self.value);
+                            self.root.name_update_cb(self.data);
+                        }))
+                        .SetRealNumberBounds(0, 10)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.r);
+                            }
+                        }),
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Green:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                            self.data.g = real(self.value);
+                            self.root.name_update_cb(self.data);
+                        }))
+                        .SetRealNumberBounds(0, 10)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.g);
+                            }
+                        }),
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Blue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                            self.data.b = real(self.value);
+                            self.root.name_update_cb(self.data);
+                        }))
+                        .SetRealNumberBounds(0, 10)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.b);
+                            }
+                        }),
+                    ])
+                    .SetRefresh(function() {
+                        self.override_root_check = true;
+                        self.name_update_cb = method(self, function(data) {
+                            data.name = "RGB: " +
+                                string_format(data.r, 1, 2) + "/" +
+                                string_format(data.g, 1, 2) + "/" +
+                                string_format(data.b, 1, 2);
+                        });
+                    })
+                    .SetEnabled(false)
+                    .SetID("PANEL:COLORSPERCENT"),
                 #endregion
             ])
             .AddDefaultConfirmCancelButtons("Apply", function() {
