@@ -51,6 +51,7 @@ function LorikeetAutomation() constructor {
                 self.id = EAutomationStepTypes.HSV;
                 
                 self.Execute = function(palette) {
+                    operation_update_hsv(palette, self.hue, self.sat, self.val);
                 };
             };
             
@@ -62,6 +63,7 @@ function LorikeetAutomation() constructor {
                 self.id = EAutomationStepTypes.HSV_PERCENT;
                 
                 self.Execute = function(palette) {
+                    operation_update_hsv_percent(palette, self.hue, self.sat, self.val);
                 };
             };
             
@@ -73,6 +75,7 @@ function LorikeetAutomation() constructor {
                 self.id = EAutomationStepTypes.COLOR;
                 
                 self.Execute = function(palette) {
+                    operation_update_rgb(palette, self.r, self.g, self.b);
                 };
             };
             
@@ -84,6 +87,7 @@ function LorikeetAutomation() constructor {
                 self.id = EAutomationStepTypes.COLOR_PERCENT;
                 
                 self.Execute = function(palette) {
+                    operation_update_rgb_percent(palette, self.r, self.g, self.b);
                 };
             };
             
