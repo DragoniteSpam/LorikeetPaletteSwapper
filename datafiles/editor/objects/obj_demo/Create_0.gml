@@ -256,6 +256,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 (new EmuList(c3, EMU_BASE, ew, eh, "Steps:", eh, 10, function() {
                     if (!self.root) return;
                     self.root.Refresh({ step_number: self.GetSelection(), slot: self.GetSibling("SLOTS").GetSelectedItem() });
+                    self.GetSibling("SLOT OPERATION TYPE").callback();
                 }))
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "index")) {
@@ -297,8 +298,14 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 #region column 4
                 (new EmuRadioArray(c4, EMU_BASE, ew, eh, "Operation type:", 0, function() {
                     var slot = self.GetSibling("SLOTS").GetSelectedItem();
+                    if (!slot) return;
                     var step_number = self.GetSibling("STEPS").GetSelection();
-                    slot.steps[step_number] = new slot.choices[self.value]();
+                    if (step_number == -1) return;
+                    
+                    if (self.value != slot.steps[step_number].id) {
+                        slot.steps[step_number] = new slot.choices[self.value]();
+                    }
+                    
                     var refresh_data = { data: slot.steps[step_number] };
                     
                     self.GetSibling("PANEL:SHIFT").SetEnabled(false);
@@ -328,7 +335,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     .SetID("SLOT OPERATION TYPE"),
                 (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
                     .AddContent([
-                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Places:", 0, "Number of places to shift", 3, E_InputTypes.INT, function() {
+                        (new EmuInput(c1, EMU_BASE, ew, eh, "Places:", 0, "Number of places to shift", 3, E_InputTypes.INT, function() {
                             self.data.count = real(self.value);
                             self.data.name = ((self.data.id == EAutomationStepTypes.SHIFT_LEFT) ? "Shift Left " : "Shift Right ") + string(self.value);
                         }))
@@ -345,15 +352,48 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     })
                     .SetEnabled(false)
                     .SetID("PANEL:SHIFT"),
-                (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
+                (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
                     .AddContent([
+                        (new EmuInput(c1, EMU_BASE, ew, eh, "Hue:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
+                            self.data.hue = real(self.value);
+                            self.data.name = "HSV: " + string(self.data.hue) + "/" + string(self.data.sat) + "/" + string(self.data.val);
+                        }))
+                        .SetRealNumberBounds(-180, 180)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.hue);
+                            }
+                        }),
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "-100 to +100", 4, E_InputTypes.INT, function() {
+                            self.data.sat = real(self.value);
+                            self.data.name = "HSV: " + string(self.data.hue) + "/" + string(self.data.sat) + "/" + string(self.data.val);
+                        }))
+                        .SetRealNumberBounds(-100, 100)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.sat);
+                            }
+                        }),
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "-180 to + 180", 4, E_InputTypes.INT, function() {
+                            self.data.val = real(self.value);
+                            self.data.name = "HSV: " + string(self.data.hue) + "/" + string(self.data.sat) + "/" + string(self.data.val);
+                        }))
+                        .SetRealNumberBounds(-100, 100)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(self.data.val);
+                            }
+                        })
                     ])
                     .SetRefresh(function() {
                         self.override_root_check = true;
                     })
                     .SetEnabled(false)
                     .SetID("PANEL:HSV"),
-                (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
+                (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
                     .AddContent([
                     ])
                     .SetRefresh(function() {
