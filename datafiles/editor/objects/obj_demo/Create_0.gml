@@ -801,26 +801,12 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }),
     new EmuButton(32 + 32 + 32 + ew + 762, EMU_AUTO, 384 / 2, eh, "Shift Left", function() {
         var data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
-        var value0 = data[0];
-        array_delete(data, 0, 1);
-        array_push(data, -1);
-        for (var i = 0, n = array_length(data); i < n; i++) {
-            if (data[i] == -1) {
-                data[i] = value0;
-                break;
-            }
-        }
+        operation_shift_left(data);
         obj_demo.demo_palette.Refresh();
     }),
     new EmuButton(32 + 32 + 32 + ew + 762 + 384 / 2, EMU_INLINE, 384 / 2, eh, "Shift Right", function() {
         var data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
-        for (var i = array_length(data) - 1; i >= 0; i--) {
-            if (data[i] != -1) {
-                array_insert(data, 0, data[i]);
-                array_delete(data, i + 1, 1);
-                break;
-            }
-        }
+        operation_shift_right(data);
         obj_demo.demo_palette.Refresh();
     }),
     new EmuButton(32 + 32 + 32 + ew + 762, EMU_AUTO, 384 / 2, eh, "Hue/Sat/Value", function() {

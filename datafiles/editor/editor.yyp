@@ -105,6 +105,7 @@
     {"id":{"name":"__scribble_gen_2_parser","path":"scripts/__scribble_gen_2_parser/__scribble_gen_2_parser.yy",},"order":1,},
     {"id":{"name":"EmuDialog","path":"scripts/EmuDialog/EmuDialog.yy",},"order":5,},
     {"id":{"name":"draw_text_scribble","path":"scripts/draw_text_scribble/draw_text_scribble.yy",},"order":0,},
+    {"id":{"name":"Group_Palette_Operations","path":"scripts/Group_Palette_Operations/Group_Palette_Operations.yy",},"order":10,},
     {"id":{"name":"__scribble_config_colours","path":"scripts/__scribble_config_colours/__scribble_config_colours.yy",},"order":1,},
     {"id":{"name":"scribble_is_text_element","path":"scripts/scribble_is_text_element/scribble_is_text_element.yy",},"order":6,},
     {"id":{"name":"EmuCheckbox","path":"scripts/EmuCheckbox/EmuCheckbox.yy",},"order":4,},

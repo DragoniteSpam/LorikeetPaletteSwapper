@@ -25,6 +25,9 @@ function LorikeetAutomation() constructor {
                 self.id = EAutomationStepTypes.SHIFT_LEFT;
                 
                 self.Execute = function(palette) {
+                    repeat (self.count) {
+                        operation_shift_left(palette);
+                    }
                 };
             };
             
@@ -34,6 +37,9 @@ function LorikeetAutomation() constructor {
                 self.id = EAutomationStepTypes.SHIFT_RIGHT;
                 
                 self.Execute = function(palette) {
+                    repeat (self.count) {
+                        operation_shift_right(palette);
+                    }
                 };
             };
             
