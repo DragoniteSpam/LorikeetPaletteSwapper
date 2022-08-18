@@ -273,7 +273,6 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     index.AddStep(index.StepColor);
                 }))
                     .SetRefresh(function(data) {
-                        self.SetInteractive(false);
                         if (variable_struct_exists(data, "index")) {
                             self.SetInteractive(!!data.index);
                         }
@@ -302,14 +301,15 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     slot.steps[step_number] = new slot.choices[self.value]();
                     var refresh_data = { data: slot.steps[step_number] };
                     
+                    self.GetSibling("PANEL:SHIFT").SetEnabled(false);
                     self.GetSibling("PANEL:HSV").SetEnabled(false);
-                    self.GetSibling("PANEL:COLOR").SetEnabled(false);
+                    self.GetSibling("PANEL:COLORS").SetEnabled(false);
                     
                     switch (self.value) {
-                        case EAutomationStepTypes.SHIFT_LEFT: break;
-                        case EAutomationStepTypes.SHIFT_RIGHT: break;
+                        case EAutomationStepTypes.SHIFT_LEFT: self.GetSibling("PANEL:SHIFT").SetEnabled(true).Refresh(refresh_data); break;
+                        case EAutomationStepTypes.SHIFT_RIGHT: self.GetSibling("PANEL:SHIFT").SetEnabled(true).Refresh(refresh_data); break;
                         case EAutomationStepTypes.HSV: self.GetSibling("PANEL:HSV").SetEnabled(true).Refresh(refresh_data); break;
-                        case EAutomationStepTypes.COLOR: self.GetSibling("PANEL:COLOR").SetEnabled(true).Refresh(refresh_data); break;
+                        case EAutomationStepTypes.COLOR: self.GetSibling("PANEL:COLORS").SetEnabled(true).Refresh(refresh_data); break;
                     }
                 }))
                     .AddOptions([
@@ -328,12 +328,37 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     .SetID("SLOT OPERATION TYPE"),
                 (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
                     .AddContent([
+                        (new EmuInput(c1, EMU_AUTO, ew, eh, "Places:", 0, "Number of places to shift", 3, E_InputTypes.INT, function() {
+                            self.data.count = real(self.value);
+                            self.data.name = ((self.data.id == EAutomationStepTypes.SHIFT_LEFT) ? "Shift Left " : "Shift Right ") + string(self.value);
+                        }))
+                        .SetRealNumberBounds(0, 255)
+                        .SetRefresh(function(data) {
+                            if (variable_struct_exists(data, "data")) {
+                                self.data = data.data;
+                                self.SetValue(data.data.count);
+                            }
+                        })
                     ])
+                    .SetRefresh(function() {
+                        self.override_root_check = true;
+                    })
+                    .SetEnabled(false)
+                    .SetID("PANEL:SHIFT"),
+                (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
+                    .AddContent([
+                    ])
+                    .SetRefresh(function() {
+                        self.override_root_check = true;
+                    })
                     .SetEnabled(false)
                     .SetID("PANEL:HSV"),
                 (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
                     .AddContent([
                     ])
+                    .SetRefresh(function() {
+                        self.override_root_check = true;
+                    })
                     .SetEnabled(false)
                     .SetID("PANEL:COLORS"),
                 #endregion
