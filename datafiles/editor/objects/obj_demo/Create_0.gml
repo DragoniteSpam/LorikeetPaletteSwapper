@@ -16,6 +16,11 @@ self.demo_force_full_palettes = false;                                          
 
 self.demo_mode = EOperationModes.SELECTION;
 
+self.automations = new LorikeetAutomation();
+var type_day_night = self.automations.AddType();
+type_day_night.name = "Day/Night Cycle";
+type_day_night.builtin = true;
+
 enum EOperationModes {
     SELECTION,
     EYEDROPPER,
@@ -155,32 +160,97 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var c3 = 32 + 320 + 32 + 320 + 32;
         (new EmuDialog(c3 + 320 + 32, 544, "Palette Automation"))
             .AddContent([
-                // column 1
+                #region column 1
                 (new EmuList(c1, EMU_AUTO, ew, eh, "Automation types:", eh, 10, function() {
+                    if (!self.root) return;
+                    self.root.Refresh({ type: self.GetSelectedItem() });
                 }))
+                    .SetEntryTypes(E_ListEntryTypes.STRUCTS)
+                    .SetList(obj_demo.automations.types)
                     .SetID("TYPE LIST"),
                 (new EmuButton(c1 + 0 * ew / 2, EMU_AUTO, ew / 2, eh, "Add Type", function() {
+                    obj_demo.automations.AddType();
                 }))
                     .SetID("ADD TYPE"),
                 (new EmuButton(c1 + 1 * ew / 2, EMU_INLINE, ew / 2, eh, "Delete Type", function() {
+                    var index = self.GetSibling("TYPE LIST").GetSelection();
+                    obj_demo.automations.RemoveType(index);
+                    self.GetSibling("TYPE LIST").ClearSelection();
                 }))
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "type")) {
+                            self.SetInteractive(!!data.type && !data.type.builtin);
+                        }
+                    })
+                    .SetInteractive(false)
                     .SetID("DELETE TYPE"),
                 (new EmuInput(c1, EMU_AUTO, ew, eh, "Name:", "", "Automation name", 16, E_InputTypes.STRING, function() {
+                    self.GetSibling("TYPE LIST").GetSelectedItem().name = self.value;
                 }))
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "type")) {
+                            self.SetInteractive(!!data.type);
+                            if (data.type) {
+                                self.SetValue(data.type.name);
+                            }
+                        }
+                    })
+                    .SetInteractive(false)
                     .SetID("TYPE NAME"),
-                // column 2
+                #endregion
+                #region column 2
                 (new EmuList(c2, EMU_BASE, ew, eh, "Palette indices:", eh, 10, function() {
+                    if (!self.root) return;
+                    self.root.Refresh({ index: self.GetSelectedItem() });
                 }))
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "type")) {
+                            self.SetInteractive(!!data.type);
+                            if (data.type && data.type.indices != self.entries) {
+                                self.SetList(data.type.indices);
+                            }
+                        }
+                    })
+                    .SetEntryTypes(E_ListEntryTypes.STRUCTS)
+                    .SetInteractive(false)
                     .SetID("SLOTS"),
                 (new EmuButton(c2 + 0 * ew / 2, EMU_AUTO, ew / 2, eh, "Add index", function() {
+                    self.GetSibling("TYPE LIST").GetSelectedItem().AddIndex();
                 }))
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "type")) {
+                            self.SetInteractive(!!data.type);
+                        }
+                    })
+                    .SetInteractive(false)
                     .SetID("ADD SLOT"),
                 (new EmuButton(c2 + 1 * ew / 2, EMU_INLINE, ew / 2, eh, "Delete index", function() {
+                    var type = self.GetSibling("TYPE LIST").GetSelectedItem();
+                    var index = self.GetSibling("SLOTS").GetSelection();
+                    type.RemoveIndex(index);
+                    self.GetSibling("SLOTS").ClearSelection();
                 }))
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "index")) {
+                            self.SetInteractive(!!data.index && (array_length(self.GetSibling("TYPE LIST").GetSelectedItem().indices) > 0));
+                        }
+                    })
+                    .SetInteractive(false)
                     .SetID("DELETE SLOT"),
                 (new EmuInput(c2, EMU_AUTO, ew, eh, "Name:", "", "Index name", 16, E_InputTypes.STRING, function() {
+                    self.GetSibling("SLOTS").GetSelectedItem().name = self.value;
                 }))
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "index")) {
+                            self.SetInteractive(!!data.index);
+                            if (data.index) {
+                                self.SetValue(data.index.name);
+                            }
+                        }
+                    })
+                    .SetInteractive(false)
                     .SetID("SLOT NAME"),
+                #endregion
                 // column 3
                 (new EmuRadioArray(c3, EMU_BASE, ew, eh, "Operation type:", 0, function() {
                 }))

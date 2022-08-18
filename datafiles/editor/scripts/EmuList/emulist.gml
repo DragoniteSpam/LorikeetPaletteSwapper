@@ -37,9 +37,11 @@ function EmuList(x, y, width, header_height, text, element_height, content_slots
     };
     
     self.SetList = function(array) {
-        self.entries = array;
-        self.own_entries = false;
-        self.ClearSelection();
+        if (array != self.entries) {
+            self.entries = array;
+            self.own_entries = false;
+            self.ClearSelection();
+        }
         return self;
     };
     

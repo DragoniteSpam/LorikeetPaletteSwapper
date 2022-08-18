@@ -4,6 +4,7 @@ function LorikeetAutomation() constructor {
     self.Type = function() constructor {
         self.name = "";
         self.indices = [];
+        self.builtin = false;
         
         self.Index = function() constructor {
             self.name = "";
@@ -38,12 +39,13 @@ function LorikeetAutomation() constructor {
         
         self.AddIndex = function() {
             var index = new self.Index();
-            index.name = "Index" + string(array_length(self.indices));
+            index.name = "PaletteIndex" + string(array_length(self.indices));
             array_push(self.indices, index);
+            return index;
         };
         
         self.RemoveIndex = function(index) {
-            array_push(self.indices, index, 1);
+            array_delete(self.indices, index, 1);
         };
     };
     
@@ -51,6 +53,7 @@ function LorikeetAutomation() constructor {
         var type = new self.Type();
         type.name = "Type" + string(array_length(self.types));
         array_push(self.types, type);
+        return type;
     };
     
     self.RemoveType = function(index) {
