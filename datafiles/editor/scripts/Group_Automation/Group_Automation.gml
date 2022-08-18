@@ -8,6 +8,32 @@ function LorikeetAutomation() constructor {
         self.Index = function() constructor {
             self.name = "";
             self.steps = [];
+            
+            self.AddStep = function(type) {
+                array_push(self.steps, new type());
+            };
+            
+            self.RemoveType = function(index) {
+                array_delete(self.steps, index, 1);
+            };
+            
+            self.StepShiftLeft = function() constructor {
+            };
+            
+            self.StepShiftRight = function() constructor {
+            };
+            
+            self.StepHSV = function() constructor {
+                self.hue = 0;
+                self.sat = 0;
+                self.val = 0;
+            };
+            
+            self.StepColor = function() constructor {
+                self.r = 0;
+                self.g = 0;
+                self.b = 0;
+            };
         };
         
         self.AddIndex = function() {
