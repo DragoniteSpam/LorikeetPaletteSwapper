@@ -158,7 +158,8 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var c1 = 32;
         var c2 = 32 + 320 + 32;
         var c3 = 32 + 320 + 32 + 320 + 32;
-        (new EmuDialog(c3 + 320 + 32, 544, "Palette Automation"))
+        var c4 = 32 + 320 + 32 + 320 + 32 + 320 + 32;
+        (new EmuDialog(c4 + 320 + 32, 544, "Palette Automation"))
             .AddContent([
                 #region column 1
                 (new EmuList(c1, EMU_AUTO, ew, eh, "Automation types:", eh, 10, function() {
@@ -251,23 +252,65 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     .SetInteractive(false)
                     .SetID("SLOT NAME"),
                 #endregion
-                // column 3
-                (new EmuRadioArray(c3, EMU_BASE, ew, eh, "Operation type:", 0, function() {
+                #region column 3
+                (new EmuList(c3, EMU_BASE, ew, eh, "Steps:", eh, 10, function() {
+                    if (!self.root) return;
+                    self.root.Refresh({ step_number: self.GetSelection() });
+                }))
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "index")) {
+                            self.SetInteractive(!!data.index);
+                            if (data.index && data.index.steps != self.entries) {
+                                self.SetList(data.index.steps);
+                            }
+                        }
+                    })
+                    .SetEntryTypes(E_ListEntryTypes.STRUCTS)
+                    .SetInteractive(false)
+                    .SetID("STEPS"),
+                (new EmuButton(c3 + 0 * ew / 2, EMU_AUTO, ew / 2, eh, "Add step", function() {
+                    var index = self.GetSibling("SLOTS").GetSelectedItem();
+                    index.AddStep(index.StepColor);
+                }))
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "index")) {
+                            self.SetInteractive(!!data.index);
+                        }
+                    })
+                    .SetInteractive(false)
+                    .SetID("ADD STEP"),
+                (new EmuButton(c3 + 1 * ew / 2, EMU_INLINE, ew / 2, eh, "Delete step", function() {
+                    var index = self.GetSibling("SLOTS").GetSelectedItem();
+                    var step = self.GetSibling("STEPS").GetSelection();
+                    index.RemoveStep(step);
+                    self.GetSibling("STEPS").ClearSelection();
+                }))
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "step_number")) {
+                            self.SetInteractive(data.step_number > -1 && (array_length(self.GetSibling("SLOTS").GetSelectedItem().steps) > 0));
+                        }
+                    })
+                    .SetInteractive(false)
+                    .SetID("DELETE STEP"),
+                #endregion
+                #region column 4
+                (new EmuRadioArray(c4, EMU_BASE, ew, eh, "Operation type:", 0, function() {
                 }))
                     .AddOptions([
                         "Shift Left", "Shift Right", "Edit HSV", "Edit Colors",
                     ])
                     .SetID("SLOT OPERATION TYPE"),
-                (new EmuCore(c3 - 32, EMU_AUTO, ew, ew))
+                (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
                     .AddContent([
                     ])
                     .SetEnabled(false)
                     .SetID("PANEL:HSV"),
-                (new EmuCore(c3 - 32, EMU_AUTO, ew, ew))
+                (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
                     .AddContent([
                     ])
                     .SetEnabled(false)
                     .SetID("PANEL:COLORS"),
+                #endregion
             ])
             .AddDefaultConfirmCancelButtons("Apply", function() {
                 

@@ -14,23 +14,29 @@ function LorikeetAutomation() constructor {
                 array_push(self.steps, new type());
             };
             
-            self.RemoveType = function(index) {
+            self.RemoveStep = function(index) {
                 array_delete(self.steps, index, 1);
             };
             
             self.StepShiftLeft = function() constructor {
+                self.name = "Shift Left 1";
+                self.count = 1;
             };
             
             self.StepShiftRight = function() constructor {
+                self.name = "Shift Right 1";
+                self.count = 1;
             };
             
             self.StepHSV = function() constructor {
+                self.name = "HSV: 0/0/0";
                 self.hue = 0;
                 self.sat = 0;
                 self.val = 0;
             };
             
             self.StepColor = function() constructor {
+                self.name = "Color: 0/0/0";
                 self.r = 0;
                 self.g = 0;
                 self.b = 0;
