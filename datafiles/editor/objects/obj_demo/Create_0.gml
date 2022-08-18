@@ -19,6 +19,44 @@ self.demo_mode = EOperationModes.SELECTION;
 self.automations = new LorikeetAutomation();
 var type_day_night = self.automations.AddType();
 type_day_night.name = "Day/Night Cycle";
+var index_names = [
+    "12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM",
+    "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"
+];
+var index_exponents = [
+    { r: power(0.75, 5), g: power(0.875, 5) },
+    { r: power(0.75, 5), g: power(0.875, 5) },
+    { r: power(0.75, 5), g: power(0.875, 5) },
+    { r: power(0.75, 5), g: power(0.875, 5) },
+    { r: power(0.75, 4), g: power(0.875, 4) },
+    { r: power(0.75, 3), g: power(0.875, 3) },
+    { r: power(0.75, 2), g: power(0.875, 2) },
+    { r: power(0.75, 1), g: power(0.875, 1) },
+    { r: 1, g: 1 },
+    { r: 1, g: 1 },
+    { r: 1, g: 1 },
+    { r: 1, g: 1 },
+    { r: 1, g: 1 },
+    { r: 1, g: 1 },
+    { r: 1, g: 1 },
+    { r: 1, g: 1 },
+    { r: 1, g: 1 },
+    { r: 1, g: 1 },
+    { r: power(0.75, 1), g: power(0.875, 1) },
+    { r: power(0.75, 2), g: power(0.875, 2) },
+    { r: power(0.75, 3), g: power(0.875, 3) },
+    { r: power(0.75, 4), g: power(0.875, 4) },
+    { r: power(0.75, 5), g: power(0.875, 5) },
+    { r: power(0.75, 5), g: power(0.875, 5) },
+];
+for (var i = 0; i < 24; i++) {
+    var index = type_day_night.AddIndex();
+    var step = index.AddStep(index.StepColorPercent);
+    index.name = index_names[i];
+    step.r = index_exponents[i].r;
+    step.g = index_exponents[i].g;
+    step.name = "Color: " + string_format(step.r, 1, 2) + "/" + string_format(step.g, 1, 2) + "/" + string_format(step.g, 1, 2);
+}
 
 enum EOperationModes {
     SELECTION,
