@@ -140,12 +140,72 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             obj_demo.demo_palette_index = row;
         }
     }, emu_null),
-    (new EmuButton(32, EMU_AUTO, ew / 2, eh, "Add row", function() {
+    (new EmuButton(32, EMU_AUTO, ew / 3, eh, "Add row", function() {
         obj_demo.demo_palette.AddPaletteRow(obj_demo.demo_palette_index);
     })),
-    (new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Delete row", function() {
+    (new EmuButton(32 + ew / 3, EMU_INLINE, ew / 3, eh, "Delete row", function() {
         obj_demo.demo_palette.RemovePaletteRow(obj_demo.demo_palette_index);
         obj_demo.demo_palette_index = min(obj_demo.demo_palette_index, array_length(obj_demo.demo_palette.data) - 1);
+    })),
+    (new EmuButton(32 + 2 * ew / 3, EMU_INLINE, ew / 3, eh, "Auto", function() {
+        var ew = 320;
+        var eh = 32;
+        var c1 = 32;
+        var c2 = 32 + 320 + 32;
+        var c3 = 32 + 320 + 32 + 320 + 32;
+        (new EmuDialog(c3 + 320 + 32, 544, "Palette Automation"))
+            .AddContent([
+                // column 1
+                (new EmuList(c1, EMU_AUTO, ew, eh, "Automation types:", eh, 10, function() {
+                }))
+                    .SetID("TYPE LIST"),
+                (new EmuButton(c1 + 0 * ew / 2, EMU_AUTO, ew / 2, eh, "Add Type", function() {
+                }))
+                    .SetID("ADD TYPE"),
+                (new EmuButton(c1 + 1 * ew / 2, EMU_INLINE, ew / 2, eh, "Delete Type", function() {
+                }))
+                    .SetID("DELETE TYPE"),
+                (new EmuInput(c1, EMU_AUTO, ew, eh, "Name:", "", "Automation name", 16, E_InputTypes.STRING, function() {
+                }))
+                    .SetID("TYPE NAME"),
+                // column 2
+                (new EmuList(c2, EMU_BASE, ew, eh, "Palette indices:", eh, 10, function() {
+                }))
+                    .SetID("SLOTS"),
+                (new EmuButton(c2 + 0 * ew / 2, EMU_AUTO, ew / 2, eh, "Add index", function() {
+                }))
+                    .SetID("ADD SLOT"),
+                (new EmuButton(c2 + 1 * ew / 2, EMU_INLINE, ew / 2, eh, "Delete index", function() {
+                }))
+                    .SetID("DELETE SLOT"),
+                (new EmuInput(c2, EMU_AUTO, ew, eh, "Name:", "", "Index name", 16, E_InputTypes.STRING, function() {
+                }))
+                    .SetID("SLOT NAME"),
+                // column 3
+                (new EmuRadioArray(c3, EMU_BASE, ew, eh, "Operation type:", 0, function() {
+                }))
+                    .AddOptions([
+                        "Shift Left", "Shift Right", "Edit HSV", "Edit Colors",
+                    ])
+                    .SetID("SLOT OPERATION TYPE"),
+                (new EmuCore(c3 - 32, EMU_AUTO, ew, ew))
+                    .AddContent([
+                    ])
+                    .SetEnabled(false)
+                    .SetID("PANEL:HSV"),
+                (new EmuCore(c3 - 32, EMU_AUTO, ew, ew))
+                    .AddContent([
+                    ])
+                    .SetEnabled(false)
+                    .SetID("PANEL:COLORS"),
+            ])
+            .AddDefaultConfirmCancelButtons("Apply", function() {
+                
+                self.root.Close();
+            }, "Close", function() {
+                self.root.Close();
+            })
+            .GetChild("DEFAULT CONFIRM").SetInteractive(array_length(obj_demo.demo_palette.data) == 1);
     })),
     (new EmuButtonImage(32 + 0 * ew / 4, EMU_AUTO, ew / 4, eh, spr_controls, 0, c_white, 1, false, function() {
         // step back
