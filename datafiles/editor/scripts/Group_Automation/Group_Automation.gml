@@ -21,11 +21,13 @@ function LorikeetAutomation() constructor {
             self.StepShiftLeft = function() constructor {
                 self.name = "Shift Left 1";
                 self.count = 1;
+                self.id = EAutomationStepTypes.SHIFT_LEFT;
             };
             
             self.StepShiftRight = function() constructor {
                 self.name = "Shift Right 1";
                 self.count = 1;
+                self.id = EAutomationStepTypes.SHIFT_RIGHT;
             };
             
             self.StepHSV = function() constructor {
@@ -33,6 +35,7 @@ function LorikeetAutomation() constructor {
                 self.hue = 0;
                 self.sat = 0;
                 self.val = 0;
+                self.id = EAutomationStepTypes.HSV;
             };
             
             self.StepColor = function() constructor {
@@ -40,7 +43,15 @@ function LorikeetAutomation() constructor {
                 self.r = 0;
                 self.g = 0;
                 self.b = 0;
+                self.id = EAutomationStepTypes.COLOR;
             };
+            
+            self.choices = [
+                self.StepShiftLeft,
+                self.StepShiftRight,
+                self.StepHSV,
+                self.StepColor,
+            ];
         };
         
         self.AddIndex = function() {
@@ -65,4 +76,11 @@ function LorikeetAutomation() constructor {
     self.RemoveType = function(index) {
         array_delete(self.types, index, 1);
     };
+}
+
+enum EAutomationStepTypes {
+    SHIFT_LEFT,
+    SHIFT_RIGHT,
+    HSV,
+    COLOR,
 }

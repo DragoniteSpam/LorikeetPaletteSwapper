@@ -255,7 +255,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 #region column 3
                 (new EmuList(c3, EMU_BASE, ew, eh, "Steps:", eh, 10, function() {
                     if (!self.root) return;
-                    self.root.Refresh({ step_number: self.GetSelection() });
+                    self.root.Refresh({ step_number: self.GetSelection(), slot: self.GetSibling("SLOTS").GetSelectedItem() });
                 }))
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "index")) {
@@ -273,6 +273,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     index.AddStep(index.StepColor);
                 }))
                     .SetRefresh(function(data) {
+                        self.SetInteractive(false);
                         if (variable_struct_exists(data, "index")) {
                             self.SetInteractive(!!data.index);
                         }
@@ -286,6 +287,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     self.GetSibling("STEPS").ClearSelection();
                 }))
                     .SetRefresh(function(data) {
+                        self.SetInteractive(false);
                         if (variable_struct_exists(data, "step_number")) {
                             self.SetInteractive(data.step_number > -1 && (array_length(self.GetSibling("SLOTS").GetSelectedItem().steps) > 0));
                         }
@@ -295,10 +297,34 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 #endregion
                 #region column 4
                 (new EmuRadioArray(c4, EMU_BASE, ew, eh, "Operation type:", 0, function() {
+                    var slot = self.GetSibling("SLOTS").GetSelectedItem();
+                    var step_number = self.GetSibling("STEPS").GetSelection();
+                    slot.steps[step_number] = new slot.choices[self.value]();
+                    var refresh_data = { data: slot.steps[step_number] };
+                    
+                    self.GetSibling("PANEL:HSV").SetEnabled(false);
+                    self.GetSibling("PANEL:COLOR").SetEnabled(false);
+                    
+                    switch (self.value) {
+                        case EAutomationStepTypes.SHIFT_LEFT: break;
+                        case EAutomationStepTypes.SHIFT_RIGHT: break;
+                        case EAutomationStepTypes.HSV: self.GetSibling("PANEL:HSV").SetEnabled(true).Refresh(refresh_data); break;
+                        case EAutomationStepTypes.COLOR: self.GetSibling("PANEL:COLOR").SetEnabled(true).Refresh(refresh_data); break;
+                    }
                 }))
                     .AddOptions([
                         "Shift Left", "Shift Right", "Edit HSV", "Edit Colors",
                     ])
+                    .SetRefresh(function(data) {
+                        self.SetInteractive(false);
+                        if (variable_struct_exists(data, "step_number")) {
+                            self.SetInteractive(data.step_number > -1);
+                            if (data.step_number > -1) {
+                                self.value = data.slot.steps[data.step_number].id;
+                            }
+                        }
+                    })
+                    .SetInteractive(false)
                     .SetID("SLOT OPERATION TYPE"),
                 (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
                     .AddContent([
