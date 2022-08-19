@@ -20,8 +20,8 @@
   "width": 8,
   "height": 24,
   "textureGroupId": {
-    "name": "Default",
-    "path": "texturegroups/Default",
+    "name": "Palettes",
+    "path": "texturegroups/Palettes",
   },
   "swatchColours": null,
   "gridX": 0,

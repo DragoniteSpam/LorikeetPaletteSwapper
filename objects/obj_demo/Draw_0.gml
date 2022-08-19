@@ -45,6 +45,10 @@ with (obj_tree) event_perform(ev_draw, 0);
 lorikeet_set(pal_flowers_pink, get_palette_index_by_time(), 0, shd_lorikeet_customized);
 with (obj_flowers) event_perform(ev_draw, 0);
 
+// grass
+lorikeet_set(pal_grass, get_palette_index_by_time(), 0, shd_lorikeet_customized);
+with (obj_grass) event_perform(ev_draw, 0);
+
 matrix_set(matrix_world, matrix_build_identity());
 shader_reset();
 gpu_set_ztestenable(false);
