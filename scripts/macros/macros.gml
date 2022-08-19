@@ -2,3 +2,19 @@
 #macro GAME_UPDATE_TIME             ((DT * 360) / 86400)
 
 #macro SETTINGS_FILE                "settings.ini"
+
+#macro __window_set_size_source     window_set_size
+#macro window_set_size              __window_set_size_replacement
+
+function __window_set_size_replacement(w, h) {
+    if (os_browser != browser_not_a_browser || os_type == os_operagx) return;
+    __window_set_size_source(w, h);
+}
+
+#macro __window_set_fullscreen_source   window_set_fullscreen
+#macro window_set_fullscreen            __window_set_fullscreen_replacement
+
+function __window_set_fullscreen_replacement(fullscreen) {
+    if (os_browser != browser_not_a_browser || os_type == os_operagx) return;
+    __window_set_fullscreen_source(fullscreen);
+}

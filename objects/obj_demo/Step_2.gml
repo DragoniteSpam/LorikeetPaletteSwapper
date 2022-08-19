@@ -41,3 +41,7 @@ if (keyboard_check_pressed(ord("Q")) || keyboard_check_pressed(ord("E"))) {
 if (keyboard_check_pressed(ord("F"))) {
     self.SetWindow(, , , !window_get_fullscreen());
 }
+
+if (keyboard_check_pressed(vk_escape)) {
+    game_end();
+}
