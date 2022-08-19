@@ -281,6 +281,7 @@ function spart_emitter(_partSystem) constructor
 		*/
 		var i = uniInd;
 		var time = partSystem.time - creationTime;
+        lorikeet_set(obj_demo.particle_palette_sprite, get_palette_index_by_time(), 0, shader_current());
 		shader_set_uniform_f_array(spUniGrid[# sPartUni.emStartMat, i],	startM);
 		shader_set_uniform_f_array(spUniGrid[# sPartUni.emEndMat, i], endM);
 		shader_set_uniform_f(spUniGrid[# sPartUni.emLifeSpan, i], min(time, lifeSpan));

@@ -50,6 +50,9 @@ lorikeet_set(pal_grass, get_palette_index_by_time(), 0, shd_lorikeet_customized)
 with (obj_grass) event_perform(ev_draw, 0);
 
 matrix_set(matrix_world, matrix_build_identity());
+
+self.particle_system.draw(game_get_speed(gamespeed_microseconds) / 1000000);
+
 shader_reset();
 gpu_set_ztestenable(false);
 gpu_set_zwriteenable(false);

@@ -33,6 +33,9 @@ if (self.velocity > 0) {
 
 if (place_meeting(self.x, self.y, obj_marker_water)) {
     self.state = EDuckStates.SWIMMING;
+    if ((dx != 0 || dy != 0) && random(1) < 0.5) {
+        obj_demo.ParticlesBurst(obj_demo.particle_type_water, self.x, self.y, 0, 1);
+    }
 } else {
     self.state = EDuckStates.WALKING;
 }

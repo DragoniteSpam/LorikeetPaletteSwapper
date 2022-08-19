@@ -68,3 +68,23 @@ self.settings_buffer_load_id = buffer_load_async(self.settings_buffer, SETTINGS_
 call_later(10, time_source_units_seconds, function() {
     self.SaveSettings();
 }, true);
+
+self.particle_system = new spart_system([256, 1024]);
+self.particle_emitter = new spart_emitter(self.particle_system);
+self.particle_type_water = new spart_type();
+
+self.particle_palette_sprite = pal_bubbles;
+
+with (self.particle_type_water) {
+    setSprite(idx_bubbles, -1, 0);
+    setSize(2, 6, 0, 0, 0, 200);
+    setLife(0.5, 0.8);
+    setSpeed(64, 64, 0, 0);
+    setDirection(0, 0, 1, 30, false);
+    setGravity(64, 0, 0, -1);
+}
+
+self.ParticlesBurst = function(type, x, y, z, amount) {
+    self.particle_emitter.setRegion(matrix_build(x, y, z, 0, 0, 0, 1, 1, 1), 1, 1, 1, spart_shape_cube, spart_distr_linear, false);
+    self.particle_emitter.burst(type, amount, true);
+};
