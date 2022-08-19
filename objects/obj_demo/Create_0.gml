@@ -4,7 +4,7 @@ vertex_format_add_texcoord();
 vertex_format_add_colour();
 self.format = vertex_format_end();
 
-show_debug_overlay(true);
+gml_release_mode(true);
 
 var buffer = buffer_load("skybox.vbuff");
 self.skybox = vertex_create_buffer_from_buffer(buffer, self.format);
@@ -69,7 +69,7 @@ call_later(10, time_source_units_seconds, function() {
     self.SaveSettings();
 }, true);
 
-self.spart_system_water = new spart_system([256, 1024]);
+self.spart_system_water = new spart_system([1024, 4096]);
 self.spart_emitter_water = new spart_emitter(self.spart_system_water);
 self.spart_type_water = new spart_type();
 self.spart_type_water_splash = new spart_type();
