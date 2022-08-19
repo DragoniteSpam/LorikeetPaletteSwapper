@@ -42,7 +42,7 @@ lorikeet_set(pal_tree, get_palette_index_by_time(), 0, shd_lorikeet_customized);
 with (obj_tree) event_perform(ev_draw, 0);
 
 // flowers
-lorikeet_set(pal_flowers_pink, get_palette_index_by_time(), 0, shd_lorikeet_customized);
+lorikeet_set(pal_flowers, get_palette_index_by_time(), 0, shd_lorikeet_customized);
 with (obj_flowers) event_perform(ev_draw, 0);
 
 // grass

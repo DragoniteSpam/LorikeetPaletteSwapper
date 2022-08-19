@@ -27,10 +27,13 @@
   "physicsStartAwake": true,
   "physicsKinematic": false,
   "physicsShapePoints": [],
-  "eventList": [],
+  "eventList": [
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
+  ],
   "properties": [],
   "overriddenProperties": [
-    {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","propertyId":{"name":"palette_sprite","path":"objects/obj_renderable/obj_renderable.yy",},"objectId":{"name":"obj_renderable","path":"objects/obj_renderable/obj_renderable.yy",},"value":"pal_flowers_blue",},
+    {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","propertyId":{"name":"palette_sprite","path":"objects/obj_renderable/obj_renderable.yy",},"objectId":{"name":"obj_renderable","path":"objects/obj_renderable/obj_renderable.yy",},"value":"pal_flowers",},
   ],
   "parent": {
     "name": "Objects",
