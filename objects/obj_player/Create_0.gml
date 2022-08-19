@@ -9,3 +9,6 @@ enum EDuckStates {
     WALKING,
     SWIMMING
 }
+
+self.swim_sound_enabled = true;
+self.grass_sound_enabled = true;
