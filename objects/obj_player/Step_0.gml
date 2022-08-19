@@ -39,7 +39,7 @@ if (place_meeting(self.x, self.y, obj_marker_water)) {
         obj_demo.ParticlesBurst(obj_demo.spart_emitter_water, obj_demo.spart_type_water, self.x, self.y, 0, 1);
     }
     if (previous_state != self.state) {
-        obj_demo.ParticlesBurst(obj_demo.spart_emitter_water, obj_demo.spart_type_water, self.x, self.y, 0, 32);
+        obj_demo.ParticlesBurst(obj_demo.spart_emitter_water, obj_demo.spart_type_water_splash, self.x, self.y, 0, 64);
     }
 } else {
     self.state = EDuckStates.WALKING;

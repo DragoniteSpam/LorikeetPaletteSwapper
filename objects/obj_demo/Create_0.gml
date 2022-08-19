@@ -72,6 +72,7 @@ call_later(10, time_source_units_seconds, function() {
 self.spart_system_water = new spart_system([256, 1024]);
 self.spart_emitter_water = new spart_emitter(self.spart_system_water);
 self.spart_type_water = new spart_type();
+self.spart_type_water_splash = new spart_type();
 
 self.particle_palette_sprite = pal_bubbles;
 
@@ -80,6 +81,15 @@ with (self.spart_type_water) {
     setSize(2, 6, 0, 0, 0, 200);
     setLife(0.25, 0.6);
     setSpeed(64, 64, 0, 0);
+    setDirection(0, 0, 1, 30, false);
+    setGravity(96, 0, 0, -1);
+}
+
+with (self.spart_type_water_splash) {
+    setSprite(idx_bubbles, -1, 0);
+    setSize(6, 10, 0, 0, 0, 200);
+    setLife(0.4, 0.75);
+    setSpeed(96, 96, 0, 0);
     setDirection(0, 0, 1, 30, false);
     setGravity(96, 0, 0, -1);
 }
