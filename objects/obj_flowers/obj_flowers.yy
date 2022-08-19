@@ -1,22 +1,19 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_tree",
+  "name": "obj_flowers",
   "spriteId": {
-    "name": "idx_tree",
-    "path": "sprites/idx_tree/idx_tree.yy",
+    "name": "idx_flowers",
+    "path": "sprites/idx_flowers/idx_flowers.yy",
   },
   "solid": false,
   "visible": false,
   "managed": true,
-  "spriteMaskId": {
-    "name": "col_2x2",
-    "path": "sprites/col_2x2/col_2x2.yy",
-  },
+  "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "obj_solid",
-    "path": "objects/obj_solid/obj_solid.yy",
+    "name": "obj_renderable",
+    "path": "objects/obj_renderable/obj_renderable.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,
@@ -33,7 +30,7 @@
   "eventList": [],
   "properties": [],
   "overriddenProperties": [
-    {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","propertyId":{"name":"palette_sprite","path":"objects/obj_renderable/obj_renderable.yy",},"objectId":{"name":"obj_renderable","path":"objects/obj_renderable/obj_renderable.yy",},"value":"pal_tree",},
+    {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","propertyId":{"name":"palette_sprite","path":"objects/obj_renderable/obj_renderable.yy",},"objectId":{"name":"obj_renderable","path":"objects/obj_renderable/obj_renderable.yy",},"value":"pal_flowers_blue",},
   ],
   "parent": {
     "name": "Objects",
