@@ -10,7 +10,7 @@
   "bitRate": 128,
   "soundFile": "bgm_pad.ogg",
   "duration": 112.83583,
-  "volume": 0.25,
+  "volume": 0.5,
   "preload": false,
   "audioGroupId": {
     "name": "audiogroup_default",

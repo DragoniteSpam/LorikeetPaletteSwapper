@@ -118,6 +118,6 @@ audio_play_in_sync_group(self.audio_sync_group, bgm_percussion);            // A
 audio_play_in_sync_group(self.audio_sync_group, bgm_guitar);                // Day
 audio_play_in_sync_group(self.audio_sync_group, bgm_pad);                   // Day
 audio_play_in_sync_group(self.audio_sync_group, bgm_piano);                 // Night
-audio_play_in_sync_group(self.audio_sync_group, bgm_strings);               // Grass
-audio_play_in_sync_group(self.audio_sync_group, bgm_woodwinds);             // Water
+audio_play_in_sync_group(self.audio_sync_group, bgm_strings);               // Water
+audio_play_in_sync_group(self.audio_sync_group, bgm_woodwinds);             // Grass
 audio_start_sync_group(self.audio_sync_group);

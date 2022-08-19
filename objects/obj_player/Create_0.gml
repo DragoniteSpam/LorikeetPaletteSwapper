@@ -12,5 +12,4 @@ enum EDuckStates {
 
 self.swim_sound_enabled = true;
 self.grass_sound_enabled = true;
-self.volume_grass = 0;
 self.volume_water = 1;
