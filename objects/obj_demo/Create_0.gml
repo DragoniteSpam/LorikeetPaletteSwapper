@@ -69,22 +69,35 @@ call_later(10, time_source_units_seconds, function() {
     self.SaveSettings();
 }, true);
 
-self.particle_system = new spart_system([256, 1024]);
-self.particle_emitter = new spart_emitter(self.particle_system);
-self.particle_type_water = new spart_type();
+self.spart_system_water = new spart_system([256, 1024]);
+self.spart_emitter_water = new spart_emitter(self.spart_system_water);
+self.spart_type_water = new spart_type();
 
 self.particle_palette_sprite = pal_bubbles;
 
-with (self.particle_type_water) {
+with (self.spart_type_water) {
     setSprite(idx_bubbles, -1, 0);
     setSize(2, 6, 0, 0, 0, 200);
+    setLife(0.25, 0.6);
+    setSpeed(64, 64, 0, 0);
+    setDirection(0, 0, 1, 30, false);
+    setGravity(96, 0, 0, -1);
+}
+
+self.spart_system_grass = new spart_system([256, 1024]);
+self.spart_emitter_grass = new spart_emitter(self.spart_system_grass);
+self.spart_type_grass = new spart_type();
+
+with (self.spart_type_grass) {
+    setSprite(idx_grass_rustle, -1, 0);
+    setSize(6, 10, -1, 0, 0, 200);
     setLife(0.5, 0.8);
     setSpeed(64, 64, 0, 0);
     setDirection(0, 0, 1, 30, false);
     setGravity(64, 0, 0, -1);
 }
 
-self.ParticlesBurst = function(type, x, y, z, amount) {
-    self.particle_emitter.setRegion(matrix_build(x, y, z, 0, 0, 0, 1, 1, 1), 1, 1, 1, spart_shape_cube, spart_distr_linear, false);
-    self.particle_emitter.burst(type, amount, true);
+self.ParticlesBurst = function(emitter, type, x, y, z, amount) {
+    emitter.setRegion(matrix_build(x, y, z, 0, 0, 0, 1, 1, 1), 1, 1, 1, spart_shape_cube, spart_distr_linear, false);
+    emitter.burst(type, amount, true);
 };

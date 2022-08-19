@@ -31,11 +31,22 @@ if (self.velocity > 0) {
     self.direction = point_direction(0, 0, dx, dy);
 }
 
+var previous_state = self.state;
+
 if (place_meeting(self.x, self.y, obj_marker_water)) {
     self.state = EDuckStates.SWIMMING;
     if ((dx != 0 || dy != 0) && random(1) < 0.5) {
-        obj_demo.ParticlesBurst(obj_demo.particle_type_water, self.x, self.y, 0, 1);
+        obj_demo.ParticlesBurst(obj_demo.spart_emitter_water, obj_demo.spart_type_water, self.x, self.y, 0, 1);
+    }
+    if (previous_state != self.state) {
+        obj_demo.ParticlesBurst(obj_demo.spart_emitter_water, obj_demo.spart_type_water, self.x, self.y, 0, 32);
     }
 } else {
     self.state = EDuckStates.WALKING;
+}
+
+if (place_meeting(self.x, self.y, obj_marker_grass)) {
+    if ((dx != 0 || dy != 0) && random(1) < 0.125) {
+        obj_demo.ParticlesBurst(obj_demo.spart_emitter_grass, obj_demo.spart_type_grass, self.x, self.y, 0, 1);
+    }
 }

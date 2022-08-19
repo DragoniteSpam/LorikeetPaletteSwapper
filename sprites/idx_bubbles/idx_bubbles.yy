@@ -81,7 +81,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Graphics",
-    "path": "folders/Graphics.yy",
+    "name": "Particles",
+    "path": "folders/Graphics/Particles.yy",
   },
 }

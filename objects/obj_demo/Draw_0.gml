@@ -51,7 +51,10 @@ with (obj_grass) event_perform(ev_draw, 0);
 
 matrix_set(matrix_world, matrix_build_identity());
 
-self.particle_system.draw(game_get_speed(gamespeed_microseconds) / 1000000);
+self.particle_palette_sprite = pal_bubbles;
+self.spart_system_water.draw(game_get_speed(gamespeed_microseconds) / 1000000);
+self.particle_palette_sprite = pal_grass_rustle;
+self.spart_system_grass.draw(game_get_speed(gamespeed_microseconds) / 1000000);
 
 shader_reset();
 gpu_set_ztestenable(false);

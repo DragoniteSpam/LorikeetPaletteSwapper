@@ -1,20 +1,17 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_marker_flowers",
+  "name": "obj_marker_grass",
   "spriteId": {
-    "name": "col_marker_flowers",
-    "path": "sprites/col_marker_flowers/col_marker_flowers.yy",
+    "name": "col_marker_grass",
+    "path": "sprites/col_marker_grass/col_marker_grass.yy",
   },
   "solid": false,
   "visible": false,
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": {
-    "name": "obj_marker_grass",
-    "path": "objects/obj_marker_grass/obj_marker_grass.yy",
-  },
+  "parentObjectId": null,
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -27,9 +24,7 @@
   "physicsStartAwake": true,
   "physicsKinematic": false,
   "physicsShapePoints": [],
-  "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
-  ],
+  "eventList": [],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
