@@ -49,7 +49,11 @@ if (place_meeting(self.x, self.y, obj_marker_water)) {
         obj_demo.ParticlesBurst(obj_demo.spart_emitter_water, obj_demo.spart_type_water_splash, self.x, self.y, 0, 64);
         audio_play_sound(se_splash, 100, false);
     }
+    self.volume_water = min(self.volume_water + 0.01, 1);
+    audio_sound_gain(bgm_woodwinds, self.volume_water, 0);
 } else {
+    self.volume_water = max(self.volume_water - 0.01, 0);
+    audio_sound_gain(bgm_woodwinds, self.volume_water, 0);
     self.state = EDuckStates.WALKING;
 }
 
@@ -68,4 +72,9 @@ if (place_meeting(self.x, self.y, obj_marker_grass)) {
             audio_play_sound(grass_sounds[irandom(array_length(grass_sounds) - 1)], 90, false, random_range(0.8, 0.9), 0, random_range(0.95, 1.5));
         }
     }
+    self.volume_grass = min(self.volume_grass + 0.01, 1);
+    audio_sound_gain(bgm_strings, self.volume_grass, 0);
+} else {
+    self.volume_grass = max(self.volume_grass - 0.01, 0);
+    audio_sound_gain(bgm_strings, self.volume_grass, 0);
 }

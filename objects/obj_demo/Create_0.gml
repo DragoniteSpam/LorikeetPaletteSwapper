@@ -111,3 +111,13 @@ self.ParticlesBurst = function(emitter, type, x, y, z, amount) {
     emitter.setRegion(matrix_build(x, y, z, 0, 0, 0, 1, 1, 1), 1, 1, 1, spart_shape_cube, spart_distr_linear, false);
     emitter.burst(type, amount, true);
 };
+
+self.audio_sync_group = audio_create_sync_group(true);
+audio_play_in_sync_group(self.audio_sync_group, bgm_bass);                  // All
+audio_play_in_sync_group(self.audio_sync_group, bgm_percussion);            // All
+audio_play_in_sync_group(self.audio_sync_group, bgm_guitar);                // Day
+audio_play_in_sync_group(self.audio_sync_group, bgm_pad);                   // Day
+audio_play_in_sync_group(self.audio_sync_group, bgm_piano);                 // Night
+audio_play_in_sync_group(self.audio_sync_group, bgm_strings);               // Grass
+audio_play_in_sync_group(self.audio_sync_group, bgm_woodwinds);             // Water
+audio_start_sync_group(self.audio_sync_group);
