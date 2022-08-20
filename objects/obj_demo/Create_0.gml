@@ -115,7 +115,7 @@ self.ParticlesBurst = function(emitter, type, x, y, z, amount) {
 self.volume = {
     main: 1,
     se: 1,
-    bgm: 0.5,
+    bgm: 0.3,
 };
 
 self.audio_sync_group = audio_create_sync_group(true);
