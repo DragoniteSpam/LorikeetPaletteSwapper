@@ -42,6 +42,10 @@ if (keyboard_check_pressed(ord("F"))) {
     self.SetWindow(, , , !window_get_fullscreen());
 }
 
+if (keyboard_check_pressed(ord("M"))) {
+    self.volume.main = (self.volume.main == 1) ? 0 : 1;
+}
+
 if (keyboard_check_pressed(vk_escape)) {
     game_end();
 }

@@ -11,3 +11,13 @@ scribble("FPS: " + string(fps) + "/" + string(game_get_speed(gamespeed_fps)))
     .draw(32, start + spacing * index++);
 scribble("Fullscreen: " + (window_get_fullscreen() ? "True" : "False"))
     .draw(32, start + spacing * index++);
+
+index = 0;
+start = window_get_height() - 64;
+
+scribble("Cycle rendering resolutions with Q and E")
+    .draw(32, start - spacing * index++);
+scribble("Toggle fullscreen with F")
+    .draw(32, start - spacing * index++);
+scribble("Toggle audio with M")
+    .draw(32, start - spacing * index++);
