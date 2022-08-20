@@ -4,6 +4,9 @@
 
 #macro SETTINGS_FILE                "settings.ini"
 
+#macro VOLUME_BGM                   (obj_demo.volume.main * obj_demo.volume.bgm)
+#macro VOLUME_SE                    (obj_demo.volume.main * obj_demo.volume.se)
+
 #macro __window_set_size_source     window_set_size
 #macro window_set_size              __window_set_size_replacement
 

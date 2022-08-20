@@ -7,6 +7,9 @@ if (async_load[? "id"] == self.settings_buffer_load_id) {
         var f = data[$ "fps"] ?? game_get_speed(gamespeed_fps);
         var fullscreen = data[$ "fullscreen"] ?? window_get_fullscreen();
         self.SetWindow(w, h, f, fullscreen);
+        self.volume.main = data[$ "vol_main"] ?? self.volume.main;
+        self.volume.bgm = data[$ "vol_bgm"] ?? self.volume.bgm;
+        self.volume.se = data[$ "vol_se"] ?? self.volume.se;
     } catch (e) {
         show_debug_message("Couldn't load settings");
     }

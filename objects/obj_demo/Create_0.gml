@@ -112,6 +112,12 @@ self.ParticlesBurst = function(emitter, type, x, y, z, amount) {
     emitter.burst(type, amount, true);
 };
 
+self.volume = {
+    main: 1,
+    se: 1,
+    bgm: 0.5,
+};
+
 self.audio_sync_group = audio_create_sync_group(true);
 audio_play_in_sync_group(self.audio_sync_group, bgm_bass);                  // All
 audio_play_in_sync_group(self.audio_sync_group, bgm_percussion);            // All

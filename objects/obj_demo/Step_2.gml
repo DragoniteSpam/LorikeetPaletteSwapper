@@ -49,6 +49,8 @@ if (keyboard_check_pressed(vk_escape)) {
 var hour = self.game_time * 24;
 var night_volume = clamp(2 * abs(hour - 13) - 10, 0, 1);
 var day_volume = 1 - night_volume;
-audio_sound_gain(bgm_piano, night_volume, 0);
-audio_sound_gain(bgm_guitar, day_volume, 0);
-audio_sound_gain(bgm_pad, day_volume, 0);
+audio_sound_gain(bgm_piano, night_volume * VOLUME_BGM, 0);
+audio_sound_gain(bgm_guitar, day_volume * VOLUME_BGM, 0);
+audio_sound_gain(bgm_pad, day_volume * VOLUME_BGM, 0);
+audio_sound_gain(bgm_bass, VOLUME_BGM, 0);
+audio_sound_gain(bgm_percussion, VOLUME_BGM, 0);
