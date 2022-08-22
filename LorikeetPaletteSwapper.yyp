@@ -42,6 +42,7 @@
     {"id":{"name":"__scribble_font_add_sprite","path":"scripts/__scribble_font_add_sprite/__scribble_font_add_sprite.yy",},"order":8,},
     {"id":{"name":"scribble_font_duplicate","path":"scripts/scribble_font_duplicate/scribble_font_duplicate.yy",},"order":5,},
     {"id":{"name":"LorikeetPaletteManager","path":"scripts/LorikeetPaletteManager/LorikeetPaletteManager.yy",},"order":7,},
+    {"id":{"name":"lorikeet_reset","path":"scripts/lorikeet_reset/lorikeet_reset.yy",},"order":8,},
     {"id":{"name":"__scribble_gen_3_devanagari","path":"scripts/__scribble_gen_3_devanagari/__scribble_gen_3_devanagari.yy",},"order":3,},
     {"id":{"name":"__scribble_config_defaults","path":"scripts/__scribble_config_defaults/__scribble_config_defaults.yy",},"order":2,},
     {"id":{"name":"scribble_font_bake_outline","path":"scripts/scribble_font_bake_outline/scribble_font_bake_outline.yy",},"order":4,},

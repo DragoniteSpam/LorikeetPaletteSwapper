@@ -64,6 +64,7 @@
     {"id":{"name":"__scribble_system","path":"scripts/__scribble_system/__scribble_system.yy",},"order":9,},
     {"id":{"name":"scribble_font_bake_shadow","path":"scripts/scribble_font_bake_shadow/scribble_font_bake_shadow.yy",},"order":4,},
     {"id":{"name":"__shd_scribble","path":"shaders/__shd_scribble/__shd_scribble.yy",},"order":0,},
+    {"id":{"name":"lorikeet_reset","path":"scripts/lorikeet_reset/lorikeet_reset.yy",},"order":8,},
     {"id":{"name":"scribble_anim_reset","path":"scripts/scribble_anim_reset/scribble_anim_reset.yy",},"order":5,},
     {"id":{"name":"EmuBitfield","path":"scripts/EmuBitfield/EmuBitfield.yy",},"order":1,},
     {"id":{"name":"spr_emu_mask_crosshair","path":"sprites/spr_emu_mask_crosshair/spr_emu_mask_crosshair.yy",},"order":13,},

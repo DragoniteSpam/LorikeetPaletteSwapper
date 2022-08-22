@@ -6,3 +6,8 @@ Audio
 GameMaster Audio (www.gamemasteraudio.com)
 Potion Audio (https://potion-audio.itch.io/)
 Sidearm Studios (https://sidearmstudios.com/)
+
+Other stuff
+https://github.com/JujuAdams/Scribble
+https://github.com/JujuAdams/input
+https://forum.yoyogames.com/index.php?threads/spart-3d-particle-system-new-update-sept-2019-now-entirely-free.52130/
