@@ -1,5 +1,6 @@
 #macro DEMO_PLAY_SPEED_FPS          8
 #macro C_BUTTON_SELECTED            c_yellow
+#macro SAVE_FILE_AUTOMATION         "automation.json"
 
 scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_black, false);
 
@@ -127,6 +128,13 @@ self.SavePaletteSprite = function() {
     }
 };
 
+self.SaveAutomation = function() {
+    var save_buffer = buffer_create(1024, buffer_grow, 1);
+    buffer_write(save_buffer, buffer_text, json_stringify(self.automations.Save()));
+    buffer_save(save_buffer, SAVE_FILE_AUTOMATION);
+    buffer_delete(save_buffer);
+};
+
 var ew = 320;
 var eh = 32;
 
@@ -197,6 +205,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var c3 = 32 + 320 + 32 + 320 + 32;
         var c4 = 32 + 320 + 32 + 320 + 32 + 320 + 32;
         (new EmuDialog(c4 + 320 + 32, 544, "Palette Automation"))
+            .SetCloseButton(false)
             .AddContent([
                 #region column 1
                 (new EmuList(c1, EMU_AUTO, ew, eh, "Automation types:", eh, 10, function() {
@@ -592,6 +601,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 }
                 self.root.Close();
             }, "Close", function() {
+                obj_demo.SaveAutomation();
                 self.root.Close();
             })
             .GetChild("DEFAULT CONFIRM").SetInteractive(array_length(obj_demo.demo_palette.data) == 1);

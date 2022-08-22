@@ -1,13 +1,45 @@
 function LorikeetAutomation() constructor {
     self.types = [];
     
+    self.Save = function() {
+        var json = {
+            types: array_create(array_length(self.types)),
+        };
+        for (var i = 0, n = array_length(self.types); i < n; i++) {
+            json.types[i] = self.types[i].Save();
+        }
+        return json;
+    };
+    
     self.Type = function() constructor {
         self.name = "";
         self.indices = [];
         
+        self.Save = function() {
+            var json = {
+                name: self.name,
+                indices: array_create(array_length(self.indices)),
+            };
+            for (var i = 0, n = array_length(self.indices); i < n; i++) {
+                json.indices[i] = self.indices[i].Save();
+            }
+            return json;
+        };
+        
         self.Index = function() constructor {
             self.name = "";
             self.steps = [];
+            
+            self.Save = function() {
+                var json = {
+                    name: self.name,
+                    steps: array_create(array_length(self.steps)),
+                };
+                for (var i = 0, n = array_length(self.steps); i < n; i++) {
+                    json.steps[i] = self.steps[i].Save();
+                }
+                return json;
+            };
             
             self.AddStep = function(type) {
                 var addition = new type();
@@ -24,6 +56,13 @@ function LorikeetAutomation() constructor {
                 self.count = 1;
                 self.id = EAutomationStepTypes.SHIFT_LEFT;
                 
+                self.Save = function() {
+                    return {
+                        id: self.id,
+                        count: self.count
+                    };
+                };
+                
                 self.Execute = function(palette) {
                     repeat (self.count) {
                         operation_shift_left(palette);
@@ -35,6 +74,13 @@ function LorikeetAutomation() constructor {
                 self.name = "Shift Right 1";
                 self.count = 1;
                 self.id = EAutomationStepTypes.SHIFT_RIGHT;
+                
+                self.Save = function() {
+                    return {
+                        id: self.id,
+                        count: self.count
+                    };
+                };
                 
                 self.Execute = function(palette) {
                     repeat (self.count) {
@@ -50,6 +96,15 @@ function LorikeetAutomation() constructor {
                 self.val = 0;
                 self.id = EAutomationStepTypes.HSV;
                 
+                self.Save = function() {
+                    return {
+                        id: self.id,
+                        hue: self.hue,
+                        sat: self.sat,
+                        val: self.val,
+                    };
+                };
+                
                 self.Execute = function(palette) {
                     operation_update_hsv(palette, self.hue, self.sat, self.val);
                 };
@@ -61,6 +116,15 @@ function LorikeetAutomation() constructor {
                 self.sat = 1;
                 self.val = 1;
                 self.id = EAutomationStepTypes.HSV_PERCENT;
+                
+                self.Save = function() {
+                    return {
+                        id: self.id,
+                        hue: self.hue,
+                        sat: self.sat,
+                        val: self.val,
+                    };
+                };
                 
                 self.Execute = function(palette) {
                     operation_update_hsv_percent(palette, self.hue, self.sat, self.val);
@@ -74,6 +138,15 @@ function LorikeetAutomation() constructor {
                 self.b = 0;
                 self.id = EAutomationStepTypes.COLOR;
                 
+                self.Save = function() {
+                    return {
+                        id: self.id,
+                        r: self.r,
+                        g: self.g,
+                        b: self.b,
+                    };
+                };
+                
                 self.Execute = function(palette) {
                     operation_update_rgb(palette, self.r, self.g, self.b);
                 };
@@ -85,6 +158,15 @@ function LorikeetAutomation() constructor {
                 self.g = 1;
                 self.b = 1;
                 self.id = EAutomationStepTypes.COLOR_PERCENT;
+                
+                self.Save = function() {
+                    return {
+                        id: self.id,
+                        r: self.r,
+                        g: self.g,
+                        b: self.b,
+                    };
+                };
                 
                 self.Execute = function(palette) {
                     operation_update_rgb_percent(palette, self.r, self.g, self.b);
