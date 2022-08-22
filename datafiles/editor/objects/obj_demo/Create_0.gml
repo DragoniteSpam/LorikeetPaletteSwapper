@@ -450,7 +450,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                         .SetRefresh(function(data) {
                             if (variable_struct_exists(data, "data")) {
                                 self.data = data.data;
-                                self.SetValue(self.data.hue);
+                                self.SetValue(string_format(self.data.hue, 1, 2));
                             }
                         }),
                         (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
@@ -461,7 +461,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                         .SetRefresh(function(data) {
                             if (variable_struct_exists(data, "data")) {
                                 self.data = data.data;
-                                self.SetValue(self.data.sat);
+                                self.SetValue(string_format(self.data.sat, 1, 2));
                             }
                         }),
                         (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
@@ -472,7 +472,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                         .SetRefresh(function(data) {
                             if (variable_struct_exists(data, "data")) {
                                 self.data = data.data;
-                                self.SetValue(self.data.val);
+                                self.SetValue(string_format(self.data.val, 1, 2));
                             }
                         })
                     ])
@@ -544,7 +544,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                         .SetRefresh(function(data) {
                             if (variable_struct_exists(data, "data")) {
                                 self.data = data.data;
-                                self.SetValue(self.data.r);
+                                self.SetValue(string_format(self.data.r, 1, 2));
                             }
                         }),
                         (new EmuInput(c1, EMU_AUTO, ew, eh, "Green:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
@@ -555,7 +555,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                         .SetRefresh(function(data) {
                             if (variable_struct_exists(data, "data")) {
                                 self.data = data.data;
-                                self.SetValue(self.data.g);
+                                self.SetValue(string_format(self.data.g, 1, 2));
                             }
                         }),
                         (new EmuInput(c1, EMU_AUTO, ew, eh, "Blue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
@@ -566,7 +566,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                         .SetRefresh(function(data) {
                             if (variable_struct_exists(data, "data")) {
                                 self.data = data.data;
-                                self.SetValue(self.data.b);
+                                self.SetValue(string_format(self.data.b, 1, 2));
                             }
                         }),
                     ])
