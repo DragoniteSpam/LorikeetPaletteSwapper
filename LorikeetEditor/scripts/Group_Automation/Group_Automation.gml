@@ -11,6 +11,14 @@ function LorikeetAutomation() constructor {
         return json;
     };
     
+    self.Load = function(json) {
+        self.types = array_create(array_length(json.types));
+        for (var i = 0, n = array_length(json.types); i < n; i++) {
+            self.types[i] = new self.Type();
+            self.types[i].Load(json.types[i]);
+        }
+    };
+    
     self.Type = function() constructor {
         self.name = "";
         self.indices = [];
@@ -26,9 +34,27 @@ function LorikeetAutomation() constructor {
             return json;
         };
         
+        self.Load = function(json) {
+            self.name = json.name;
+            self.indices = array_create(array_length(json.indices));
+            for (var i = 0, n = array_length(json.indices); i < n; i++) {
+                self.indices[i] = new self.Index();
+                self.indices[i].Load(json.indices[i]);
+            }
+        };
+        
         self.Index = function() constructor {
             self.name = "";
             self.steps = [];
+            
+            self.Load = function(json) {
+                self.name = json.name;
+                self.steps = array_create(array_length(json.steps));
+                for (var i = 0, n = array_length(json.steps); i < n; i++) {
+                    self.steps[i] = new self.choices[json.steps[i].id]();
+                    self.steps[i].Load(json.steps[i]);
+                }
+            };
             
             self.Save = function() {
                 var json = {
@@ -63,6 +89,10 @@ function LorikeetAutomation() constructor {
                     };
                 };
                 
+                self.Load = function(json) {
+                    self.count = json.count;
+                };
+                
                 self.Execute = function(palette) {
                     repeat (self.count) {
                         operation_shift_left(palette);
@@ -74,6 +104,10 @@ function LorikeetAutomation() constructor {
                 self.name = "Shift Right 1";
                 self.count = 1;
                 self.id = EAutomationStepTypes.SHIFT_RIGHT;
+                
+                self.Load = function(json) {
+                    self.count = json.count;
+                };
                 
                 self.Save = function() {
                     return {
@@ -105,6 +139,12 @@ function LorikeetAutomation() constructor {
                     };
                 };
                 
+                self.Load = function(json) {
+                    self.hue = json.hue;
+                    self.sat = json.sat;
+                    self.val = json.val;
+                };
+                
                 self.Execute = function(palette) {
                     operation_update_hsv(palette, self.hue, self.sat, self.val);
                 };
@@ -124,6 +164,12 @@ function LorikeetAutomation() constructor {
                         sat: self.sat,
                         val: self.val,
                     };
+                };
+                
+                self.Load = function(json) {
+                    self.hue = json.hue;
+                    self.sat = json.sat;
+                    self.val = json.val;
                 };
                 
                 self.Execute = function(palette) {
@@ -147,6 +193,12 @@ function LorikeetAutomation() constructor {
                     };
                 };
                 
+                self.Load = function(json) {
+                    self.r = json.r;
+                    self.g = json.g;
+                    self.b = json.b;
+                };
+                
                 self.Execute = function(palette) {
                     operation_update_rgb(palette, self.r, self.g, self.b);
                 };
@@ -166,6 +218,12 @@ function LorikeetAutomation() constructor {
                         g: self.g,
                         b: self.b,
                     };
+                };
+                
+                self.Load = function(json) {
+                    self.r = json.r;
+                    self.g = json.g;
+                    self.b = json.b;
                 };
                 
                 self.Execute = function(palette) {

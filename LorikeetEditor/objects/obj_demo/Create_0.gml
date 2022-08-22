@@ -1,6 +1,7 @@
 #macro DEMO_PLAY_SPEED_FPS          8
 #macro C_BUTTON_SELECTED            c_yellow
 #macro SAVE_FILE_AUTOMATION         "automation.json"
+#macro SAVE_FILE_AUTOMATION_DEF     "automation-defaults.json"
 
 scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_black, false);
 
@@ -18,45 +19,22 @@ self.demo_force_full_palettes = false;                                          
 self.demo_mode = EOperationModes.SELECTION;
 
 self.automations = new LorikeetAutomation();
-var type_day_night = self.automations.AddType();
-type_day_night.name = "Day/Night Cycle";
-var index_names = [
-    "12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM",
-    "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"
-];
-var index_exponents = [
-    { r: power(0.75, 5), g: power(0.875, 5) },
-    { r: power(0.75, 5), g: power(0.875, 5) },
-    { r: power(0.75, 5), g: power(0.875, 5) },
-    { r: power(0.75, 5), g: power(0.875, 5) },
-    { r: power(0.75, 4), g: power(0.875, 4) },
-    { r: power(0.75, 3), g: power(0.875, 3) },
-    { r: power(0.75, 2), g: power(0.875, 2) },
-    { r: power(0.75, 1), g: power(0.875, 1) },
-    { r: 1, g: 1 },
-    { r: 1, g: 1 },
-    { r: 1, g: 1 },
-    { r: 1, g: 1 },
-    { r: 1, g: 1 },
-    { r: 1, g: 1 },
-    { r: 1, g: 1 },
-    { r: 1, g: 1 },
-    { r: 1, g: 1 },
-    { r: 1, g: 1 },
-    { r: power(0.75, 1), g: power(0.875, 1) },
-    { r: power(0.75, 2), g: power(0.875, 2) },
-    { r: power(0.75, 3), g: power(0.875, 3) },
-    { r: power(0.75, 4), g: power(0.875, 4) },
-    { r: power(0.75, 5), g: power(0.875, 5) },
-    { r: power(0.75, 5), g: power(0.875, 5) },
-];
-for (var i = 0; i < 24; i++) {
-    var index = type_day_night.AddIndex();
-    var step = index.AddStep(index.StepColorPercent);
-    index.name = index_names[i];
-    step.r = index_exponents[i].r;
-    step.g = index_exponents[i].g;
-    step.name = "Color: " + string_format(step.r, 1, 2) + "/" + string_format(step.g, 1, 2) + "/" + string_format(step.g, 1, 2);
+try {
+    var buffer = buffer_load(SAVE_FILE_AUTOMATION);
+    var buffer_content = buffer_read(buffer, buffer_text);
+    buffer_delete(buffer);
+    self.automations.Load(json_parse(buffer_content));
+} catch (e) {
+    try {
+        self.automations = new LorikeetAutomation();
+        var buffer = buffer_load(SAVE_FILE_AUTOMATION_DEF);
+        var buffer_content = buffer_read(buffer, buffer_text);
+        buffer_delete(buffer);
+        self.automations.Load(json_parse(buffer_content));
+    } catch (e) {
+        // if the defaults file is corrupted, just give up
+        self.automations = new LorikeetAutomation();
+    }
 }
 
 enum EOperationModes {
