@@ -5,15 +5,17 @@ self.game_time %= 1;
 
 if (keyboard_check_pressed(ord("Q")) || keyboard_check_pressed(ord("E"))) {
     var resolutions = [
-        { w:  216, h:  120 },
-        { w:  427, h:  240 },
-        { w:  854, h:  480 },
-        { w: 1280, h:  720 },
-        { w: 1366, h:  768 },
-        { w: 1600, h:  900 },
-        { w: 1920, h: 1080 },
-        { w: 2560, h: 1440 },
-        { w: 3840, h: 2160 },
+        { w:   216, h:  120 },
+        { w:   427, h:  240 },
+        { w:   854, h:  480 },
+        { w:  1280, h:  720 },
+        { w:  1366, h:  768 },
+        { w:  1600, h:  900 },
+        { w:  1920, h: 1080 },
+        { w:  2560, h: 1440 },
+        { w:  3840, h: 2160 },
+        { w:  5120, h: 2880 },
+        { w:  7680, h: 4320 },
     ];
     var ww = surface_get_width(application_surface);
     var hh = surface_get_height(application_surface);
