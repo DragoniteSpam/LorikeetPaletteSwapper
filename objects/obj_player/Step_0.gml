@@ -53,6 +53,9 @@ if (place_meeting(self.x, self.y, obj_marker_water)) {
 } else {
     self.volume_water = max(self.volume_water - MUSIC_FADE_RATE, 0);
     self.state = EDuckStates.WALKING;
+    if (previous_state != self.state) {
+        obj_demo.ParticlesBurst(obj_demo.spart_emitter_water, obj_demo.spart_type_water_splash_small, self.x, self.y, 0, 24);
+    }
 }
 
 audio_sound_gain(bgm_strings, self.volume_water * VOLUME_BGM, 0);
