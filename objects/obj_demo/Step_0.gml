@@ -1,0 +1,1 @@
+self.instances_rendered = 0;

@@ -7,6 +7,8 @@ scribble("Current time: " + string(hh) + ":" + string_replace(string_format(mm, 
     .draw(32, start + spacing * index++);
 scribble("Rendering resolution: " + string(surface_get_width(application_surface)) + " x " + string(surface_get_height(application_surface)))
     .draw(32, start + spacing * index++);
+scribble("Instances: " + string(self.instances_rendered) + "/" + string(instance_count))
+    .draw(32, start + spacing * index++);
 scribble("FPS: " + string(fps) + "/" + string(game_get_speed(gamespeed_fps)))
     .draw(32, start + spacing * index++);
 scribble("Fullscreen: " + (window_get_fullscreen() ? "True" : "False"))

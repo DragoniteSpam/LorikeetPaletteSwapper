@@ -34,6 +34,7 @@ layer_set_visible(layer_id, false);
 self.tilemap_ground = layer_tilemap_get_id(layer_id);
 
 self.game_time = 0.7;       // * 24 = 4:48 PM
+self.instances_rendered = 0;
 
 application_surface_draw_enable(false);
 
