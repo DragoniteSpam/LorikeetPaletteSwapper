@@ -1,7 +1,7 @@
 {
   "resourceType": "GMProject",
   "resourceVersion": "1.6",
-  "name": "editor",
+  "name": "LorikeetEditor",
   "resources": [
     {"id":{"name":"spr_emu_close","path":"sprites/spr_emu_close/spr_emu_close.yy",},"order":7,},
     {"id":{"name":"spr_emu_help","path":"sprites/spr_emu_help/spr_emu_help.yy",},"order":9,},
