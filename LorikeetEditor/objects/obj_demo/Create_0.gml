@@ -45,8 +45,9 @@ enum EOperationModes {
 
 self.demo_copied_color = c_black;
 
-self.LoadSprite = function() {
-    var fn = get_open_filename("Image files|*.png;*.bmp", "");
+self.LoadSprite = function(fn = undefined) {
+    fn ??= get_open_filename("Image files|*.png;*.bmp", "");
+    
     if (file_exists(fn)) {
         var image = sprite_add(fn, 0, false, false, 0, 0);
         
