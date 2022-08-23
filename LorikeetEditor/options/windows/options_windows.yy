@@ -7,7 +7,7 @@
   "option_windows_version": "0.3.0.0",
   "option_windows_company_info": "Michael the Wizardragon",
   "option_windows_product_info": "Lorikeet: Palette Swapper",
-  "option_windows_copyright_info": "2022 Michael the Wizardragon",
+  "option_windows_copyright_info": "(c) 2022 Michael the Wizardragon",
   "option_windows_description_info": "Manage color palettes of sprites",
   "option_windows_display_cursor": true,
   "option_windows_icon": "icons/icon.ico",

@@ -13,7 +13,7 @@ var starting_extraction_time = (get_timer() - t0) / 1000;
 
 self.demo_palette_index = 0;                                                        // palette index
 self.demo_palette_speed = 0;                                                        // palette playback speed
-self.demo_sprite_type = 2;                                                          // display type
+self.demo_sprite_type = 1;                                                          // display type
 self.demo_force_full_palettes = false;                                              // extract a palette of size 256?
 
 self.demo_mode = EOperationModes.SELECTION;
@@ -146,7 +146,9 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }),
     new EmuRadioArray(32, EMU_AUTO, ew, eh, "Display type:", self.demo_sprite_type, function() {
         obj_demo.demo_sprite_type = self.value;
-    }).AddOptions(["Original", "Indexed", "Indexed with Palette"]),
+    })
+        .AddOptions(["Original", "Applied", "Indexed"])
+        .SetColumns(2, ew / 2),
     new EmuText(32, EMU_AUTO, ew, eh, "Palette extraction time: " + string(starting_extraction_time) + " ms")
         .SetID("TIME"),
     new EmuRenderSurface(32, EMU_AUTO, ew, ew, function(mx, my) {
@@ -212,12 +214,12 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 draw_sprite_ext(obj_demo.demo_sprite, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 break;
             case 1:
-                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
-                break;
-            case 2:
                 lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index);
                 draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 shader_reset();
+                break;
+            case 2:
+                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 break;
         }
         
