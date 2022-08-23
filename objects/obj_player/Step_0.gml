@@ -1,15 +1,15 @@
 var dx = 0, dy = 0;
 var mspd = 120;
-if (keyboard_check(vk_left) || keyboard_check(ord("A"))) {
+if (input_check("left")) {
     dx -= mspd;
 }
-if (keyboard_check(vk_right) || keyboard_check(ord("D"))) {
+if (input_check("right")) {
     dx += mspd;
 }
-if (keyboard_check(vk_up) || keyboard_check(ord("W"))) {
+if (input_check("up")) {
     dy -= mspd;
 }
-if (keyboard_check(vk_down) || keyboard_check(ord("S"))) {
+if (input_check("down")) {
     dy += mspd;
 }
 
