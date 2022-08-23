@@ -482,6 +482,14 @@ function EmuCore(x, y, width, height, text = "") constructor {
         };
     })();
     #endregion
+    
+    self.DroppedFileHandler = function(files) {
+    };
+    
+    self.SetDroppedFileHandler = function(f) {
+        self.DroppedFileHandler = method(self, f);
+        return self;
+    };
 }
 
 function EmuCallback(x, y, width, height, text, value, callback) : EmuCore(x, y, width, height, text) constructor {
@@ -527,9 +535,6 @@ function EmuCallback(x, y, width, height, text, value, callback) : EmuCore(x, y,
     self.SetCallbackMiddle(emu_null);
     self.SetCallbackRight(emu_null);
     self.SetCallbackDouble(emu_null);
-    
-    self.DroppedFileHandler = function(files) {
-    };
 }
 
 function emu_null() { }
