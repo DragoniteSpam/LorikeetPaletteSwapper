@@ -153,18 +153,19 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var sprite = obj_demo.demo_palette.palette;
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         var hscale = self.width / sprite_get_width(sprite);
-        var sh = sprite_get_height(sprite);
-        var vscale = self.height / sh;
+        var vscale = self.height / sprite_get_height(sprite);
         var scale = min(hscale, vscale);
         draw_sprite_ext(sprite, 0, 0, 0, scale, scale, 0, c_white, 1);
-        draw_sprite_stretched_ext(spr_tile_selector, 0, 0, hscale * floor(obj_demo.demo_palette_index), self.width, hscale, c_red, 1);
+        draw_sprite_stretched_ext(spr_tile_selector, 0, 0, scale * floor(obj_demo.demo_palette_index), self.width, scale, c_red, 1);
     }, function(mx, my) {
         // step
         if (mx < 0 || mx >= self.width || my < 0 || my >= self.height) return;
         if (mouse_check_button(mb_left)) {
             var sprite = obj_demo.demo_palette.palette;
             var hscale = self.width / sprite_get_width(sprite);
-            var row = min(my div hscale, sprite_get_height(sprite) - 1);
+            var vscale = self.height / sprite_get_height(sprite);
+            var scale = min(hscale, vscale);
+            var row = min(my div scale, sprite_get_height(sprite) - 1);
             obj_demo.demo_palette_index = row;
         }
     }, emu_null),
