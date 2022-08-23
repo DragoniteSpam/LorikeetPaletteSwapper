@@ -1,4 +1,5 @@
 function file_dropper_get_files(extensions = []) {
+    if (!is_array(extensions)) extensions = [extensions];
 	var n = __file_dropper_count();
 	var array = [];
     

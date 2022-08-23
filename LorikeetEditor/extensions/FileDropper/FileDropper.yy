@@ -20,7 +20,7 @@
   "installdir": "",
   "files": [
     {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","filename":"FileDropper.dll","origname":"","init":"","final":"","kind":1,"uncompress":false,"functions":[
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"file_dropper_init","externalName":"init","kind":1,"help":"file_dropper_init(window)","hidden":false,"returnType":2,"argCount":0,"args":[
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"file_dropper_init","externalName":"file_drop_init","kind":1,"help":"file_dropper_init(window)","hidden":false,"returnType":2,"argCount":0,"args":[
             1,
           ],},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__file_dropper_count","externalName":"file_drop_count","kind":1,"help":"__file_dropper_count()","hidden":false,"returnType":2,"argCount":0,"args":[],},
