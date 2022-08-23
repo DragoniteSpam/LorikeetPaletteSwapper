@@ -110,6 +110,7 @@
     {"id":{"name":"__scribble_config_colours","path":"scripts/__scribble_config_colours/__scribble_config_colours.yy",},"order":1,},
     {"id":{"name":"scribble_is_text_element","path":"scripts/scribble_is_text_element/scribble_is_text_element.yy",},"order":6,},
     {"id":{"name":"EmuCheckbox","path":"scripts/EmuCheckbox/EmuCheckbox.yy",},"order":4,},
+    {"id":{"name":"emu_dialog_show_automation","path":"scripts/emu_dialog_show_automation/emu_dialog_show_automation.yy",},"order":11,},
     {"id":{"name":"scribble_font_bake_shader","path":"scripts/scribble_font_bake_shader/scribble_font_bake_shader.yy",},"order":3,},
     {"id":{"name":"readme_please","path":"notes/readme_please/readme_please.yy",},"order":4,},
     {"id":{"name":"shd_emu_color_buckets","path":"shaders/shd_emu_color_buckets/shd_emu_color_buckets.yy",},"order":3,},
@@ -156,7 +157,7 @@
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Lorikeet","folderPath":"folders/Lorikeet.yy","order":20,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Testing","folderPath":"folders/Testing.yy","order":21,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Editor","folderPath":"folders/Editor.yy","order":21,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Emu","folderPath":"folders/Emu.yy","order":22,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Core","folderPath":"folders/Emu/Core.yy","order":1,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Graphics","folderPath":"folders/Emu/Graphics.yy","order":2,},
