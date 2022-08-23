@@ -484,3 +484,17 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         });
     }),
 ]);
+
+self.ui.DroppedFileHandler = method(self.ui, function(files) {
+    if (array_length(files) > 0) {
+        var dialog = new EmuDialog(480, 240, "Hey!").AddContent([
+            new EmuText(480 / 2, 32, 480 - 32 - 32, 120, "[fa_center]Would you like to load [c_aqua]" + filename_name(files[0]) + "[/c] into the editor?")
+        ]).AddDefaultConfirmCancelButtons("Yes", function() {
+            obj_demo.LoadSprite(self.root.file_to_load);
+            self.root.Close();
+        }, "No", function() {
+            self.root.Close();
+        }).CenterInWindow();
+        dialog.file_to_load = files[0];
+    }
+});
