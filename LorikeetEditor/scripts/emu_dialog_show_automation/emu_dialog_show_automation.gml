@@ -207,7 +207,6 @@ function emu_dialog_show_automation() {
                 .AddContent([
                     (new EmuInput(c1, EMU_BASE, ew, eh, "Hue:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
                         self.data.hue = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(-180, 180)
                     .SetRefresh(function(data) {
@@ -218,7 +217,6 @@ function emu_dialog_show_automation() {
                     }),
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "-100 to +100", 4, E_InputTypes.INT, function() {
                         self.data.sat = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(-100, 100)
                     .SetRefresh(function(data) {
@@ -229,7 +227,6 @@ function emu_dialog_show_automation() {
                     }),
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
                         self.data.val = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(-100, 100)
                     .SetRefresh(function(data) {
@@ -241,12 +238,6 @@ function emu_dialog_show_automation() {
                 ])
                 .SetRefresh(function() {
                     self.override_root_check = true;
-                    self.name_update_cb = method(self, function(data) {
-                        data.name = "HSV: " +
-                            (data.hue > 0 ? "+" : "") + string(data.hue) + "/" +
-                            (data.sat > 0 ? "+" : "") + string(data.sat) + "/" +
-                            (data.val > 0 ? "+" : "") + string(data.val);
-                    });
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:HSV"),
@@ -254,7 +245,6 @@ function emu_dialog_show_automation() {
                 .AddContent([
                     (new EmuInput(c1, EMU_BASE, ew, eh, "Hue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.hue = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
@@ -265,7 +255,6 @@ function emu_dialog_show_automation() {
                     }),
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.sat = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
@@ -276,7 +265,6 @@ function emu_dialog_show_automation() {
                     }),
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.val = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
@@ -288,12 +276,6 @@ function emu_dialog_show_automation() {
                 ])
                 .SetRefresh(function() {
                     self.override_root_check = true;
-                    self.name_update_cb = method(self, function(data) {
-                        data.name = "HSV: " +
-                            string_format(data.hue, 1, 2) + "/" +
-                            string_format(data.sat, 1, 2) + "/" +
-                            string_format(data.val, 1, 2);
-                    });
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:HSVPERCENT"),
@@ -301,7 +283,6 @@ function emu_dialog_show_automation() {
                 .AddContent([
                     (new EmuInput(c1, EMU_BASE, ew, eh, "Red:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
                         self.data.r = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(-255, 255)
                     .SetRefresh(function(data) {
@@ -312,7 +293,6 @@ function emu_dialog_show_automation() {
                     }),
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Green:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
                         self.data.g = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(-255, 255)
                     .SetRefresh(function(data) {
@@ -323,7 +303,6 @@ function emu_dialog_show_automation() {
                     }),
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Blue:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
                         self.data.b = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(-255, 255)
                     .SetRefresh(function(data) {
@@ -335,12 +314,6 @@ function emu_dialog_show_automation() {
                 ])
                 .SetRefresh(function() {
                     self.override_root_check = true;
-                    self.name_update_cb = method(self, function(data) {
-                        data.name = "RGB: " +
-                            (data.r > 0 ? "+" : "-") + string(data.r) + "/" +
-                            (data.g > 0 ? "+" : "-") + string(data.g) + "/" +
-                            (data.b > 0 ? "+" : "-") + string(data.b);
-                    });
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:COLORS"),
@@ -348,7 +321,6 @@ function emu_dialog_show_automation() {
                 .AddContent([
                     (new EmuInput(c1, EMU_BASE, ew, eh, "Red:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.r = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
@@ -359,7 +331,6 @@ function emu_dialog_show_automation() {
                     }),
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Green:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.g = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
@@ -370,7 +341,6 @@ function emu_dialog_show_automation() {
                     }),
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Blue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.b = real(self.value);
-                        self.root.name_update_cb(self.data);
                     }))
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
@@ -382,12 +352,6 @@ function emu_dialog_show_automation() {
                 ])
                 .SetRefresh(function() {
                     self.override_root_check = true;
-                    self.name_update_cb = method(self, function(data) {
-                        data.name = "RGB: " +
-                            string_format(data.r, 1, 2) + "/" +
-                            string_format(data.g, 1, 2) + "/" +
-                            string_format(data.b, 1, 2);
-                    });
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:COLORSPERCENT"),

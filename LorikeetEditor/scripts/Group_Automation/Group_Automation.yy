@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Testing",
-    "path": "folders/Testing.yy",
+    "name": "Editor",
+    "path": "folders/Editor.yy",
   },
 }

@@ -23,6 +23,10 @@ function LorikeetAutomation() constructor {
         self.name = "";
         self.indices = [];
         
+        self.toString = function() {
+            return self.name;
+        };
+        
         self.Save = function() {
             var json = {
                 name: self.name,
@@ -46,6 +50,10 @@ function LorikeetAutomation() constructor {
         self.Index = function() constructor {
             self.name = "";
             self.steps = [];
+            
+            self.toString = function() {
+                return self.name;
+            };
             
             self.Load = function(json) {
                 self.name = json.name;
@@ -78,9 +86,12 @@ function LorikeetAutomation() constructor {
             };
             
             self.StepShiftLeft = function() constructor {
-                self.name = "Shift Left 1";
                 self.count = 1;
                 self.id = EAutomationStepTypes.SHIFT_LEFT;
+                
+                self.toString = function() {
+                    return "Shift Left 1";
+                };
                 
                 self.Save = function() {
                     return {
@@ -101,9 +112,12 @@ function LorikeetAutomation() constructor {
             };
             
             self.StepShiftRight = function() constructor {
-                self.name = "Shift Right 1";
                 self.count = 1;
                 self.id = EAutomationStepTypes.SHIFT_RIGHT;
+                
+                self.toString = function() {
+                    return "Shift Right 1";
+                };
                 
                 self.Load = function(json) {
                     self.count = json.count;
@@ -124,11 +138,17 @@ function LorikeetAutomation() constructor {
             };
             
             self.StepHSV = function() constructor {
-                self.name = "HSV: 0/0/0";
                 self.hue = 0;
                 self.sat = 0;
                 self.val = 0;
                 self.id = EAutomationStepTypes.HSV;
+                
+                self.toString = function() {
+                    return "HSV: " +
+                        (self.hue > 0 ? "+" : "") + string(self.hue) + "/" +
+                        (self.sat > 0 ? "+" : "") + string(self.sat) + "/" +
+                        (self.val > 0 ? "+" : "") + string(self.val);
+                };
                 
                 self.Save = function() {
                     return {
@@ -151,11 +171,17 @@ function LorikeetAutomation() constructor {
             };
             
             self.StepHSVPercent = function() constructor {
-                self.name = "HSV: 1.00/1.00/1.00";
                 self.hue = 1;
                 self.sat = 1;
                 self.val = 1;
                 self.id = EAutomationStepTypes.HSV_PERCENT;
+                
+                self.toString = function () {
+                    return "HSV: " +
+                        string_format(self.hue, 1, 2) + "/" +
+                        string_format(self.sat, 1, 2) + "/" +
+                        string_format(self.val, 1, 2);
+                };
                 
                 self.Save = function() {
                     return {
@@ -178,11 +204,17 @@ function LorikeetAutomation() constructor {
             };
             
             self.StepColor = function() constructor {
-                self.name = "Color: 0/0/0";
                 self.r = 0;
                 self.g = 0;
                 self.b = 0;
                 self.id = EAutomationStepTypes.COLOR;
+                
+                self.toString = function() {
+                    return "RGB: " +
+                        (self.r > 0 ? "+" : "-") + string(self.r) + "/" +
+                        (self.g > 0 ? "+" : "-") + string(self.g) + "/" +
+                        (self.b > 0 ? "+" : "-") + string(self.b);
+                };
                 
                 self.Save = function() {
                     return {
@@ -205,11 +237,17 @@ function LorikeetAutomation() constructor {
             };
             
             self.StepColorPercent = function() constructor {
-                self.name = "Color: 1.00/1.00/1.00";
                 self.r = 1;
                 self.g = 1;
                 self.b = 1;
                 self.id = EAutomationStepTypes.COLOR_PERCENT;
+                
+                self.toString = function() {
+                    return "RGB: " +
+                        string_format(self.r, 1, 2) + "/" +
+                        string_format(self.g, 1, 2) + "/" +
+                        string_format(self.b, 1, 2);
+                };
                 
                 self.Save = function() {
                     return {

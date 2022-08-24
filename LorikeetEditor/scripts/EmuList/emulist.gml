@@ -250,7 +250,7 @@ function EmuList(x, y, width, header_height, text, element_height, content_slots
                 
                 switch (self.entries_are) {
                     case E_ListEntryTypes.STRINGS: index_text += string(self.entries[current_index]); break;
-                    case E_ListEntryTypes.STRUCTS: index_text += self.entries[current_index].name; break;
+                    case E_ListEntryTypes.STRUCTS: index_text += self.entries[current_index].toString(); break;
                     case E_ListEntryTypes.SCRIPTS: index_text = index_text + string(self.entries[current_index](current_index)); break;
                 }
                 

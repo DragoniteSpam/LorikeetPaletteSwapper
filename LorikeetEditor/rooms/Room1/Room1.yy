@@ -49,7 +49,7 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "Testing",
-    "path": "folders/Testing.yy",
+    "name": "Editor",
+    "path": "folders/Editor.yy",
   },
 }
