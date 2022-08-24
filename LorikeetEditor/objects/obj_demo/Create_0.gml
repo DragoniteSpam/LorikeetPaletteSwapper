@@ -76,6 +76,7 @@ self.ResetSprite = function() {
     sprite_delete(self.demo_sprite);
     self.demo_sprite = sprite_duplicate(spr_test_sprite);
     self.demo_sprite_indexed = self.demo_palette.ExtractPalette(self.demo_sprite, 0, self.demo_force_full_palettes);
+    self.demo_palette_index = 0;
     return (get_timer() - t0) / 1000;
 };
 
