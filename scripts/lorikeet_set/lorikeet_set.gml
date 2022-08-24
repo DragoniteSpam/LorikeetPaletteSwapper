@@ -1,10 +1,10 @@
 function lorikeet_set(palette_sprite, palette_index = 0, subimage = 0, shader = shd_lorikeet) {
-    var sampler_palette = shader_get_sampler_index(shader, "samp_Palette");
-    var u_slot_index = shader_get_uniform(shader, "u_PaletteSlot");
-    var u_slot_index_count = shader_get_uniform(shader, "u_PaletteSlotCount");
-    var u_slot_texture_bounds = shader_get_uniform(shader, "u_TextureBounds");
-    var u_alpha_test = shader_get_uniform(shader, "u_AlphaTest");
-    var u_alpha_test_ref = shader_get_uniform(shader, "u_AlphaTestRef");
+    var sampler_palette = shader_get_sampler_index(shader, "samp_lorikeet_Palette");
+    var u_slot_index = shader_get_uniform(shader, "u_lorikeet_PaletteSlot");
+    var u_slot_index_count = shader_get_uniform(shader, "u_lorikeet_PaletteSlotCount");
+    var u_slot_texture_bounds = shader_get_uniform(shader, "u_lorikeet_TextureBounds");
+    var u_alpha_test = shader_get_uniform(shader, "u_lorikeet_AlphaTest");
+    var u_alpha_test_ref = shader_get_uniform(shader, "u_lorikeet_AlphaTestRef");
     shader_set(shader);
     texture_set_stage(sampler_palette, sprite_get_texture(palette_sprite, clamp(subimage, 0, sprite_get_number(palette_sprite) - 1)));
     gpu_set_texfilter_ext(sampler_palette, false);
