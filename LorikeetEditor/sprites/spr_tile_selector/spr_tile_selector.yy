@@ -91,7 +91,7 @@
     "resourceType": "GMNineSliceData",
   },
   "parent": {
-    "name": "Testing",
-    "path": "folders/Testing.yy",
+    "name": "LorikeetEditor",
+    "path": "LorikeetEditor.yyp",
   },
 }
