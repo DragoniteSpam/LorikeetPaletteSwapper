@@ -121,8 +121,7 @@ var eh = 32;
 self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddContent([
     new EmuText(32, EMU_AUTO, ew, eh, "[c_aqua]Lorikeet Palette Extraction"),
     new EmuButton(32, EMU_AUTO, ew / 2, eh, "Load Sprite", function() {
-        var load_results = obj_demo.LoadSprite();
-        self.GetSibling("TIME").text = "Palette extraction time: " + string(load_results) + " ms";
+        obj_demo.LoadSprite();
     }),
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Load Palette", function() {
         obj_demo.LoadPalette();
@@ -134,12 +133,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         obj_demo.SavePaletteSprite();
     }),
     new EmuButton(32, EMU_AUTO, ew / 2, eh, "Reset Sprite", function() {
-        var load_results = obj_demo.ResetSprite();
-        self.GetSibling("TIME").text = "Palette extraction time: " + string(load_results) + " ms";
+        obj_demo.ResetSprite();
     }),
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Reset Palette", function() {
-        var load_results = obj_demo.ReExtract();
-        self.GetSibling("TIME").text = "Palette extraction time: " + string(load_results) + " ms";
+        obj_demo.ReExtract();
     }),
     new EmuCheckbox(32, EMU_AUTO, ew, eh, "Extract full palettes?", self.demo_force_full_palettes, function() {
         obj_demo.demo_force_full_palettes = self.value;
@@ -150,8 +147,6 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     })
         .AddOptions(["Original", "Applied", "Indexed"])
         .SetColumns(2, ew / 2),
-    new EmuText(32, EMU_AUTO, ew, eh, "Palette extraction time: " + string(starting_extraction_time) + " ms")
-        .SetID("TIME"),
     new EmuRenderSurface(32, EMU_AUTO, ew, ew, function(mx, my) {
         // render
         var sprite = obj_demo.demo_palette.palette;
