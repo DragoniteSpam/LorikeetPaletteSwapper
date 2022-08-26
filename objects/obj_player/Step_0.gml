@@ -61,7 +61,7 @@ if (place_meeting(self.x, self.y, obj_marker_water)) {
 audio_sound_gain(bgm_strings, self.volume_water * VOLUME_BGM, 0);
 audio_sound_gain(bgm_woodwinds, (1 - self.volume_water) * VOLUME_BGM, 0);
 
-if (place_meeting(self.x, self.y, obj_marker_grass)) {
+if (place_meeting(self.x, self.y, obj_grass_collision)) {
     if ((dx != 0 || dy != 0) && random(1) < 0.125) {
         obj_demo.ParticlesBurst(obj_demo.spart_emitter_grass, obj_demo.spart_type_grass, self.x, self.y, 0, 1);
         if (self.grass_sound_enabled) {

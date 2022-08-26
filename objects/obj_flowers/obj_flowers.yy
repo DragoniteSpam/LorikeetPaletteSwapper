@@ -12,8 +12,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "obj_renderable",
-    "path": "objects/obj_renderable/obj_renderable.yy",
+    "name": "obj_grass_collision",
+    "path": "objects/obj_grass_collision/obj_grass_collision.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,

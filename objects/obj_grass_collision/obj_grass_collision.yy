@@ -1,17 +1,17 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_marker_grass",
-  "spriteId": {
-    "name": "col_marker_grass",
-    "path": "sprites/col_marker_grass/col_marker_grass.yy",
-  },
+  "name": "obj_grass_collision",
+  "spriteId": null,
   "solid": false,
-  "visible": false,
+  "visible": true,
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_renderable",
+    "path": "objects/obj_renderable/obj_renderable.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -28,7 +28,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Markers",
-    "path": "folders/Objects/Markers.yy",
+    "name": "Objects",
+    "path": "folders/Objects.yy",
   },
 }
