@@ -393,27 +393,54 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var ew = 480;
         var eh = 32;
         var dialog = (new EmuDialog(32 + 32 + 480, 360, "Hue/Saturation/Value")).AddContent([
-            new EmuText(32, EMU_AUTO, ew, eh, "Hue: +0")
+            new EmuInput(32, EMU_AUTO, ew, eh, "Hue:", "0", "-180...+180", 7, E_InputTypes.REAL, function() {
+                var val = clamp(real(self.value), -180, 180);
+                self.root.stored_hue = val;
+                self.GetSibling("H BAR").value = val;
+                self.root.UpdateColors();
+                if (string(val) != self.value) self.SetValue(val);
+            })
+                .SetNext("SAT").SetPrevious("VAL")
+                .SetRealNumberBounds(-999999, 9999999)
                 .SetID("HUE"),
             new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -180, 180, true, 0, function() {
-                self.GetSibling("HUE").text = "Hue: " + ((self.value > 0) ? "+" : "") + string(round(self.value));
+                self.GetSibling("HUE").SetValue(self.value);
                 self.root.stored_hue = self.value;
                 self.root.UpdateColors();
-            }),
-            new EmuText(32, EMU_AUTO, ew, eh, "Saturation: +0")
+            })
+                .SetID("H BAR"),
+            new EmuInput(32, EMU_AUTO, ew, eh, "Saturation:", "0", "-255...+255", 7, E_InputTypes.REAL, function() {
+                var val = clamp(real(self.value), -255, 255);
+                self.root.stored_sat = val;
+                self.GetSibling("S BAR").value = val;
+                self.root.UpdateColors();
+                if (string(val) != self.value) self.SetValue(val);
+            })
+                .SetNext("VAL").SetPrevious("HUE")
+                .SetRealNumberBounds(-999999, 9999999)
                 .SetID("SAT"),
             new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -255, 255, true, 0, function() {
-                self.GetSibling("SAT").text = "Saturation: " + ((self.value > 0) ? "+" : "") + string(round(self.value));
+                self.GetSibling("SAT").SetValue(self.value);
                 self.root.stored_sat = self.value;
                 self.root.UpdateColors();
-            }),
-            new EmuText(32, EMU_AUTO, ew, eh, "Value: +0")
+                if (string(val) != self.value) self.SetValue(val);
+            })
+                .SetID("S BAR"),
+            new EmuInput(32, EMU_AUTO, ew, eh, "Value:", "0", "-255...+255", 7, E_InputTypes.REAL, function() {
+                var val = clamp(real(self.value), -255, 255);
+                self.root.stored_val = val;
+                self.GetSibling("V BAR").value = val;
+                self.root.UpdateColors();
+            })
+                .SetNext("HUE").SetPrevious("SAT")
+                .SetRealNumberBounds(-999999, 9999999)
                 .SetID("VAL"),
             new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -255, 255, true, 0, function() {
-                self.GetSibling("VAL").text = "Value: " + ((self.value > 0) ? "+" : "") + string(round(self.value));
+                self.GetSibling("VAL").SetValue(self.value);
                 self.root.stored_val = self.value;
                 self.root.UpdateColors();
-            }),
+            })
+                .SetID("V BAR"),
         ])
         .SetActiveShade(0)
         .AddDefaultConfirmCancelButtons("Done", function() {
@@ -440,27 +467,54 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var ew = 480;
         var eh = 32;
         var dialog = (new EmuDialog(32 + 32 + 480, 360, "Color Channels")).AddContent([
-            new EmuText(32, EMU_AUTO, ew, eh, "Red: +0")
+            new EmuInput(32, EMU_AUTO, ew, eh, "Red:", "0", "-255...+255", 7, E_InputTypes.REAL, function() {
+                var val = clamp(real(self.value), -255, 255);
+                self.root.stored_r = val;
+                self.GetSibling("R BAR").value = val;
+                self.root.UpdateColors();
+                if (string(val) != self.value) self.SetValue(val);
+            })
+                .SetNext("G").SetPrevious("B")
+                .SetRealNumberBounds(-999999, 9999999)
                 .SetID("R"),
             new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -255, 255, true, 0, function() {
-                self.GetSibling("R").text = "Red: " + ((self.value > 0) ? "+" : "") + string(round(self.value));
+                self.GetSibling("R").SetValue(self.value);
                 self.root.stored_r = self.value;
                 self.root.UpdateColors();
-            }),
-            new EmuText(32, EMU_AUTO, ew, eh, "Green: +0")
+            })
+                .SetID("R BAR"),
+            new EmuInput(32, EMU_AUTO, ew, eh, "Green:", "0", "-255...+255", 7, E_InputTypes.REAL, function() {
+                var val = clamp(real(self.value), -255, 255);
+                self.root.stored_g = val;
+                self.GetSibling("G BAR").value = val;
+                self.root.UpdateColors();
+                if (string(val) != self.value) self.SetValue(val);
+            })
+                .SetNext("B").SetPrevious("R")
+                .SetRealNumberBounds(-999999, 9999999)
                 .SetID("G"),
             new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -255, 255, true, 0, function() {
-                self.GetSibling("B").text = "Green: " + ((self.value > 0) ? "+" : "") + string(round(self.value));
+                self.GetSibling("G").SetValue(self.value);
                 self.root.stored_g = self.value;
                 self.root.UpdateColors();
-            }),
-            new EmuText(32, EMU_AUTO, ew, eh, "Blue: +0")
+            })
+                .SetID("G BAR"),
+            new EmuInput(32, EMU_AUTO, ew, eh, "Blue:", "0", "-255...+255", 7, E_InputTypes.REAL, function() {
+                var val = clamp(real(self.value), -255, 255);
+                self.root.stored_b = val;
+                self.GetSibling("B BAR").value = val;
+                self.root.UpdateColors();
+                if (string(val) != self.value) self.SetValue(val);
+            })
+                .SetNext("R").SetPrevious("G")
+                .SetRealNumberBounds(-999999, 9999999)
                 .SetID("B"),
             new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -255, 255, true, 0, function() {
-                self.GetSibling("B").text = "Blue: " + ((self.value > 0) ? "+" : "") + string(round(self.value));
+                self.GetSibling("B").SetValue(self.value);
                 self.root.stored_b = self.value;
                 self.root.UpdateColors();
-            }),
+            })
+                .SetID("B BAR"),
         ])
         .SetActiveShade(0)
         .AddDefaultConfirmCancelButtons("Done", function() {

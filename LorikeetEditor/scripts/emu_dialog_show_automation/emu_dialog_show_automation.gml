@@ -208,6 +208,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_BASE, ew, eh, "Hue:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
                         self.data.hue = real(self.value);
                     }))
+                    .SetID("H H")
+                    .SetNext("H S").SetPrevious("H V")
                     .SetRealNumberBounds(-180, 180)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -218,6 +220,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "-100 to +100", 4, E_InputTypes.INT, function() {
                         self.data.sat = real(self.value);
                     }))
+                    .SetID("H S")
+                    .SetNext("H V").SetPrevious("H H")
                     .SetRealNumberBounds(-100, 100)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -228,6 +232,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
                         self.data.val = real(self.value);
                     }))
+                    .SetID("H V")
+                    .SetNext("H H").SetPrevious("H S")
                     .SetRealNumberBounds(-100, 100)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -246,6 +252,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_BASE, ew, eh, "Hue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.hue = real(self.value);
                     }))
+                    .SetID("HP H")
+                    .SetNext("HP S").SetPrevious("HP V")
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -256,6 +264,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.sat = real(self.value);
                     }))
+                    .SetID("HP S")
+                    .SetNext("HP V").SetPrevious("HP H")
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -266,6 +276,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.val = real(self.value);
                     }))
+                    .SetID("HP V")
+                    .SetNext("HP H").SetPrevious("HP S")
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -284,6 +296,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_BASE, ew, eh, "Red:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
                         self.data.r = real(self.value);
                     }))
+                    .SetID("C R")
+                    .SetNext("C G").SetPrevious("C B")
                     .SetRealNumberBounds(-255, 255)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -294,6 +308,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Green:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
                         self.data.g = real(self.value);
                     }))
+                    .SetID("C G")
+                    .SetNext("C B").SetPrevious("C R")
                     .SetRealNumberBounds(-255, 255)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -304,6 +320,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Blue:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
                         self.data.b = real(self.value);
                     }))
+                    .SetID("C B")
+                    .SetNext("C R").SetPrevious("C G")
                     .SetRealNumberBounds(-255, 255)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -322,6 +340,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_BASE, ew, eh, "Red:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.r = real(self.value);
                     }))
+                    .SetID("CP R")
+                    .SetNext("CP G").SetPrevious("CP B")
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -332,6 +352,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Green:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.g = real(self.value);
                     }))
+                    .SetID("CP G")
+                    .SetNext("CP B").SetPrevious("CP R")
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -342,6 +364,8 @@ function emu_dialog_show_automation() {
                     (new EmuInput(c1, EMU_AUTO, ew, eh, "Blue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.b = real(self.value);
                     }))
+                    .SetID("CP B")
+                    .SetNext("CP R").SetPrevious("CP G")
                     .SetRealNumberBounds(0, 10)
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
