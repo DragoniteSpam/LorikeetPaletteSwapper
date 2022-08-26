@@ -404,7 +404,9 @@
   "isEcma": false,
   "configs": {
     "name": "Default",
-    "children": [],
+    "children": [
+      {"name":"pi","children":[],},
+    ],
   },
   "RoomOrderNodes": [
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
@@ -489,6 +491,6 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"controllerblacklist.csv","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
-    "IDEVersion": "2022.800.0.193",
+    "IDEVersion": "2022.800.0.199",
   },
 }
