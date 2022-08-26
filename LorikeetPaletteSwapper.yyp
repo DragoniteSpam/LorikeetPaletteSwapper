@@ -178,6 +178,7 @@
     {"id":{"name":"scribble_anim_rainbow","path":"scripts/scribble_anim_rainbow/scribble_anim_rainbow.yy",},"order":4,},
     {"id":{"name":"scribble_super_glyph_delete","path":"scripts/scribble_super_glyph_delete/scribble_super_glyph_delete.yy",},"order":4,},
     {"id":{"name":"idx_flowers","path":"sprites/idx_flowers/idx_flowers.yy",},"order":1,},
+    {"id":{"name":"obj_tree_perimeter","path":"objects/obj_tree_perimeter/obj_tree_perimeter.yy",},"order":8,},
     {"id":{"name":"scribble_anim_shake","path":"scripts/scribble_anim_shake/scribble_anim_shake.yy",},"order":6,},
     {"id":{"name":"scribble","path":"scripts/scribble/scribble.yy",},"order":8,},
     {"id":{"name":"input_player_get_invalid_gamepad_bindings","path":"scripts/input_player_get_invalid_gamepad_bindings/input_player_get_invalid_gamepad_bindings.yy",},"order":7,},

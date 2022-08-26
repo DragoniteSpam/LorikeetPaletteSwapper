@@ -12,6 +12,8 @@
 // video
 #macro FLOWER_DENSITY               3
 #macro pi:FLOWER_DENSITY            1.25
+#macro DESTROY_PERIMETER_TREES      false
+#macro pi:DESTROY_PERIMETER_TREES   true
 
 // function overrides
 
