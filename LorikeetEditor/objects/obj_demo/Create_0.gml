@@ -414,7 +414,9 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 self.root.stored_val = self.value;
                 self.root.UpdateColors();
             }),
-        ]).AddDefaultConfirmCancelButtons("Done", function() {
+        ])
+        .SetActiveShade(0)
+        .AddDefaultConfirmCancelButtons("Done", function() {
             self.root.Close();
         }, "Cancel", function() {
             obj_demo.demo_palette.data[obj_demo.demo_palette_index] = self.root.original_data;
@@ -459,7 +461,9 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 self.root.stored_b = self.value;
                 self.root.UpdateColors();
             }),
-        ]).AddDefaultConfirmCancelButtons("Done", function() {
+        ])
+        .SetActiveShade(0)
+        .AddDefaultConfirmCancelButtons("Done", function() {
             self.root.Close();
         }, "Cancel", function() {
             obj_demo.demo_palette.data[obj_demo.demo_palette_index] = self.root.original_data;
