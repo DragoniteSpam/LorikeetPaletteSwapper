@@ -97,6 +97,7 @@
     {"id":{"name":"scribble_anim_rainbow","path":"scripts/scribble_anim_rainbow/scribble_anim_rainbow.yy",},"order":4,},
     {"id":{"name":"emu_init","path":"scripts/emu_init/emu_init.yy",},"order":3,},
     {"id":{"name":"scribble_anim_wobble","path":"scripts/scribble_anim_wobble/scribble_anim_wobble.yy",},"order":9,},
+    {"id":{"name":"shd_lorikeet_preview","path":"shaders/shd_lorikeet_preview/shd_lorikeet_preview.yy",},"order":10,},
     {"id":{"name":"EmuTabGroup","path":"scripts/EmuTabGroup/EmuTabGroup.yy",},"order":14,},
     {"id":{"name":"Emu_Core","path":"scripts/Emu_Core/Emu_Core.yy",},"order":0,},
     {"id":{"name":"spr_emu_radio","path":"sprites/spr_emu_radio/spr_emu_radio.yy",},"order":16,},

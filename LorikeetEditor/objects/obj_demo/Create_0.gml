@@ -18,6 +18,15 @@ self.demo_force_full_palettes = false;                                          
 
 self.demo_mode = EOperationModes.SELECTION;
 
+enum EOperationModes {
+    SELECTION,
+    EYEDROPPER,
+    BUCKET,
+}
+
+self.demo_copied_color = c_black;
+self.demo_edit_cell = -1;
+
 self.automations = new LorikeetAutomation();
 try {
     var buffer = buffer_load(SAVE_FILE_AUTOMATION);
@@ -37,14 +46,6 @@ try {
     }
 }
 
-enum EOperationModes {
-    SELECTION,
-    EYEDROPPER,
-    BUCKET,
-}
-
-self.demo_copied_color = c_black;
-
 self.LoadSprite = function(fn = undefined) {
     fn ??= get_open_filename("Image files|*.png;*.bmp", "");
     
@@ -57,6 +58,7 @@ self.LoadSprite = function(fn = undefined) {
             self.demo_sprite = image;
             self.demo_sprite_indexed = self.demo_palette.ExtractPalette(image, 0, self.demo_force_full_palettes);
             self.demo_palette_index = 0;
+            self.demo_edit_cell = -1;
             return (get_timer() - t0) / 1000;
         }
     }
@@ -68,6 +70,7 @@ self.ReExtract = function() {
     var t0 = get_timer();
     self.demo_sprite_indexed = self.demo_palette.ExtractPalette(self.demo_sprite, 0, self.demo_force_full_palettes);
     self.demo_palette_index = 0;
+    self.demo_edit_cell = -1;
     return (get_timer() - t0) / 1000;
 };
 
@@ -77,6 +80,7 @@ self.ResetSprite = function() {
     self.demo_sprite = sprite_duplicate(spr_test_sprite);
     self.demo_sprite_indexed = self.demo_palette.ExtractPalette(self.demo_sprite, 0, self.demo_force_full_palettes);
     self.demo_palette_index = 0;
+    self.demo_edit_cell = -1;
     return (get_timer() - t0) / 1000;
 };
 
@@ -88,6 +92,7 @@ self.LoadPalette = function() {
         if (sprite_exists(image)) {
             self.demo_palette.FromImage(image);
             self.demo_palette_index = 0;
+            self.demo_edit_cell = -1;
         }
     }
     
@@ -174,6 +179,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     (new EmuButton(32 + ew / 3, EMU_INLINE, ew / 3, eh, "Delete row", function() {
         obj_demo.demo_palette.RemovePaletteRow(obj_demo.demo_palette_index);
         obj_demo.demo_palette_index = min(obj_demo.demo_palette_index, array_length(obj_demo.demo_palette.data) - 1);
+        obj_demo.demo_edit_cell = -1;
     })),
     (new EmuButton(32 + 2 * ew / 3, EMU_INLINE, ew / 3, eh, "Auto", emu_dialog_show_automation)),
     (new EmuButtonImage(32 + 0 * ew / 4, EMU_AUTO, ew / 4, eh, spr_controls, 0, c_white, 1, false, function() {
@@ -208,19 +214,23 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         
         switch (obj_demo.demo_sprite_type) {
             case 0:
+                // skips the paint bucket feature
+                draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
                 draw_sprite_ext(obj_demo.demo_sprite, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
-                break;
+                return;
             case 1:
                 lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index);
                 draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 shader_reset();
                 break;
             case 2:
+                // skips the paint bucket feature
+                draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
                 draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
-                break;
+                return;
         }
         
-        var color_index = -1;
+        var color_under_cursor = -1;
         
         if (mx > 0 && my > 0 && mx < self.width && my < self.height) {
             var c = surface_getpixel_ext(self.surface, mx, my);
@@ -234,28 +244,54 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 for (var i = 0, n = array_length(palette); i < n; i++) {
                     var pc = palette[i];
                     if (colour_get_red(pc) == r && colour_get_green(pc) == g && colour_get_blue(pc) == b) {
-                        color_index = i;
+                        color_under_cursor = cc;
+                        
+                        if (mouse_check_button(mb_left)) {
+                            switch (obj_demo.demo_mode) {
+                                case EOperationModes.SELECTION:
+                                    obj_demo.demo_edit_cell = i;
+                                    break;
+                                case EOperationModes.EYEDROPPER:
+                                    obj_demo.demo_copied_color = cc;
+                                    break;
+                                case EOperationModes.BUCKET:
+                                    obj_demo.demo_palette.Modify(i, obj_demo.demo_palette_index, obj_demo.demo_copied_color);
+                                    break;
+                            }
+                        }
+                        
                         break;
                     }
                 }
+            }
+        } else {
+            if (obj_demo.demo_edit_cell != -1) {
+                color_under_cursor = obj_demo.demo_palette.data[obj_demo.demo_palette_index][obj_demo.demo_edit_cell];
             }
         }
         
         // after the color has been sampled, do it again
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         
-        switch (obj_demo.demo_sprite_type) {
-            case 0:
-                draw_sprite_ext(obj_demo.demo_sprite, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
-                break;
-            case 1:
-                lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index);
-                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
-                shader_reset();
-                break;
-            case 2:
-                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
-                break;
+        lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index, 0, shd_lorikeet_preview);
+        shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_SelectedColor"), colour_get_red(color_under_cursor) / 0xff, colour_get_green(color_under_cursor) / 0xff, colour_get_blue(color_under_cursor) / 0xff);
+        draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
+        shader_reset();
+        
+        // color picker
+        var size = 64;
+        draw_rectangle_colour(1, self.height - size + 1, size - 1, self.height - 1, obj_demo.demo_copied_color, obj_demo.demo_copied_color, obj_demo.demo_copied_color, obj_demo.demo_copied_color, false);
+        draw_sprite_stretched(spr_tile_selector, 0, 1, self.height - size + 1, size - 2, size - 2);
+        draw_sprite(spr_modes, 2, size / 2, self.height - size / 2);
+        
+        static picker = new EmuColorPicker(0, 0, 0, 0, "", c_black, function() {
+            obj_demo.demo_copied_color = self.value;
+        });
+        
+        if (mx > 1 && my > self.height - size + 1 && mx < size - 1 && my < self.height - 1) {
+            if (mouse_check_button_pressed(mb_left)) {
+                picker.ShowPickerDialog().SetActiveShade(0);
+            }
         }
         
         scribble("[fnt_emu_default_outline]Middle mouse button to pan")
@@ -343,14 +379,11 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         // render
         var palette = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
         
+        draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
+        
         var step = 32;
         var hcells = self.width div step;
-        var mcx = mx div step;
-        var mcy = my div step;
-        var index = min(mcy * hcells + mcx, array_length(palette) - 1);
-        mcx = index % hcells;
-        mcy = index div hcells;
-        draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
+        var index = -1;
         
         for (var i = 0, n = array_length(palette); i < n; i++) {
             var c = palette[i];
@@ -360,6 +393,18 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         
         var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
         if (mouse_in_view) {
+            var mcx = mx div step;
+            var mcy = my div step;
+            index = min(mcy * hcells + mcx, array_length(palette) - 1);
+            mcx = index % hcells;
+            mcy = index div hcells;
+            
+            draw_sprite(spr_tile_selector, 0, mcx * step, mcy * step);
+        }
+        
+        if (index != obj_demo.demo_edit_cell && obj_demo.demo_edit_cell != -1) {
+            mcx = obj_demo.demo_edit_cell % hcells;
+            mcy = obj_demo.demo_edit_cell div hcells;
             draw_sprite(spr_tile_selector, 0, mcx * step, mcy * step);
         }
         
@@ -396,9 +441,13 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         if (mouse_check_button_pressed(mb_left)) {
             switch (obj_demo.demo_mode) {
                 case EOperationModes.SELECTION:
-                    picker.palette_index = index;
-                    picker.value = obj_demo.demo_palette.data[obj_demo.demo_palette_index][index];
-                    picker.ShowPickerDialog().SetActiveShade(0);
+                    if (obj_demo.demo_edit_cell == index) {
+                        picker.palette_index = index;
+                        picker.value = obj_demo.demo_palette.data[obj_demo.demo_palette_index][index];
+                        picker.ShowPickerDialog().SetActiveShade(0);
+                    } else {
+                        obj_demo.demo_edit_cell = index;
+                    }
                     break;
                 case EOperationModes.EYEDROPPER:
                     obj_demo.demo_copied_color = obj_demo.demo_palette.data[obj_demo.demo_palette_index][index];
