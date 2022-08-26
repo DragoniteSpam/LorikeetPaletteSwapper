@@ -204,7 +204,46 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     })),
     new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 762, 836, function(mx, my) {
         // render
+        draw_clear_alpha(c_black, 0);
+        
+        switch (obj_demo.demo_sprite_type) {
+            case 0:
+                draw_sprite_ext(obj_demo.demo_sprite, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
+                break;
+            case 1:
+                lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index);
+                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
+                shader_reset();
+                break;
+            case 2:
+                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
+                break;
+        }
+        
+        var color_index = -1;
+        
+        if (mx > 0 && my > 0 && mx < self.width && my < self.height) {
+            var c = surface_getpixel_ext(self.surface, mx, my);
+            var r = colour_get_red(c);
+            var g = colour_get_green(c);
+            var b = colour_get_blue(c);
+            var cc = make_colour_rgb(r, g, b);
+            var a = c - cc;
+            if (a > 0) {
+                var palette = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
+                for (var i = 0, n = array_length(palette); i < n; i++) {
+                    var pc = palette[i];
+                    if (colour_get_red(pc) == r && colour_get_green(pc) == g && colour_get_blue(pc) == b) {
+                        color_index = i;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // after the color has been sampled, do it again
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
+        
         switch (obj_demo.demo_sprite_type) {
             case 0:
                 draw_sprite_ext(obj_demo.demo_sprite, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
