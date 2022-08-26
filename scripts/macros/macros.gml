@@ -1,11 +1,19 @@
+// gameplay
 #macro DT                           (game_get_speed(gamespeed_microseconds) / 1000000)
 #macro GAME_UPDATE_TIME             ((DT * 360) / 86400)
 #macro MUSIC_FADE_RATE              0.005
 
 #macro SETTINGS_FILE                "settings.ini"
 
+// audio
 #macro VOLUME_BGM                   (obj_demo.volume.main * obj_demo.volume.bgm)
 #macro VOLUME_SE                    (obj_demo.volume.main * obj_demo.volume.se)
+
+// video
+#macro FLOWER_DENSITY               3
+#macro pi:FLOWER_DENSITY            1.25
+
+// function overrides
 
 #macro __window_set_size_source     window_set_size
 #macro window_set_size              __window_set_size_replacement
