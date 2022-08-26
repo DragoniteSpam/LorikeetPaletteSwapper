@@ -232,7 +232,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         
         var color_under_cursor = -1;
         
-        if (mx > 0 && my > 0 && mx < self.width && my < self.height) {
+        if (mx > 0 && my > 0 && mx < self.width && my < self.height && self.isActiveDialog()) {
             var c = surface_getpixel_ext(self.surface, mx, my);
             var r = colour_get_red(c);
             var g = colour_get_green(c);
@@ -264,10 +264,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     }
                 }
             }
-        } else {
-            if (obj_demo.demo_edit_cell != -1) {
-                color_under_cursor = obj_demo.demo_palette.data[obj_demo.demo_palette_index][obj_demo.demo_edit_cell];
-            }
+        }
+        
+        if (color_under_cursor == -1 && obj_demo.demo_edit_cell != -1) {
+            color_under_cursor = obj_demo.demo_palette.data[obj_demo.demo_palette_index][obj_demo.demo_edit_cell];
         }
         
         // after the color has been sampled, do it again
