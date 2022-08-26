@@ -1,4 +1,4 @@
-window_set_cursor(cr_none);
+window_set_cursor(cr_default);
 cursor_sprite = -1;
 
 self.demo_palette_index += self.demo_palette_speed * (game_get_speed(gamespeed_microseconds) / 1000000);
