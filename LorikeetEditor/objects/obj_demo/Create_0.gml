@@ -514,6 +514,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 .SetRealNumberBounds(-999999, 9999999)
                 .SetID("SAT"),
             new EmuProgressBar(32, EMU_AUTO, ew, eh, 8, -255, 255, true, 0, function() {
+                var val = clamp(real(self.value), -255, 255);
                 self.GetSibling("SAT").SetValue(self.value);
                 self.root.stored_sat = self.value;
                 self.root.UpdateColors();
