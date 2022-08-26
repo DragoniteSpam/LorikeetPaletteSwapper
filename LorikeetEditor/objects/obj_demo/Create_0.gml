@@ -342,6 +342,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             self.pan_x = 0;
             self.pan_y = 0;
         }
+        
+        if (mouse_in_view) {
+            set_cursor_sprite_auto();
+        }
     }, function() {
         // create
         self.zoom = 8;
@@ -464,6 +468,8 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     break;
             }
         }
+        
+        set_cursor_sprite_auto();
     }, function() {
         // create
     }),
