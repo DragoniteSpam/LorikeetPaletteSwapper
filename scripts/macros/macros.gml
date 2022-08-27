@@ -3,7 +3,7 @@
 #macro GAME_UPDATE_TIME             ((DT * 360) / 86400)
 #macro MUSIC_FADE_RATE              0.005
 
-#macro SETTINGS_FILE                "settings.ini"
+#macro SETTINGS_FILE                "settings.json"
 
 // audio
 #macro VOLUME_BGM                   (obj_demo.volume.main * obj_demo.volume.bgm)
@@ -14,6 +14,8 @@
 #macro pi:FLOWER_DENSITY            1.25
 #macro DESTROY_PERIMETER_TREES      false
 #macro pi:DESTROY_PERIMETER_TREES   true
+#macro TARGET_FPS                   60
+#macro pi:TARGET_FPS                30
 
 #macro AVAILABLE_RESOLUTIONS        [\
         { w:   216, h:  120 },\

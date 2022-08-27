@@ -1,3 +1,5 @@
+game_set_speed(TARGET_FPS, gamespeed_fps);
+
 vertex_format_begin();
 vertex_format_add_position_3d();
 vertex_format_add_texcoord();
