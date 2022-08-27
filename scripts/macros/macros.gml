@@ -15,6 +15,31 @@
 #macro DESTROY_PERIMETER_TREES      false
 #macro pi:DESTROY_PERIMETER_TREES   true
 
+#macro AVAILABLE_RESOLUTIONS        [\
+        { w:   216, h:  120 },\
+        { w:   427, h:  240 },\
+        { w:   854, h:  480 },\
+        { w:  1280, h:  720 },\
+        { w:  1366, h:  768 },\
+        { w:  1600, h:  900 },\
+        { w:  1920, h: 1080 },\
+        { w:  2560, h: 1440 },\
+        { w:  3840, h: 2160 },\
+        { w:  5120, h: 2880 },\
+        { w:  7680, h: 4320 },\
+    ]
+#macro pi:AVAILABLE_RESOLUTIONS        [\
+        { w:   216, h:  120 },\
+        { w:   427, h:  240 },\
+        { w:   854, h:  480 },\
+        { w:  1280, h:  720 },\
+        { w:  1366, h:  768 },\
+        { w:  1600, h:  900 },\
+        { w:  1920, h: 1080 },\
+        { w:  2560, h: 1440 },\
+        { w:  3840, h: 2160 },\
+    ]
+
 // function overrides
 
 #macro __window_set_size_source     window_set_size
