@@ -21,21 +21,17 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         buffer_get_surface(buffer_sprite, surface_sprite, 0);
         buffer_seek(buffer_sprite, buffer_seek_start, 0);
         
+        var palette_array = array_create(256, 0);
+        var palette_count = 0;
+        
         var step = buffer_sizeof(buffer_u32);
         repeat (buffer_get_size(buffer_sprite) / step) {
             var cc = buffer_read(buffer_sprite, buffer_u32);
             if ((cc >> 24) == 0) continue;
             cc &= 0x00ffffff;
-            map[$ string(cc)] ??= { color: cc, count: 0, rank: -1 };
+            map[$ string(cc)] ??= { color: cc, count: 0, rank: palette_count++ };
             map[$ string(cc)].count++;
-        }
-        
-        var keys = variable_struct_get_names(map);
-        var sorting = array_create(array_length(keys), 0);
-        var palette_array = array_create(array_length(keys), -1);
-        
-        for (var i = 0, n = array_length(keys); i < n; i++) {
-            sorting[i] = map[$ keys[i]];
+            palette_array[map[$ string(cc)].rank] = cc;
         }
         
         // to do: quantize colors properly
@@ -43,16 +39,10 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         // least common but that seemed to introduce some randomness into how
         // the colors were extracted which i don't feel like fixing now
         
-        for (var i = 0, n = array_length(sorting); i < n; i++) {
-            palette_array[i] = sorting[i].color;
-            sorting[i].rank = i;
-        }
-        
-        var count = array_length(palette_array);
-        var palette_size = force_full_palette ? 256 : min(256, power(2, ceil(log2(count))));
+        var palette_size = force_full_palette ? 256 : min(256, power(2, ceil(log2(palette_count))));
         array_resize(palette_array, palette_size);
         
-        for (var i = count, n = array_length(palette_array); i < n; i++) {
+        for (var i = palette_count, n = array_length(palette_array); i < n; i++) {
             palette_array[i] = -1;
         }
         
