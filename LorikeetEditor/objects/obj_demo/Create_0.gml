@@ -233,6 +233,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var index_under_cursor = -1000;
         
         if (mx > 0 && my > 0 && mx < self.width && my < self.height && self.isActiveDialog()) {
+            if (mouse_check_button(mb_right)) {
+                obj_demo.demo_edit_cell = -1;
+            }
+            
             var c = surface_getpixel_ext(self.surface, mx, my);
             var r = colour_get_red(c);
             var g = colour_get_green(c);
