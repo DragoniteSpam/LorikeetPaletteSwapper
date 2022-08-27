@@ -253,7 +253,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                             obj_demo.demo_edit_cell = index_under_cursor;
                             break;
                         case EOperationModes.EYEDROPPER:
-                            obj_demo.demo_copied_color = cc;
+                            obj_demo.demo_copied_color = obj_demo.demo_palette.data[obj_demo.demo_palette_index][index_under_cursor];
                             break;
                         case EOperationModes.BUCKET:
                             obj_demo.demo_palette.Modify(index_under_cursor, obj_demo.demo_palette_index, obj_demo.demo_copied_color);
