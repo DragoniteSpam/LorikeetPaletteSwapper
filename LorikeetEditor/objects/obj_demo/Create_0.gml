@@ -163,6 +163,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         draw_sprite_stretched_ext(spr_tile_selector, 0, 0, scale * floor(obj_demo.demo_palette_index), self.width, scale, c_red, 1);
     }, function(mx, my) {
         // step
+        if (!self.isActiveDialog()) return;
         if (mx < 0 || mx >= self.width || my < 0 || my >= self.height) return;
         if (mouse_check_button(mb_left)) {
             var sprite = obj_demo.demo_palette.palette;
