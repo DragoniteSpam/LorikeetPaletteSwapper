@@ -186,7 +186,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
     
     self.RemovePaletteRow = function(row = array_length(self.data) - 1) {
         if (array_length(self.data) == 1) return;
-        array_delete(self.data, array_length(self.data) - 1, 1);
+        array_delete(self.data, row, 1);
         var s = surface_create(sprite_get_width(self.palette), sprite_get_height(self.palette) - 1);
         surface_set_target(s);
         draw_clear_alpha(c_black, 1);
