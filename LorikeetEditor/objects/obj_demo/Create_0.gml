@@ -219,9 +219,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 draw_sprite_ext(obj_demo.demo_sprite, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
                 return;
             case 1:
-                lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index);
                 draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
-                shader_reset();
                 break;
             case 2:
                 // skips the paint bucket feature
@@ -238,33 +236,28 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             }
             
             var c = surface_getpixel_ext(self.surface, mx, my);
-            var r = colour_get_red(c);
+            var idx = colour_get_red(c);
             var g = colour_get_green(c);
             var b = colour_get_blue(c);
-            var cc = make_colour_rgb(r, g, b);
+            var cc = make_colour_rgb(idx, g, b);
+            
             var a = c - cc;
+            
             if (a > 0) {
                 var palette = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
-                for (var i = 0, n = array_length(palette); i < n; i++) {
-                    var pc = palette[i];
-                    if (colour_get_red(pc) == r && colour_get_green(pc) == g && colour_get_blue(pc) == b) {
-                        index_under_cursor = i;
-                        
-                        if (mouse_check_button(mb_left)) {
-                            switch (obj_demo.demo_mode) {
-                                case EOperationModes.SELECTION:
-                                    obj_demo.demo_edit_cell = i;
-                                    break;
-                                case EOperationModes.EYEDROPPER:
-                                    obj_demo.demo_copied_color = cc;
-                                    break;
-                                case EOperationModes.BUCKET:
-                                    obj_demo.demo_palette.Modify(i, obj_demo.demo_palette_index, obj_demo.demo_copied_color);
-                                    break;
-                            }
-                        }
-                        
-                        break;
+                index_under_cursor = idx / 256 * array_length(palette);
+                
+                if (mouse_check_button(mb_left)) {
+                    switch (obj_demo.demo_mode) {
+                        case EOperationModes.SELECTION:
+                            obj_demo.demo_edit_cell = index_under_cursor;
+                            break;
+                        case EOperationModes.EYEDROPPER:
+                            obj_demo.demo_copied_color = cc;
+                            break;
+                        case EOperationModes.BUCKET:
+                            obj_demo.demo_palette.Modify(index_under_cursor, obj_demo.demo_palette_index, obj_demo.demo_copied_color);
+                            break;
                     }
                 }
             }
