@@ -38,11 +38,10 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
             sorting[i] = map[$ keys[i]];
         }
         
-        array_sort(sorting, function(a, b) {
-            return b.count - a.count;
-        });
-        
         // to do: quantize colors properly
+        // previously we used to sort the colors in order form most common to
+        // least common but that seemed to introduce some randomness into how
+        // the colors were extracted which i don't feel like fixing now
         
         for (var i = 0, n = array_length(sorting); i < n; i++) {
             palette_array[i] = sorting[i].color;
@@ -138,7 +137,6 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         if (self.palette != undefined && sprite_exists(self.palette)) sprite_delete(self.palette);
         self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
         surface_free(s);
-        return sprite;
     };
     
     self.Refresh = function() {
@@ -160,7 +158,8 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
     };
     
     self.AddPaletteRow = function(source_row = -1) {
-        var final_row = self.data[array_length(self.data) - 1];
+        source_row = (source_row == -1) ? (array_length(self.data) - 1) : source_row;
+        var final_row = self.data[source_row];
         var new_row = array_create(array_length(final_row));
         array_copy(new_row, 0, final_row, 0, array_length(final_row));
         array_push(self.data, new_row);

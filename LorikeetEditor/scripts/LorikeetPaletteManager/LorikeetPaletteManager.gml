@@ -38,11 +38,10 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
             sorting[i] = map[$ keys[i]];
         }
         
-        array_sort(sorting, function(a, b) {
-            return b.count - a.count;
-        });
-        
         // to do: quantize colors properly
+        // previously we used to sort the colors in order form most common to
+        // least common but that seemed to introduce some randomness into how
+        // the colors were extracted which i don't feel like fixing now
         
         for (var i = 0, n = array_length(sorting); i < n; i++) {
             palette_array[i] = sorting[i].color;
