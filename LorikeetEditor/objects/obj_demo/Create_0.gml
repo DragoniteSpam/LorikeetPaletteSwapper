@@ -291,6 +291,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         
         if (mx > 1 && my > self.height - size + 1 && mx < size - 1 && my < self.height - 1) {
             if (mouse_check_button_pressed(mb_left)) {
+                picker.value = obj_demo.demo_copied_color;
                 picker.ShowPickerDialog().SetActiveShade(0);
             }
         }
