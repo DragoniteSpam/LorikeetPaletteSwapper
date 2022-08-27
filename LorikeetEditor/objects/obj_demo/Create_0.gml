@@ -230,7 +230,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 return;
         }
         
-        var color_under_cursor = -1;
+        var index_under_cursor = -1000;
         
         if (mx > 0 && my > 0 && mx < self.width && my < self.height && self.isActiveDialog()) {
             var c = surface_getpixel_ext(self.surface, mx, my);
@@ -244,7 +244,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 for (var i = 0, n = array_length(palette); i < n; i++) {
                     var pc = palette[i];
                     if (colour_get_red(pc) == r && colour_get_green(pc) == g && colour_get_blue(pc) == b) {
-                        color_under_cursor = cc;
+                        index_under_cursor = i;
                         
                         if (mouse_check_button(mb_left)) {
                             switch (obj_demo.demo_mode) {
@@ -266,15 +266,16 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             }
         }
         
-        if (color_under_cursor == -1 && obj_demo.demo_edit_cell != -1) {
-            color_under_cursor = obj_demo.demo_palette.data[obj_demo.demo_palette_index][obj_demo.demo_edit_cell];
+        if (index_under_cursor == -1000 && obj_demo.demo_edit_cell != -1) {
+            index_under_cursor = obj_demo.demo_edit_cell;
         }
         
         // after the color has been sampled, do it again
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         
         lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index, 0, shd_lorikeet_preview);
-        shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_SelectedColor"), colour_get_red(color_under_cursor) / 0xff, colour_get_green(color_under_cursor) / 0xff, colour_get_blue(color_under_cursor) / 0xff);
+        shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexUnderCursor"), index_under_cursor);
+        shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexCount"), array_length(obj_demo.demo_palette.data[0]));
         draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
         shader_reset();
         
