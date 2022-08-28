@@ -16,7 +16,7 @@ vec4 GetLorikeetColor(vec4 data) {
     vec2 textureBoundsExtends = u_lorikeet_TextureBounds.zw;
     
     float h = (floor(data.r * u_lorikeet_PaletteSize.x) + 0.5) / u_lorikeet_PaletteSize.x;
-    vec2 uv = textureBoundsBase + vec2(h, clamp(u_lorikeet_PaletteSlot, 0.0, u_lorikeet_PaletteSize.y) / u_lorikeet_PaletteSize.y) * (textureBoundsExtends - textureBoundsBase);
+    vec2 uv = textureBoundsBase + vec2(h, mod(clamp(u_lorikeet_PaletteSlot + 0.5, 0.0, u_lorikeet_PaletteSize.y), u_lorikeet_PaletteSize.y) / u_lorikeet_PaletteSize.y) * (textureBoundsExtends - textureBoundsBase);
     return vec4(texture2D(samp_lorikeet_Palette, uv).rgb, data.a);
 }
 #endregion
