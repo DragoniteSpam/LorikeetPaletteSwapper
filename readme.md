@@ -8,7 +8,7 @@ Full written documentation can be found [here](https://github.com/DragoniteSpam/
 
 Video tutorial:
 
-[![YouTube](https://i.ytimg.com/vi/NYOZRKoXMXk/hqdefault.jpg)](https://www.youtube.com/watch?v=NYOZRKoXMXk)
+[![YouTube](https://i.ytimg.com/vi/8hFuBwQlXxw/hqdefault.jpg)](https://www.youtube.com/watch?v=8hFuBwQlXxw)
 
 ## Supported Platforms
 
