@@ -46,7 +46,7 @@ self.SetWindow = function(
         fps = game_get_speed(gamespeed_fps),
         fullscreen = window_get_fullscreen()
     ) {
-    window_set_size(min(w, display_get_width()), min(h, display_get_height()));
+    window_set_size(clamp(w, MIN_WINDOW_WIDTH, display_get_width()), clamp(h, MIN_WINDOW_HEIGHT, display_get_height()));
     surface_resize(application_surface, w, h);
     game_set_speed(fps, gamespeed_fps);
     window_set_fullscreen(fullscreen);
