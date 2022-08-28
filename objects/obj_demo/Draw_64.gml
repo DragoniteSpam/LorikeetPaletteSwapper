@@ -23,3 +23,17 @@ scribble("Toggle fullscreen with F")
     .draw(32, start - spacing * index++);
 scribble("Toggle audio with M")
     .draw(32, start - spacing * index++);
+
+index = 0;
+start = 40;
+var xx = window_get_width() - 32;
+
+scribble("Build date:")
+    .align(fa_right)
+    .draw(xx, start + spacing * index++);
+scribble(date_datetime_string(GM_build_date))
+    .align(fa_right)
+    .draw(xx, start + spacing * index++);
+scribble("Version: " + LORIKEET_VERSION)
+    .align(fa_right)
+    .draw(xx, start + spacing * index++);

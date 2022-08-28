@@ -17,6 +17,9 @@
 #macro TARGET_FPS                   60
 #macro pi:TARGET_FPS                30
 
+#macro MIN_WINDOW_WIDTH             1024
+#macro MIN_WINDOW_HEIGHT            576
+
 #macro AVAILABLE_RESOLUTIONS        [\
         { w:   216, h:  120 },\
         { w:   427, h:  240 },\
