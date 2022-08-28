@@ -3,7 +3,7 @@
   "resourceVersion": "1.0",
   "name": "Linux",
   "option_linux_display_name": "Lorikeet: Palette Swapper",
-  "option_linux_version": "1.1.2",
+  "option_linux_version": "1.2.0",
   "option_linux_maintainer_email": "",
   "option_linux_homepage": "https://dragonite.itch.io/lorikeet",
   "option_linux_short_desc": "Palette swapping in GameMaker",
