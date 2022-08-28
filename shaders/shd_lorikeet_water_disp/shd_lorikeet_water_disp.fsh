@@ -22,7 +22,15 @@ vec4 GetLorikeetColor(vec4 data) {
 }
 #endregion
 
+uniform sampler2D samp_Displace;
+uniform float u_Time;
+
+varying vec2 v_vWorldPosition;
+
 void main() {
-    gl_FragColor = GetLorikeetColor(texture2D(gm_BaseTexture, v_vTexcoord));
+    vec4 displace = texture2D(samp_Displace, v_vTexcoord + u_Time * (2.5 + vec2(sin(v_vWorldPosition.x), 1.125 * sin(v_vWorldPosition.y + 0.175))));
+    vec2 offset = vec2(displace.rg * 2.0 - 1.0) / 8.0;
+    
+    gl_FragColor = GetLorikeetColor(texture2D(gm_BaseTexture, v_vTexcoord + offset - u_Time));
     if (u_lorikeet_AlphaTest != 0.0) if (gl_FragColor.a < u_lorikeet_AlphaTestRef) discard;
 }
