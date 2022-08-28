@@ -10,21 +10,17 @@ varying vec2 v_vTexcoord;
 uniform sampler2D samp_lorikeet_Palette;
 uniform vec4 u_lorikeet_TextureBounds;
 uniform float u_lorikeet_PaletteSlot;
-uniform float u_lorikeet_PaletteSlotCount;
+uniform vec2 u_lorikeet_PaletteSize;
 
 uniform float u_lorikeet_AlphaTest;
 uniform float u_lorikeet_AlphaTestRef;
 
 vec4 GetLorikeetColor(vec4 data) {
-    // this would be easier with texture filtering enabled, but i only want
-    // it on the vertical axis, horizontal filtering would make a mess
     vec2 textureBoundsBase = u_lorikeet_TextureBounds.xy;
     vec2 textureBoundsExtends = u_lorikeet_TextureBounds.zw;
-    vec2 uv1 = textureBoundsBase + vec2(data.r, mod(floor(u_lorikeet_PaletteSlot), u_lorikeet_PaletteSlotCount) / u_lorikeet_PaletteSlotCount) * (textureBoundsExtends - textureBoundsBase);
-    vec2 uv2 = textureBoundsBase + vec2(data.r, mod(ceil(u_lorikeet_PaletteSlot), u_lorikeet_PaletteSlotCount) / u_lorikeet_PaletteSlotCount) * (textureBoundsExtends - textureBoundsBase);
-    vec4 c1 = texture2D(samp_lorikeet_Palette, uv1);
-    vec4 c2 = texture2D(samp_lorikeet_Palette, uv2);
-    return vec4(mix(c1, c2, fract(u_lorikeet_PaletteSlot)).rgb, data.a);
+    float h = (floor(data.r * u_lorikeet_PaletteSize.x) + 0.5) / u_lorikeet_PaletteSize.x;
+    vec2 uv = textureBoundsBase + vec2(h, clamp(u_lorikeet_PaletteSlot, 0.0, u_lorikeet_PaletteSize.y) / u_lorikeet_PaletteSize.y) * (textureBoundsExtends - textureBoundsBase);
+    return vec4(texture2D(samp_lorikeet_Palette, uv).rgb, data.a);
 }
 #endregion
 
