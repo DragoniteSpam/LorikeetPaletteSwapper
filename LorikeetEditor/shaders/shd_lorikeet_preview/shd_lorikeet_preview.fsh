@@ -37,8 +37,9 @@ vec4 GetColor(vec4 data) {
     vec4 c2 = texture2D(samp_Palette, uv2);
     
     if (abs(data.r * u_IndexCount - u_IndexUnderCursor) < 0.5) {
-        c1 = mix(c1, 1.0 - c1, dither2x2(gl_FragCoord.xy));
-        c2 = mix(c2, 1.0 - c2, dither2x2(gl_FragCoord.xy));
+        float d = dither2x2(gl_FragCoord.xy);
+        c1 = mix(c1, 1.0 - c1, d);
+        c2 = mix(c2, 1.0 - c2, d);
     }
     
     return vec4(mix(c1, c2, fract(u_PaletteSlot)).rgb, data.a);
