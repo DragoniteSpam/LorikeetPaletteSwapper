@@ -121,6 +121,23 @@ self.SaveAutomation = function() {
     buffer_delete(save_buffer);
 };
 
+self.SaveFullSprite = function(index = -1) {
+    var fn = get_save_filename("Image files|*.png", "");
+    if (fn != "") {
+        if (index != -1) {
+            var sprite = self.demo_palette.GetRGBSprite(self.demo_sprite_indexed, index);
+            sprite_save(sprite, 0, fn);
+            sprite_delete(sprite);
+        } else {
+            for (var i = 0, n = array_length(self.demo_palette.data); i < n; i++) {
+                var sprite = self.demo_palette.GetRGBSprite(self.demo_sprite_indexed, i);
+                sprite_save(sprite, 0, fn + "_" + string(i) + ".png");
+                sprite_delete(sprite);
+            }
+        }
+    }
+};
+
 var ew = 320;
 var eh = 32;
 
@@ -143,6 +160,12 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }),
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Reset Palette", function() {
         obj_demo.ReExtract();
+    }),
+    new EmuButton(32, EMU_AUTO, ew / 2, eh, "Save Full Color", function() {
+        obj_demo.SaveFullSprite(self.demo_palette_index);
+    }),
+    new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Save All...", function() {
+        obj_demo.SaveFullSprite();
     }),
     new EmuCheckbox(32, EMU_AUTO, ew, eh, "Extract full palettes?", self.demo_force_full_palettes, function() {
         obj_demo.demo_force_full_palettes = self.value;
