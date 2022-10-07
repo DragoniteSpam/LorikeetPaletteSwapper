@@ -15,6 +15,7 @@ self.demo_palette_index = 0;                                                    
 self.demo_palette_speed = 0;                                                        // palette playback speed
 self.demo_sprite_type = 1;                                                          // display type
 self.demo_force_full_palettes = false;                                              // extract a palette of size 256?
+self.demo_highlight_selection = true;                                               // show the dither pattern on the selected color?
 
 self.demo_mode = EOperationModes.SELECTION;
 
@@ -147,6 +148,9 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         obj_demo.demo_force_full_palettes = self.value;
         obj_demo.ReExtract();
     }),
+    new EmuCheckbox(32, EMU_AUTO, ew, eh, "Highlight selection?", self.demo_highlight_selection, function() {
+        obj_demo.demo_highlight_selection = self.value;
+    }),
     new EmuRadioArray(32, EMU_AUTO, ew, eh, "Display type:", self.demo_sprite_type, function() {
         obj_demo.demo_sprite_type = self.value;
     })
@@ -272,7 +276,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         
         lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index, 0, shd_lorikeet_preview);
-        shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexUnderCursor"), index_under_cursor);
+        shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexUnderCursor"), obj_demo.demo_highlight_selection ? index_under_cursor : -100);
         shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexCount"), array_length(obj_demo.demo_palette.data[0]));
         draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
         shader_reset();
