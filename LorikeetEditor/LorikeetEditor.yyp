@@ -194,6 +194,6 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"automation-defaults.json","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
-    "IDEVersion": "2022.900.0.218",
+    "IDEVersion": "2022.9.0.49",
   },
 }
