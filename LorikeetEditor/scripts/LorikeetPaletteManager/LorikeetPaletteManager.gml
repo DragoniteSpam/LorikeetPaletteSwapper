@@ -193,6 +193,36 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         surface_free(s);
     };
     
+    self.GetRGBSprite = function(sprite, palette_index) {
+        var s = array_length(self.data[palette_index]);
+        var w = sprite_get_width(sprite);
+        var h = sprite_get_height(sprite);
+        var surface = surface_create(w, h);
+        surface_set_target(surface);
+        draw_clear_alpha(c_black, 0);
+        gpu_set_blendmode(bm_add);
+        draw_sprite(sprite, 0, 0, 0);
+        gpu_set_blendmode(bm_normal);
+        surface_reset_target();
+        
+        var sprite_data = buffer_create(w * h * 4, buffer_fixed, 1);
+        buffer_get_surface(sprite_data, surface, 0);
+        
+        for (var i = 0, n = w * h * 4; i < n; i += 4) {
+            var buffer_value = buffer_peek(sprite_data, i, buffer_u32);
+            var buffer_index = (buffer_value & 0xff) / 256 * s;
+            var buffer_alpha = buffer_value & 0xff000000;
+            buffer_poke(sprite_data, i, buffer_u32, buffer_alpha | self.data[palette_index][buffer_index]);
+        }
+        
+        buffer_set_surface(sprite_data, surface, 0);
+        var color_sprite = sprite_create_from_surface(surface, 0, 0, w, h, false, false, 0, 0);
+        surface_free(surface);
+        buffer_delete(sprite_data);
+        
+        return color_sprite;
+    };
+    
     if (source_palette != undefined && sprite_exists(source_palette)) {
         self.FromImage(source_palette);
     }
