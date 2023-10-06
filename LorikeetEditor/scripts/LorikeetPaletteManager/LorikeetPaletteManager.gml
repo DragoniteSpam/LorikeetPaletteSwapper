@@ -25,13 +25,16 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         var palette_count = 0;
         
         var step = buffer_sizeof(buffer_u32);
-        repeat (buffer_get_size(buffer_sprite) / step) {
-            var cc = buffer_read(buffer_sprite, buffer_u32);
-            if ((cc >> 24) == 0) continue;
-            cc &= 0x00ffffff;
-            map[$ string(cc)] ??= { color: cc, count: 0, rank: palette_count++ };
-            map[$ string(cc)].count++;
-            palette_array[map[$ string(cc)].rank] = cc;
+        // address = (x + (y * width)) * size
+        for (var i = 0; i < sw; i++) {
+            for (var j = 0; j < sh; j++) {
+                var cc = buffer_peek(buffer_sprite, (i + j * sw) * step, buffer_u32);
+                if ((cc >> 24) == 0) continue;
+                cc &= 0x00ffffff;
+                var cname = string(cc);
+                map[$ cname] ??= palette_count++;
+                palette_array[map[$ cname]] = cc;
+            }
         }
         
         // to do: quantize colors properly
@@ -60,8 +63,8 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         for (var i = 0, n = buffer_get_size(buffer_sprite); i < n; i += step) {
             var cc = buffer_peek(buffer_sprite, i, buffer_u32);
             if ((cc >> 24) == 0) continue;
-            var rank = map[$ string(cc & 0x00ffffff)].rank * palette_color_spacing;
-            buffer_poke(buffer_sprite, i, buffer_u32, (cc & 0xff000000) | make_colour_rgb(rank, rank, rank));
+            var idx = map[$ string(cc & 0x00ffffff)] * palette_color_spacing;
+            buffer_poke(buffer_sprite, i, buffer_u32, (cc & 0xff000000) | make_colour_rgb(idx, idx, idx));
         }
         
         buffer_set_surface(buffer_sprite, surface_sprite, 0);
@@ -74,6 +77,8 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         
         self.palette = palette_sprite;
         self.data = [palette_array];
+        
+        show_debug_message($"Palette extraction took {(get_timer() - t) / 1000} ms");
         
         return indexed_sprite;
     };

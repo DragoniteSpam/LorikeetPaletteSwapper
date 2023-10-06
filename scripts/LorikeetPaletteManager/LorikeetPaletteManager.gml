@@ -75,6 +75,8 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         self.palette = palette_sprite;
         self.data = [palette_array];
         
+        show_debug_message($"Palette extraction took {(get_timer() - t) / 1000} ms");
+        
         return indexed_sprite;
     };
     
