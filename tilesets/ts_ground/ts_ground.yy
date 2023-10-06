@@ -2,27 +2,8 @@
   "resourceType": "GMTileSet",
   "resourceVersion": "1.0",
   "name": "ts_ground",
-  "spriteId": {
-    "name": "idx_ground",
-    "path": "sprites/idx_ground/idx_ground.yy",
-  },
-  "tileWidth": 32,
-  "tileHeight": 32,
-  "tilexoff": 0,
-  "tileyoff": 0,
-  "tilehsep": 0,
-  "tilevsep": 0,
-  "spriteNoExport": true,
-  "textureGroupId": {
-    "name": "Default",
-    "path": "texturegroups/Default",
-  },
-  "out_tilehborder": 2,
-  "out_tilevborder": 2,
-  "out_columns": 9,
-  "tile_count": 85,
   "autoTileSets": [
-    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"sand","tiles":[
+    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"sand","closed_edge":false,"tiles":[
         20,
         71,
         70,
@@ -39,8 +20,8 @@
         36,
         38,
         18,
-      ],"closed_edge":false,},
-    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"dirt","tiles":[
+      ],},
+    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"dirt","closed_edge":false,"tiles":[
         23,
         73,
         72,
@@ -57,8 +38,8 @@
         39,
         41,
         18,
-      ],"closed_edge":false,},
-    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"light grass","tiles":[
+      ],},
+    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"light grass","closed_edge":false,"tiles":[
         26,
         75,
         74,
@@ -75,8 +56,8 @@
         42,
         44,
         18,
-      ],"closed_edge":false,},
-    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"mud","tiles":[
+      ],},
+    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"mud","closed_edge":false,"tiles":[
         29,
         77,
         76,
@@ -93,8 +74,8 @@
         45,
         47,
         18,
-      ],"closed_edge":false,},
-    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"water","tiles":[
+      ],},
+    {"resourceType":"GMAutoTileSet","resourceVersion":"1.0","name":"water","closed_edge":false,"tiles":[
         32,
         79,
         78,
@@ -111,10 +92,30 @@
         48,
         50,
         18,
-      ],"closed_edge":false,},
+      ],},
   ],
-  "tileAnimationFrames": [],
-  "tileAnimationSpeed": 15.0,
+  "macroPageTiles": {
+    "SerialiseHeight": 0,
+    "SerialiseWidth": 0,
+    "TileSerialiseData": [],
+  },
+  "out_columns": 9,
+  "out_tilehborder": 2,
+  "out_tilevborder": 2,
+  "parent": {
+    "name": "Ground",
+    "path": "folders/Graphics/Ground.yy",
+  },
+  "spriteId": {
+    "name": "idx_ground",
+    "path": "sprites/idx_ground/idx_ground.yy",
+  },
+  "spriteNoExport": true,
+  "textureGroupId": {
+    "name": "Default",
+    "path": "texturegroups/Default",
+  },
+  "tile_count": 85,
   "tileAnimation": {
     "FrameData": [
       0,
@@ -205,13 +206,12 @@
     ],
     "SerialiseFrameCount": 1,
   },
-  "macroPageTiles": {
-    "SerialiseWidth": 0,
-    "SerialiseHeight": 0,
-    "TileSerialiseData": [],
-  },
-  "parent": {
-    "name": "Ground",
-    "path": "folders/Graphics/Ground.yy",
-  },
+  "tileAnimationFrames": [],
+  "tileAnimationSpeed": 15.0,
+  "tileHeight": 32,
+  "tilehsep": 0,
+  "tilevsep": 0,
+  "tileWidth": 32,
+  "tilexoff": 0,
+  "tileyoff": 0,
 }
