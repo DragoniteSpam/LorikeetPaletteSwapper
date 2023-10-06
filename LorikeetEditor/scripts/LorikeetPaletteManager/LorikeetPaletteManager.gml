@@ -45,6 +45,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         var palette_size = force_full_palette ? 256 : min(256, power(2, ceil(log2(palette_count))));
         array_resize(palette_array, palette_size);
         
+        // zero out the unused parts of the palette array
         for (var i = palette_count, n = array_length(palette_array); i < n; i++) {
             palette_array[i] = -1;
         }

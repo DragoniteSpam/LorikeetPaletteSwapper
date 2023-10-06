@@ -25,13 +25,16 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         var palette_count = 0;
         
         var step = buffer_sizeof(buffer_u32);
-        repeat (buffer_get_size(buffer_sprite) / step) {
-            var cc = buffer_read(buffer_sprite, buffer_u32);
-            if ((cc >> 24) == 0) continue;
-            cc &= 0x00ffffff;
-            map[$ string(cc)] ??= { color: cc, count: 0, rank: palette_count++ };
-            map[$ string(cc)].count++;
-            palette_array[map[$ string(cc)].rank] = cc;
+        // address = (x + (y * width)) * size
+        for (var i = 0; i < sw; i++) {
+            for (var j = 0; j < sh; j++) {
+                var cc = buffer_peek(buffer_sprite, (i + j * sw) * step, buffer_u32);
+                if ((cc >> 24) == 0) continue;
+                cc &= 0x00ffffff;
+                var cname = string(cc);
+                map[$ cname] ??= palette_count++;
+                palette_array[map[$ cname]] = cc;
+            }
         }
         
         // to do: quantize colors properly
@@ -42,6 +45,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         var palette_size = force_full_palette ? 256 : min(256, power(2, ceil(log2(palette_count))));
         array_resize(palette_array, palette_size);
         
+        // zero out the unused parts of the palette array
         for (var i = palette_count, n = array_length(palette_array); i < n; i++) {
             palette_array[i] = -1;
         }
@@ -60,8 +64,8 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         for (var i = 0, n = buffer_get_size(buffer_sprite); i < n; i += step) {
             var cc = buffer_peek(buffer_sprite, i, buffer_u32);
             if ((cc >> 24) == 0) continue;
-            var rank = map[$ string(cc & 0x00ffffff)].rank * palette_color_spacing;
-            buffer_poke(buffer_sprite, i, buffer_u32, (cc & 0xff000000) | make_colour_rgb(rank, rank, rank));
+            var idx = map[$ string(cc & 0x00ffffff)] * palette_color_spacing;
+            buffer_poke(buffer_sprite, i, buffer_u32, (cc & 0xff000000) | make_colour_rgb(idx, idx, idx));
         }
         
         buffer_set_surface(buffer_sprite, surface_sprite, 0);
@@ -193,6 +197,36 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         if (self.palette != undefined && sprite_exists(self.palette)) sprite_delete(self.palette);
         self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
         surface_free(s);
+    };
+    
+    self.GetRGBSprite = function(sprite, palette_index) {
+        var s = array_length(self.data[palette_index]);
+        var w = sprite_get_width(sprite);
+        var h = sprite_get_height(sprite);
+        var surface = surface_create(w, h);
+        surface_set_target(surface);
+        draw_clear_alpha(c_black, 0);
+        gpu_set_blendmode(bm_add);
+        draw_sprite(sprite, 0, 0, 0);
+        gpu_set_blendmode(bm_normal);
+        surface_reset_target();
+        
+        var sprite_data = buffer_create(w * h * 4, buffer_fixed, 1);
+        buffer_get_surface(sprite_data, surface, 0);
+        
+        for (var i = 0, n = w * h * 4; i < n; i += 4) {
+            var buffer_value = buffer_peek(sprite_data, i, buffer_u32);
+            var buffer_index = (buffer_value & 0xff) / 256 * s;
+            var buffer_alpha = buffer_value & 0xff000000;
+            buffer_poke(sprite_data, i, buffer_u32, buffer_alpha | self.data[palette_index][buffer_index]);
+        }
+        
+        buffer_set_surface(sprite_data, surface, 0);
+        var color_sprite = sprite_create_from_surface(surface, 0, 0, w, h, false, false, 0, 0);
+        surface_free(surface);
+        buffer_delete(sprite_data);
+        
+        return color_sprite;
     };
     
     if (source_palette != undefined && sprite_exists(source_palette)) {
