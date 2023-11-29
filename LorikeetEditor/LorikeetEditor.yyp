@@ -29,6 +29,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Fonts","folderPath":"folders/Scribble/Fonts.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Miscellaneous","folderPath":"folders/Scribble/Miscellaneous.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Superfonts","folderPath":"folders/Scribble/Superfonts.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sprite Sheet Cutter","folderPath":"folders/Sprite Sheet Cutter.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"automation-defaults.json","CopyToMask":-1,"filePath":"datafiles",},
@@ -119,6 +120,7 @@
     {"id":{"name":"scribble_anim_wheel","path":"scripts/scribble_anim_wheel/scribble_anim_wheel.yy",},},
     {"id":{"name":"__scribble_class_element","path":"scripts/__scribble_class_element/__scribble_class_element.yy",},},
     {"id":{"name":"scribble_anim_jitter","path":"scripts/scribble_anim_jitter/scribble_anim_jitter.yy",},},
+    {"id":{"name":"SpriteSliceData","path":"scripts/SpriteSliceData/SpriteSliceData.yy",},},
     {"id":{"name":"__shd_scribble_bake_shadow","path":"shaders/__shd_scribble_bake_shadow/__shd_scribble_bake_shadow.yy",},},
     {"id":{"name":"spr_emu_ring","path":"sprites/spr_emu_ring/spr_emu_ring.yy",},},
     {"id":{"name":"scribble_super_clear","path":"scripts/scribble_super_clear/scribble_super_clear.yy",},},
