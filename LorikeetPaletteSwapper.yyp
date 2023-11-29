@@ -83,7 +83,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.8.2.105",
+    "IDEVersion": "2023.1100.0.448",
   },
   "resources": [
     {"id":{"name":"ts_ground","path":"tilesets/ts_ground/ts_ground.yy",},},

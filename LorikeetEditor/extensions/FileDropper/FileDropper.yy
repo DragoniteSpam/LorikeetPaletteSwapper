@@ -18,7 +18,7 @@
   "exportToGame": true,
   "extensionVersion": "0.0.1",
   "files": [
-    {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","constants":[],"copyToTargets":-1,"filename":"FileDropper.dll","final":"","functions":[
+    {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"FileDropper.dll","constants":[],"copyToTargets":-1,"filename":"FileDropper.dll","final":"","functions":[
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"file_dropper_init","argCount":0,"args":[
             1,
           ],"documentation":"","externalName":"file_drop_init","help":"file_dropper_init(window)","hidden":false,"kind":1,"returnType":2,},
