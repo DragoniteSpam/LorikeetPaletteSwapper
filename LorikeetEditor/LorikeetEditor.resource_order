@@ -37,6 +37,7 @@
     {"name":"scribble_glyph_get","order":12,"path":"scripts/scribble_glyph_get/scribble_glyph_get.yy",},
     {"name":"spr_emu_not_found","order":14,"path":"sprites/spr_emu_not_found/spr_emu_not_found.yy",},
     {"name":"__scribble_class_typist","order":5,"path":"scripts/__scribble_class_typist/__scribble_class_typist.yy",},
+    {"name":"EmuRenderSurfaceZoom","order":3,"path":"scripts/EmuRenderSurfaceZoom/EmuRenderSurfaceZoom.yy",},
     {"name":"spr_emu_scroll_arrow","order":18,"path":"sprites/spr_emu_scroll_arrow/spr_emu_scroll_arrow.yy",},
     {"name":"scribble_font_add_all","order":1,"path":"scripts/scribble_font_add_all/scribble_font_add_all.yy",},
     {"name":"scribble_anim_wave","order":7,"path":"scripts/scribble_anim_wave/scribble_anim_wave.yy",},

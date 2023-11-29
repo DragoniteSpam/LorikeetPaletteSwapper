@@ -1,4 +1,7 @@
-function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurface(x, y, width, height, function(mx, my) {
+function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurfaceZoom(x, y, width, height, function(mx, my) {
+        mx = self.TransformMouseX(mx);
+        my = self.TransformMouseY(my);
+        
         // render
         draw_clear(c_black);
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
@@ -14,8 +17,8 @@ function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurface(x, 
         draw_sprite(spr, 0, self.xoffset, self.yoffset);
         
         if (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height) {
-            var mcx = ((mx - self.xoffset) div sw) * sw + self.xoffset;
-            var mcy = ((my - self.yoffset) div sh) * sh + self.yoffset;
+            var mcx = (mx div sw) * sw + self.xoffset;
+            var mcy = (my div sh) * sh + self.yoffset;
             
             var tile_color = c_aqua;
             var tile_alpha = 0.25;
@@ -41,43 +44,16 @@ function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurface(x, 
         if (!sprite_exists(obj_demo.demo_sprite))
             return;
         
-        if (!mouse_check_button(mb_middle) || !window_has_focus()) {
-            self.grabbing = false;
-        }
-        
-        if (!(mx >= 0 && mx <= self.width && my >= 0 && my <= self.height)) {
-            self.grabbing = false;
-            return;
-        }
+        self.HandlePanAndZoom(mx, my);
         
         var sw = obj_demo.slice_width;
         var sh = obj_demo.slice_height;
         var mcx = ((mx - self.xoffset) div sw);
         var mcy = ((my - self.yoffset) div sh);
         
-        if (mouse_check_button_pressed(mb_middle)) {
-            self.grabbing = true;
-            self.dx = mx;
-            self.dy = my;
-        }
-        
-        if (self.grabbing) {
-            self.xoffset -= (self.dx - mx);
-            self.yoffset -= (self.dy - my);
-            self.dx = mx;
-            self.dy = my;
-        }
-        
         if (mouse_check_button_pressed(mb_left)) {
             obj_demo.AddSpriteSlice(mcx * sw, mcy * sh, sw, sh);
         }
-    }, function() {
-        self.xoffset = 0;
-        self.yoffset = 0;
-        self.grabbing = true;
-        
-        self.dx = 0;
-        self.dy = 0;
     }) constructor {
         // it's all constructor inheritance
 }
