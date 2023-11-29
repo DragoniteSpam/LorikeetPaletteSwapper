@@ -138,6 +138,19 @@ self.SaveFullSprite = function(index = -1) {
     }
 };
 
+self.ShowAllSaveOptions = function() {
+    var dw = 960;
+    var dh = 720;
+    var ew = 320;
+    var eh = 32;
+    new EmuDialog(dw, dh, "All Save Options")
+        .AddContent([
+            new EmuText(32, EMU_AUTO, ew, eh, "Palette index:"),
+            new EmuRenderSurfacePalettePicker(32, EMU_AUTO, ew, ew)
+        ])
+        .AddDefaultCloseButton();
+};
+
 var ew = 320;
 var eh = 32;
 
@@ -155,18 +168,21 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Save Palette", function() {
         obj_demo.SavePaletteSprite();
     }),
+    new EmuButton(32, EMU_AUTO, ew, eh, "More saving options...", function() {
+        obj_demo.ShowAllSaveOptions();
+    }),
     new EmuButton(32, EMU_AUTO, ew / 2, eh, "Reset Sprite", function() {
         obj_demo.ResetSprite();
     }),
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Reset Palette", function() {
         obj_demo.ReExtract();
     }),
-    new EmuButton(32, EMU_AUTO, ew / 2, eh, "Save Full Color", function() {
+    /*new EmuButton(32, EMU_AUTO, ew / 2, eh, "Save Full Color", function() {
         obj_demo.SaveFullSprite(self.demo_palette_index);
     }),
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Save All...", function() {
         obj_demo.SaveFullSprite();
-    }),
+    }),*/
     new EmuCheckbox(32, EMU_AUTO, ew, eh, "Extract full palettes?", self.demo_force_full_palettes, function() {
         obj_demo.demo_force_full_palettes = self.value;
         obj_demo.ReExtract();
