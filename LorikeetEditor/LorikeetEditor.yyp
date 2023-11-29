@@ -139,6 +139,7 @@
     {"id":{"name":"set_cursor_sprite_auto","path":"scripts/set_cursor_sprite_auto/set_cursor_sprite_auto.yy",},},
     {"id":{"name":"scribble_super_glyph_copy","path":"scripts/scribble_super_glyph_copy/scribble_super_glyph_copy.yy",},},
     {"id":{"name":"scribble_font_bake_outline","path":"scripts/scribble_font_bake_outline/scribble_font_bake_outline.yy",},},
+    {"id":{"name":"EmuRenderSurfaceSliceCutter","path":"scripts/EmuRenderSurfaceSliceCutter/EmuRenderSurfaceSliceCutter.yy",},},
     {"id":{"name":"scribble_font_add_from_sprite","path":"scripts/scribble_font_add_from_sprite/scribble_font_add_from_sprite.yy",},},
     {"id":{"name":"scribble_anim_rainbow","path":"scripts/scribble_anim_rainbow/scribble_anim_rainbow.yy",},},
     {"id":{"name":"emu_init","path":"scripts/emu_init/emu_init.yy",},},

@@ -145,10 +145,14 @@ self.ShowAllSaveOptions = function() {
     var eh = 32;
     var c1 = 32;
     var c2 = 32 + ew + 32;
+    var c3 = 32 + ew + 32 + ew + 32;
     
     // slice viewer
     var slicew = 320;
     var sliceh = 352;
+    // slice cutter
+    var cutw = dw - c3 - 32;
+    var cuth = dh - 32 - 64;
     
     io_clear();
     
@@ -158,7 +162,7 @@ self.ShowAllSaveOptions = function() {
             new EmuButton(c1, EMU_AUTO, ew, eh, "Save RGB Sprite", function() {
                 obj_demo.SaveFullSprite(obj_demo.demo_palette_index);
             }),
-            new EmuButton(c1, EMU_INLINE, ew, eh, "Save All RGB Sprites...", function() {
+            new EmuButton(c1, EMU_AUTO, ew, eh, "Save All RGB Sprites...", function() {
                 obj_demo.SaveFullSprite();
             }),
             new EmuText(c1, EMU_AUTO, ew, eh, "Palette index:"),
@@ -193,7 +197,8 @@ self.ShowAllSaveOptions = function() {
             new EmuCheckbox(c2, EMU_AUTO, ew, eh, "Auto crop?", self.auto_crop, function() {
                 obj_demo.auto_crop = self.value;
             }),
-            new EmuRenderSurfaceSliceViewer(c2, EMU_AUTO, slicew, sliceh)
+            new EmuRenderSurfaceSliceViewer(c2, EMU_AUTO, slicew, sliceh),
+            new EmuRenderSurfaceSliceCutter(c3, EMU_BASE, cutw, cuth)
         ])
         .AddDefaultCloseButton()
         .CenterInWindow();
