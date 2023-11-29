@@ -139,19 +139,63 @@ self.SaveFullSprite = function(index = -1) {
 };
 
 self.ShowAllSaveOptions = function() {
-    var dw = 960;
-    var dh = 720;
+    var dw = 1440;
+    var dh = 800;
     var ew = 320;
     var eh = 32;
+    var c1 = 32;
+    var c2 = 32 + ew + 32;
+    io_clear();
     new EmuDialog(dw, dh, "All Save Options")
         .AddContent([
-            new EmuText(32, EMU_AUTO, ew, eh, "Palette index:"),
-            new EmuRenderSurfacePalettePicker(32, EMU_AUTO, ew, ew)
+            new EmuText(c1, EMU_AUTO, ew, eh, "[c_aqua]RGB Sprites"),
+            new EmuButton(c1, EMU_AUTO, ew, eh, "Save RGB Sprite", function() {
+                obj_demo.SaveFullSprite(obj_demo.demo_palette_index);
+            }),
+            new EmuButton(c1, EMU_INLINE, ew, eh, "Save All RGB Sprites...", function() {
+                obj_demo.SaveFullSprite();
+            }),
+            new EmuText(c1, EMU_AUTO, ew, eh, "Palette index:"),
+            new EmuRenderSurfacePalettePicker(32, EMU_AUTO, ew, ew),
+            
+            new EmuText(c2, EMU_BASE, ew, eh, "[c_aqua]Slices"),
+            new EmuInput(c2, EMU_AUTO, ew, eh, "Slice width:", string(self.slice_width), "The width of each of the sliced sprites", 3, E_InputTypes.INT, function() {
+                obj_demo.slice_width = real(self.value);
+    			//obj_demo.SaveSettingsFile();
+            })
+                .SetRealNumberBounds(8, 512)
+                .SetID("SLICE W")
+                .SetNext("SLICE H")
+                .SetPrevious("SLICE H"),
+            new EmuInput(c2, EMU_AUTO, ew, eh, "Slice height:", string(self.slice_height), "The height of each of the sliced sprites", 3, E_InputTypes.INT, function() {
+                obj_demo.slice_height = real(self.value);
+    			//obj_demo.SaveSettingsFile();
+            })
+                .SetRealNumberBounds(8, 512)
+                .SetID("SLICE H")
+                .SetNext("SLICE W")
+                .SetPrevious("SLICE W"),
+            new EmuButton(c2, EMU_AUTO, ew, eh, "Clear", function() {
+                obj_demo.ClearSpriteSlices();
+            }),
+            new EmuButton(c2, EMU_AUTO, ew / 2, eh, "Flip X", function() {
+                obj_demo.FlipHorizontally();
+            }),
+            new EmuButton(c2 + ew / 2, EMU_INLINE, ew / 2, eh, "Flip Y", function() {
+                obj_demo.FlipVertically();
+            }),
+            new EmuCheckbox(c2, EMU_AUTO, ew, eh, "Auto crop?", self.auto_crop, function() {
+                obj_demo.auto_crop = self.value;
+            })
         ])
-        .AddDefaultCloseButton();
+        .AddDefaultCloseButton()
+        .CenterInWindow();
 };
 
 self.slices = [];
+self.slice_width = 32;
+self.slice_height = 32;
+self.auto_crop = false;
 
 self.AddSpriteSlice = function(x, y, w, h) {
     array_push(self.slices, new SpriteSliceData(x, y, w, h));
@@ -203,12 +247,6 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Reset Palette", function() {
         obj_demo.ReExtract();
     }),
-    /*new EmuButton(32, EMU_AUTO, ew / 2, eh, "Save Full Color", function() {
-        obj_demo.SaveFullSprite(self.demo_palette_index);
-    }),
-    new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Save All...", function() {
-        obj_demo.SaveFullSprite();
-    }),*/
     new EmuCheckbox(32, EMU_AUTO, ew, eh, "Extract full palettes?", self.demo_force_full_palettes, function() {
         obj_demo.demo_force_full_palettes = self.value;
         obj_demo.ReExtract();
