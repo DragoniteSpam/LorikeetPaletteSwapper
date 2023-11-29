@@ -145,7 +145,13 @@ self.ShowAllSaveOptions = function() {
     var eh = 32;
     var c1 = 32;
     var c2 = 32 + ew + 32;
+    
+    // slice viewer
+    var slicew = 320;
+    var sliceh = 352;
+    
     io_clear();
+    
     new EmuDialog(dw, dh, "All Save Options")
         .AddContent([
             new EmuText(c1, EMU_AUTO, ew, eh, "[c_aqua]RGB Sprites"),
@@ -186,7 +192,8 @@ self.ShowAllSaveOptions = function() {
             }),
             new EmuCheckbox(c2, EMU_AUTO, ew, eh, "Auto crop?", self.auto_crop, function() {
                 obj_demo.auto_crop = self.value;
-            })
+            }),
+            new EmuRenderSurfaceSliceViewer(c2, EMU_AUTO, slicew, sliceh)
         ])
         .AddDefaultCloseButton()
         .CenterInWindow();

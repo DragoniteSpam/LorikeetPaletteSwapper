@@ -24,6 +24,7 @@
     {"name":"__scribble_gen_4_build_words","order":3,"path":"scripts/__scribble_gen_4_build_words/__scribble_gen_4_build_words.yy",},
     {"name":"scribble_font_set_default","order":10,"path":"scripts/scribble_font_set_default/scribble_font_set_default.yy",},
     {"name":"scribble_msdf_thickness_offset","order":7,"path":"scripts/scribble_msdf_thickness_offset/scribble_msdf_thickness_offset.yy",},
+    {"name":"EmuRenderSurfaceSliceViewer","order":1,"path":"scripts/EmuRenderSurfaceSliceViewer/EmuRenderSurfaceSliceViewer.yy",},
     {"name":"scribble_super_create","order":1,"path":"scripts/scribble_super_create/scribble_super_create.yy",},
     {"name":"EmuRenderSurface","order":12,"path":"scripts/EmuRenderSurface/EmuRenderSurface.yy",},
     {"name":"spr_modes_single_bucket","order":14,"path":"sprites/spr_modes_single_bucket/spr_modes_single_bucket.yy",},
