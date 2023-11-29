@@ -80,6 +80,7 @@
     {"name":"__shd_scribble_bake_shadow","order":4,"path":"shaders/__shd_scribble_bake_shadow/__shd_scribble_bake_shadow.yy",},
     {"name":"spr_emu_ring","order":17,"path":"sprites/spr_emu_ring/spr_emu_ring.yy",},
     {"name":"__scribble_gen_6_build_lines","order":5,"path":"scripts/__scribble_gen_6_build_lines/__scribble_gen_6_build_lines.yy",},
+    {"name":"fnt_emu_default_sdf","order":15,"path":"fonts/fnt_emu_default_sdf/fnt_emu_default_sdf.yy",},
     {"name":"scribble_font_rename","order":8,"path":"scripts/scribble_font_rename/scribble_font_rename.yy",},
     {"name":"spr_emu_nineslice_tab","order":1,"path":"sprites/spr_emu_nineslice_tab/spr_emu_nineslice_tab.yy",},
     {"name":"__scribble_font_add_sprite","order":7,"path":"scripts/__scribble_font_add_sprite/__scribble_font_add_sprite.yy",},

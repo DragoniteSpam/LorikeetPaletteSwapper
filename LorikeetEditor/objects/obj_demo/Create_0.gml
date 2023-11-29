@@ -321,10 +321,9 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             }
         }
         
-        scribble("[fnt_emu_default_outline]Middle mouse button to pan")
-            .draw(32, 32);
-        scribble("[fnt_emu_default_outline]Mouse wheel to zoom")
-            .draw(32, 48);
+        draw_set_font(fnt_emu_default_sdf);
+        draw_text(32, 20, "Middle mouse button to pan");
+        draw_text(32, 48, "Middle wheel to zoom");
     }, function(mx, my) {
         // step
         if (!self.isActiveDialog()) return;
@@ -673,4 +672,10 @@ self.ui.DroppedFileHandler = method(self.ui, function(files) {
         }).CenterInWindow();
         dialog.file_to_load = files[0];
     }
+});
+
+font_enable_effects(fnt_emu_default_sdf, true, {
+    outlineEnable: true,
+    outlineDistance: 2,
+    outlineColour: c_black
 });
