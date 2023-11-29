@@ -165,6 +165,7 @@
     {"id":{"name":"__scribble_gen_5_finalize_bidi","path":"scripts/__scribble_gen_5_finalize_bidi/__scribble_gen_5_finalize_bidi.yy",},},
     {"id":{"name":"scribble_font_bake_outline_8dir","path":"scripts/scribble_font_bake_outline_8dir/scribble_font_bake_outline_8dir.yy",},},
     {"id":{"name":"spr_emu_checker","path":"sprites/spr_emu_checker/spr_emu_checker.yy",},},
+    {"id":{"name":"sprite_auto_crop","path":"scripts/sprite_auto_crop/sprite_auto_crop.yy",},},
     {"id":{"name":"__shd_scribble_bake_outline_8dir_2px","path":"shaders/__shd_scribble_bake_outline_8dir_2px/__shd_scribble_bake_outline_8dir_2px.yy",},},
     {"id":{"name":"scribble_typewriter_add_event","path":"scripts/scribble_typewriter_add_event/scribble_typewriter_add_event.yy",},},
     {"id":{"name":"file_dropper_version","path":"scripts/file_dropper_version/file_dropper_version.yy",},},
