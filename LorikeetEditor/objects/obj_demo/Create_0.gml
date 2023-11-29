@@ -151,6 +151,32 @@ self.ShowAllSaveOptions = function() {
         .AddDefaultCloseButton();
 };
 
+self.slices = [];
+
+self.AddSpriteSlice = function(x, y, w, h) {
+    array_push(self.slices, new SpriteSliceData(x, y, w, h));
+};
+
+self.DeleteSpriteSlice = function(index) {
+    array_delete(self.slices, index, 1);
+};
+
+self.ClearSpriteSlices = function() {
+    self.slices = [];
+};
+
+self.FlipHorizontally = function() {
+	array_foreach(self.slices, function(item) {
+		item.flipped_h = !item.flipped_h;
+	});
+};
+
+self.FlipVertically = function() {
+	array_foreach(self.slices, function(item) {
+		item.flipped_v = !item.flipped_v;
+	});
+};
+
 var ew = 320;
 var eh = 32;
 
