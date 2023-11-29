@@ -30,6 +30,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Miscellaneous","folderPath":"folders/Scribble/Miscellaneous.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Superfonts","folderPath":"folders/Scribble/Superfonts.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sprite Sheet Cutter","folderPath":"folders/Sprite Sheet Cutter.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Widgets","folderPath":"folders/Editor/Widgets.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"automation-defaults.json","CopyToMask":-1,"filePath":"datafiles",},
@@ -127,6 +128,7 @@
     {"id":{"name":"__scribble_gen_6_build_lines","path":"scripts/__scribble_gen_6_build_lines/__scribble_gen_6_build_lines.yy",},},
     {"id":{"name":"fnt_emu_default_sdf","path":"fonts/fnt_emu_default_sdf/fnt_emu_default_sdf.yy",},},
     {"id":{"name":"scribble_font_rename","path":"scripts/scribble_font_rename/scribble_font_rename.yy",},},
+    {"id":{"name":"EmuRenderSurfacePalettePicker","path":"scripts/EmuRenderSurfacePalettePicker/EmuRenderSurfacePalettePicker.yy",},},
     {"id":{"name":"spr_emu_nineslice_tab","path":"sprites/spr_emu_nineslice_tab/spr_emu_nineslice_tab.yy",},},
     {"id":{"name":"__scribble_font_add_sprite","path":"scripts/__scribble_font_add_sprite/__scribble_font_add_sprite.yy",},},
     {"id":{"name":"EmuButton_Image","path":"scripts/EmuButton_Image/EmuButton_Image.yy",},},
