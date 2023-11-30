@@ -2,18 +2,17 @@ function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurfaceZoom
         mx = self.TransformMouseX(mx);
         my = self.TransformMouseY(my);
         
-        draw_clear(c_black);
-        draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
+		draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
+		lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index, 0, shd_lorikeet_preview);
+		shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexUnderCursor"), -100);
+		shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexCount"), array_length(obj_demo.demo_palette.data[0]));
+		draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.xoffset, self.yoffset, self.zoom, self.zoom, 0, c_white, 1);
+		shader_reset();
         
         var sw = obj_demo.slice_width;
         var sh = obj_demo.slice_height;
         var line_color = c_blue;
         var spr = obj_demo.demo_sprite;
-        
-        if (!sprite_exists(spr))
-            return;
-        
-        draw_sprite(spr, 0, self.xoffset, self.yoffset);
         
         if (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height) {
             var mcx = (mx div sw) * sw + self.xoffset;

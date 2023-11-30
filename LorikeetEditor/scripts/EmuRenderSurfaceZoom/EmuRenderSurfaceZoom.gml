@@ -2,6 +2,7 @@ function EmuRenderSurfaceZoom(x, y, width, height, render, step) : EmuRenderSurf
         self.xoffset = 0;
         self.yoffset = 0;
         self.grabbing = true;
+		self.zoom = 1;
         
         self.dx = 0;
         self.dy = 0;
