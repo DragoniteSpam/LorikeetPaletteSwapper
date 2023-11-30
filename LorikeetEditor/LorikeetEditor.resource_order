@@ -1,7 +1,7 @@
 {
   "FolderOrderSettings": [
-    {"name":"Sprite Sheet Cutter","order":1,"path":"folders/Sprite Sheet Cutter.yy",},
     {"name":"Widgets","order":16,"path":"folders/Editor/Widgets.yy",},
+    {"name":"Sprite Sheet Cutter","order":1,"path":"folders/Sprite Sheet Cutter.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"spr_emu_close","order":7,"path":"sprites/spr_emu_close/spr_emu_close.yy",},

@@ -2,7 +2,6 @@ function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurfaceZoom
         mx = self.TransformMouseX(mx);
         my = self.TransformMouseY(my);
         
-        // render
         draw_clear(c_black);
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         

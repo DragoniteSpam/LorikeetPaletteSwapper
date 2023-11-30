@@ -12,6 +12,7 @@
   "defaultScriptType": 1,
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Editor","folderPath":"folders/Editor.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Widgets","folderPath":"folders/Editor/Widgets.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Emu","folderPath":"folders/Emu.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Core","folderPath":"folders/Emu/Core.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Graphics","folderPath":"folders/Emu/Graphics.yy",},
@@ -30,7 +31,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Miscellaneous","folderPath":"folders/Scribble/Miscellaneous.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Superfonts","folderPath":"folders/Scribble/Superfonts.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sprite Sheet Cutter","folderPath":"folders/Sprite Sheet Cutter.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Widgets","folderPath":"folders/Editor/Widgets.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"automation-defaults.json","CopyToMask":-1,"filePath":"datafiles",},
@@ -38,7 +38,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.11.0.119",
+    "IDEVersion": "2023.1100.0.450",
   },
   "resources": [
     {"id":{"name":"spr_emu_close","path":"sprites/spr_emu_close/spr_emu_close.yy",},},
