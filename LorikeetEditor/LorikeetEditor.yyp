@@ -38,7 +38,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.1100.0.450",
+    "IDEVersion": "2023.11.0.119",
   },
   "resources": [
     {"id":{"name":"spr_emu_close","path":"sprites/spr_emu_close/spr_emu_close.yy",},},
@@ -76,7 +76,6 @@
     {"id":{"name":"__scribble_config_behaviours","path":"scripts/__scribble_config_behaviours/__scribble_config_behaviours.yy",},},
     {"id":{"name":"spr_emu_not_found","path":"sprites/spr_emu_not_found/spr_emu_not_found.yy",},},
     {"id":{"name":"__scribble_class_typist","path":"scripts/__scribble_class_typist/__scribble_class_typist.yy",},},
-    {"id":{"name":"EmuRenderSurfaceZoom","path":"scripts/EmuRenderSurfaceZoom/EmuRenderSurfaceZoom.yy",},},
     {"id":{"name":"spr_emu_scroll_arrow","path":"sprites/spr_emu_scroll_arrow/spr_emu_scroll_arrow.yy",},},
     {"id":{"name":"scribble_font_add_all","path":"scripts/scribble_font_add_all/scribble_font_add_all.yy",},},
     {"id":{"name":"scribble_anim_wave","path":"scripts/scribble_anim_wave/scribble_anim_wave.yy",},},

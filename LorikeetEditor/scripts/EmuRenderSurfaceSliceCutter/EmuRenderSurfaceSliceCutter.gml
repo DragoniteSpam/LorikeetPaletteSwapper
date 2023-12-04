@@ -1,7 +1,4 @@
-function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurfaceZoom(x, y, width, height, function(mx, my) {
-        mx = self.TransformMouseX(mx);
-        my = self.TransformMouseY(my);
-        
+function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurface(x, y, width, height, function(mx, my) {
 		draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
 		lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index, 0, shd_lorikeet_preview);
 		shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexUnderCursor"), -100);
@@ -42,8 +39,6 @@ function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurfaceZoom
         if (!sprite_exists(obj_demo.demo_sprite))
             return;
         
-        self.HandlePanAndZoom(mx, my);
-        
         var sw = obj_demo.slice_width;
         var sh = obj_demo.slice_height;
         var mcx = ((mx - self.xoffset) div sw);
@@ -52,6 +47,6 @@ function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurfaceZoom
         if (mouse_check_button_pressed(mb_left)) {
             obj_demo.AddSpriteSlice(mcx * sw, mcy * sh, sw, sh);
         }
-    }) constructor {
+    }, emu_null) constructor {
         // it's all constructor inheritance
 }

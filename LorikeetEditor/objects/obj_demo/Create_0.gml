@@ -329,6 +329,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         // step forward
         obj_demo.demo_palette_index = ++obj_demo.demo_palette_index % array_length(obj_demo.demo_palette.data);
     })),
+	// main image
     new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 762, 836, function(mx, my) {
         // render
         draw_clear_alpha(c_black, 0);
@@ -337,15 +338,15 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             case 0:
                 // skips the paint bucket feature
                 draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
-                draw_sprite_ext(obj_demo.demo_sprite, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
+                draw_sprite_ext(obj_demo.demo_sprite, 0, 0, 0, 1, 1, 0, c_white, 1);
                 return;
             case 1:
-                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
+                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 1, 1, 0, c_white, 1);
                 break;
             case 2:
                 // skips the paint bucket feature
                 draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
-                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
+                draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 1, 1, 0, c_white, 1);
                 return;
         }
         
@@ -362,7 +363,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             var b = colour_get_blue(c);
             var cc = make_colour_rgb(idx, g, b);
             
-            var a = c - cc;
+            var a = int64(c) & 0x00ffffff;
             
             if (a > 0) {
                 var palette = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
@@ -394,7 +395,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index, 0, shd_lorikeet_preview);
         shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexUnderCursor"), obj_demo.demo_highlight_selection ? index_under_cursor : -100);
         shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexCount"), array_length(obj_demo.demo_palette.data[0]));
-        draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, self.map_x, self.map_y, self.zoom, self.zoom, 0, c_white, 1);
+        draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 1, 1, 0, c_white, 1);
         shader_reset();
         
         // color picker
@@ -420,6 +421,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     }, function(mx, my) {
         // step
         if (!self.isActiveDialog()) return;
+		return;
         var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
         if (mouse_in_view) {
             var zoom_step = 0.5;
@@ -465,15 +467,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         if (mouse_in_view) {
             set_cursor_sprite_auto();
         }
-    }, function() {
-        // create
-        self.zoom = 8;
-        self.map_x = 0;
-        self.map_y = 0;
-        self.panning = false;
-        self.pan_x = 0;
-        self.pan_y = 0;
-    }),
+    }, emu_null)
+		.SetPanEnabled(true)
+		.SetZoomEnabled(true)
+		.SetZoom(8),
     (new EmuButtonImage(32 + 32 + 32 + ew + 762 + 0 * 384 / 3, EMU_BASE, 384 / 3, eh, spr_modes, 0, c_white, 1, false, function() {
         obj_demo.demo_mode = EOperationModes.SELECTION;
     }))
@@ -498,6 +495,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 return (obj_demo.demo_mode == EOperationModes.BUCKET) ? C_BUTTON_SELECTED : EMU_COLOR_SPRITE_INTERACTIVE;
             };
         }),
+	// palette contents
     new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_AUTO, 384, 704, function(mx, my) {
         // render
         var palette = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
