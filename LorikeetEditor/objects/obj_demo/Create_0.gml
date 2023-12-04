@@ -389,41 +389,42 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             index_under_cursor = obj_demo.demo_edit_cell;
         }
         
-        // after the color has been sampled, do it again
-        draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
+        draw_clear_alpha(c_black, 0);
         
+        // after the color has been sampled, do it again
         lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index, 0, shd_lorikeet_preview);
         shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexUnderCursor"), obj_demo.demo_highlight_selection ? index_under_cursor : -100);
         shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexCount"), array_length(obj_demo.demo_palette.data[0]));
         draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 1, 1, 0, c_white, 1);
         shader_reset();
-        
-        // color picker
-        var size = 64;
-        draw_rectangle_colour(1, self.height - size + 1, size - 1, self.height - 1, obj_demo.demo_copied_color, obj_demo.demo_copied_color, obj_demo.demo_copied_color, obj_demo.demo_copied_color, false);
-        draw_sprite_stretched(spr_tile_selector, 0, 1, self.height - size + 1, size - 2, size - 2);
-        draw_sprite(spr_modes, 2, size / 2, self.height - size / 2);
-        
-        static picker = new EmuColorPicker(0, 0, 0, 0, "", c_black, function() {
-            obj_demo.demo_copied_color = self.value;
-        });
-        
-        if (mx > 1 && my > self.height - size + 1 && mx < size - 1 && my < self.height - 1) {
-            if (mouse_check_button_pressed(mb_left)) {
-                picker.value = obj_demo.demo_copied_color;
-                picker.ShowPickerDialog().SetActiveShade(0);
+    }, emu_null, emu_null)
+        .SetRenderBegin(function(mx, my) {
+            draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
+        })
+        .SetRenderUI(function(mx, my) {
+            // color picker
+            draw_clear_alpha(c_black, 0);
+            
+            var size = 64;
+            draw_rectangle_colour(1, self.height - size + 1, size - 1, self.height - 1, obj_demo.demo_copied_color, obj_demo.demo_copied_color, obj_demo.demo_copied_color, obj_demo.demo_copied_color, false);
+            draw_sprite_stretched(spr_tile_selector, 0, 1, self.height - size + 1, size - 2, size - 2);
+            draw_sprite(spr_modes, 2, size / 2, self.height - size / 2);
+            
+            static picker = new EmuColorPicker(0, 0, 0, 0, "", c_black, function() {
+                obj_demo.demo_copied_color = self.value;
+            });
+            
+            if (self.MouseOverCanvas(mx, my)) {
+                if (mouse_check_button_pressed(mb_left)) {
+                    picker.value = obj_demo.demo_copied_color;
+                    picker.ShowPickerDialog().SetActiveShade(0);
+                }
             }
-        }
-        
-        draw_set_font(fnt_emu_default_sdf);
-        draw_text(32, 20, "Middle mouse button to pan");
-        draw_text(32, 48, "Middle wheel to zoom");
-    }, function(mx, my) {
-        // step
-        if (self.MouseOverCanvas()) {
-            set_cursor_sprite_auto();
-        }
-    }, emu_null)
+            
+            draw_set_font(fnt_emu_default_sdf);
+            draw_text(32, 20, "Middle mouse button to pan");
+            draw_text(32, 48, "Middle wheel to zoom");
+        })
 		.SetPanEnabled(true)
 		.SetZoomEnabled(true)
 		.SetZoom(8),

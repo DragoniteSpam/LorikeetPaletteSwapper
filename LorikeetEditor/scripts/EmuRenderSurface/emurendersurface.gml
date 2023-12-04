@@ -18,11 +18,18 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
         draw_clear(c_black);
         return self;
     };
+    
+    /// @ignore
+    self.callback_render_begin = function(mx, my) { };
+    /// @ignore
+    self.callback_render_ui = function(mx, my) { };
 	
 	self.enable_pan = false;
 	self.enable_zoom = false;
     
     self.surface = self.surfaceVerify(-1, self.width, self.height).surface;
+    self.surface_begin = undefined;
+    self.surface_ui = undefined;
     surface_set_target(self.surface);
     draw_clear(c_black);
     method(self, create)();
@@ -31,6 +38,24 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
     #region mutators
     static SetRender = function(render) {
         self.callback_render = method(self, render);
+        return self;
+    };
+    
+    static SetRenderBegin = function(render) {
+        self.callback_render_begin = method(self, render);
+        self.surface_begin = self.surfaceVerify(-1, self.width, self.height).surface;
+        surface_set_target(self.surface_begin);
+        draw_clear_alpha(c_black, 0);
+        surface_reset_target();
+        return self;
+    };
+    
+    static SetRenderUI = function(render) {
+        self.callback_render_ui = method(self, render);
+        self.surface_ui = self.surfaceVerify(-1, self.width, self.height).surface;
+        surface_set_target(self.surface_ui);
+        draw_clear_alpha(c_black, 0);
+        surface_reset_target();
         return self;
     };
     
@@ -157,6 +182,28 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
             surface_reset_target();
         }
         
+        if (self.surface_begin != undefined) {
+            verify = self.surfaceVerify(self.surface_begin, self.width, self.height);
+            self.surface_begin = verify.surface;
+        }
+        
+        if (verify.changed) {
+            surface_set_target(self.surface_begin);
+            draw_clear_alpha(c_black, 0);
+            surface_reset_target();
+        }
+        
+        if (self.surface_ui != undefined) {
+            verify = self.surfaceVerify(self.surface_ui, self.width, self.height);
+            self.surface_ui = verify.surface;
+        }
+        
+        if (verify.changed) {
+            surface_set_target(self.surface_ui);
+            draw_clear_alpha(c_black, 0);
+            surface_reset_target();
+        }
+        
         if (self.getMouseHover(x1, y1, x2, y2)) {
             self.ShowTooltip();
             if (self.getMousePressed(x1, y1, x2, y2)) {
@@ -164,36 +211,52 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
             }
         }
 		
-		mx = mx - self.cx;
-		my = my - self.cy;
-        
         self.callback_step(localmx, localmy);
         
-        surface_set_target(self.surface);
         var camera = camera_get_active();
-        var old_view_mat = camera_get_view_mat(camera);
-        var old_proj_mat = camera_get_proj_mat(camera);
         var old_state = gpu_get_state();
+        
+        if (self.surface_begin != undefined) {
+            surface_set_target(self.surface_begin);
+            self.callback_render_begin(mx, my);
+            surface_reset_target();
+            gpu_set_state(old_state);
+        }
+        
+        surface_set_target(self.surface);
 		var view_mat = matrix_build_lookat(self.cx, self.cy, -16000, self.cx, self.cy, 16000, 0, -1, 0);
 		var proj_mat = matrix_build_projection_ortho(-self.width / self.zoom, -self.height / self.zoom, 1, 32000);
 		camera_set_view_mat(camera, view_mat);
         camera_set_proj_mat(camera, proj_mat);
         camera_apply(camera);
         self.callback_render(localmx, localmy);
-        camera_set_view_mat(camera, old_view_mat);
-        camera_set_proj_mat(camera, old_proj_mat);
-        camera_apply(camera);
+        
         gpu_set_state(old_state);
-        ds_map_destroy(old_state);
         surface_reset_target();
         
+        if (self.surface_ui != undefined) {
+            surface_set_target(self.surface_ui);
+            self.callback_render_ui(mx, my);
+            surface_reset_target();
+            gpu_set_state(old_state);
+        }
+        
+        gpu_set_state(old_state);
+        ds_map_destroy(old_state);
+        
+        if (self.surface_begin != undefined) {
+            draw_surface(self.surface_begin, x1, y1);
+        }
         draw_surface(self.surface, x1, y1);
+        if (self.surface_ui != undefined) {
+            draw_surface(self.surface_ui, x1, y1);
+        }
         
         if (debug_render) self.renderDebugBounds(x1, y1, x2, y2);
     };
     #endregion
     
-    static MouseOverCanvas = function() {
+    static MouseOverCanvas = function(x, y) {
         if (!self.isActiveDialog()) return false;
         
         var x1 = self.x + x;
