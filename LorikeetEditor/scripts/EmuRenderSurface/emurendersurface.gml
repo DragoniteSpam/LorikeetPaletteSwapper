@@ -5,6 +5,10 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
     self.cy = height / 2;
     self.grabbing = true;
 	self.zoom = 1;
+    self.zoom_target = 1;
+    self.zoom_min = 1;
+    self.zoom_max = 1;
+    self.zoom_step = 1;
 	
     self.dx = 0;
     self.dy = 0;
@@ -74,13 +78,17 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
 		return self;
 	};
 	
-	static SetZoomEnabled = function(enabled) {
+	static SetZoomEnabled = function(enabled, zoom_min, zoom_max, zoom_step = 1) {
 		self.enable_zoom = enabled;
+        self.zoom_min = zoom_min;
+        self.zoom_max = zoom_max;
+        self.zoom_step = zoom_step;
 		return self;
 	};
 	
 	static SetZoom = function(zoom) {
 		self.zoom = zoom;
+        self.zoom_target = zoom;
         self.cx = self.width / 2 / self.zoom;
         self.cy = self.height / 2 / self.zoom;
 		return self;
@@ -137,35 +145,39 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
 	        }
 		}
 		
-        var localmx = (mx - self.width / 2) / self.zoom + self.cx;
-        var localmy = (my - self.height / 2) / self.zoom + self.cy;
+        var localmx = (mx - self.width / 2) / self.zoom_target + self.cx;
+        var localmy = (my - self.height / 2) / self.zoom_target + self.cy;
         
 		if (self.enable_zoom) {
 			if (mouse_in_view) {
-				// if panning is enabled, we can zoom in specifically on the cursor
-		        static zoom_step = 0.25;
-				if (self.enable_pan) {
-                    var previous_zoom = self.zoom;
-                    var cdx = self.cx - localmx;
-                    var cdy = self.cy - localmy;
-		            if (mouse_wheel_down()) {
-		                self.zoom = max(0.25, self.zoom - zoom_step);
-		            } else if (mouse_wheel_up()) {
-		                self.zoom = min(16, self.zoom + zoom_step);
-		            }
-                    var zoom_factor = previous_zoom / self.zoom;
-                    self.cx = localmx + cdx * zoom_factor;
-                    self.cy = localmy + cdy * zoom_factor;
-                // otherwise just try to stay in the corner
-				} else {
-		            if (mouse_wheel_down()) {
-		                self.zoom = max(0.25, self.zoom - zoom_step);
-		            } else if (mouse_wheel_up()) {
-		                self.zoom = min(16, self.zoom + zoom_step);
-		            }
-                    self.cx = self.width / 2 / self.zoom;
-                    self.cy = self.height / 2 / self.zoom;
-				}
+		        if (mouse_wheel_down()) {
+		            self.zoom_target = max(self.zoom_min, self.zoom_target - self.zoom_step);
+		        } else if (mouse_wheel_up()) {
+		            self.zoom_target = min(self.zoom_max, self.zoom_target + self.zoom_step);
+		        }
+			}
+            
+            // if panning is enabled, we can zoom in specifically on the cursor
+			if (self.enable_pan) {
+                var previous_zoom = self.zoom;
+                var cdx = self.cx - localmx;
+                var cdy = self.cy - localmy;
+                self.zoom = lerp(self.zoom, self.zoom_target, 0.1);
+                // if you are 99.9% of the way there, snap to avoid potential aliasing issues
+                if (abs(self.zoom / self.zoom_target - 1) < 0.001) {
+                    self.zoom = self.zoom_target;
+                }
+                var zoom_factor = previous_zoom / self.zoom;
+                self.cx = localmx + cdx * zoom_factor;
+                self.cy = localmy + cdy * zoom_factor;
+            // otherwise just try to stay in the corner
+			} else {
+		        self.zoom = lerp(self.zoom, self.zoom_target, 0.1);
+                if (abs(self.zoom / self.zoom_target - 1) < 0.001) {
+                    self.zoom = self.zoom_target;
+                }
+                self.cx = self.width / 2 / self.zoom;
+                self.cy = self.height / 2 / self.zoom;
 			}
 		}
 		

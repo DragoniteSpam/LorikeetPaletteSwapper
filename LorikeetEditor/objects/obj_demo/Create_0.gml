@@ -425,7 +425,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             draw_text(32, 48, "Middle wheel to zoom");
         })
 		.SetPanEnabled(true)
-		.SetZoomEnabled(true)
+		.SetZoomEnabled(true, 1, 16)
 		.SetZoom(8),
     (new EmuButtonImage(32 + 32 + 32 + ew + 762 + 0 * 384 / 3, EMU_BASE, 384 / 3, eh, spr_modes, 0, c_white, 1, false, function() {
         obj_demo.demo_mode = EOperationModes.SELECTION;
