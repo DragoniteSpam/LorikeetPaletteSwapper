@@ -102,8 +102,12 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
 		            self.cy += (self.dy - my) / self.zoom;
 		            self.dx = mx;
 		            self.dy = my;
+                    window_set_cursor(cr_size_all);
 		        }
 			} else {
+                if (self.grabbing) {
+                    window_set_cursor(cr_default);
+                }
 	            self.grabbing = false;
 	        }
 		}
@@ -143,7 +147,7 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
         self.gc.Clean();
         self.update_script();
         self.processAdvancement();
-    
+        
         var verify = self.surfaceVerify(self.surface, self.width, self.height);
         self.surface = verify.surface;
         
@@ -188,4 +192,15 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
         if (debug_render) self.renderDebugBounds(x1, y1, x2, y2);
     };
     #endregion
+    
+    static MouseOverCanvas = function() {
+        if (!self.isActiveDialog()) return false;
+        
+        var x1 = self.x + x;
+        var y1 = self.y + y;
+        var mx = device_mouse_x_to_gui(0) - x1;
+        var my = device_mouse_y_to_gui(0) - y1;
+        
+        return (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
+    };
 }

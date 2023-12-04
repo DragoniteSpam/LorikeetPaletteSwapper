@@ -420,51 +420,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         draw_text(32, 48, "Middle wheel to zoom");
     }, function(mx, my) {
         // step
-        if (!self.isActiveDialog()) return;
-		return;
-        var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
-        if (mouse_in_view) {
-            var zoom_step = 0.5;
-            if (mouse_wheel_down()) {
-                var cx = (mx - self.map_x) / self.zoom;
-                var cy = (my - self.map_y) / self.zoom;
-                self.zoom = max(1, self.zoom - zoom_step);
-                self.map_x = mx - self.zoom * cx;
-                self.map_y = my - self.zoom * cy;
-            } else if (mouse_wheel_up()) {
-                var cx = (mx - self.map_x) / self.zoom;
-                var cy = (my - self.map_y) / self.zoom;
-                self.zoom = min(16, self.zoom + zoom_step);
-                self.map_x = mx - self.zoom * cx;
-                self.map_y = my - self.zoom * cy;
-            }
-        }
-        
-        if (mouse_in_view && mouse_check_button_pressed(mb_middle)) {
-            self.panning = true;
-            self.pan_x = mx;
-            self.pan_y = my;
-        }
-        if (mouse_check_button(mb_middle)) {
-            self.map_x += mx - self.pan_x;
-            self.map_y += my - self.pan_y;
-            self.pan_x = mx;
-            self.pan_y = my;
-            window_set_cursor(cr_size_all);
-        } else {
-            self.panning = false;
-            window_set_cursor(cr_default);
-        }
-        if (keyboard_check_pressed(vk_enter)) {
-            self.zoom = 1;
-            self.map_x = 0;
-            self.map_y = 0;
-            self.panning = false;
-            self.pan_x = 0;
-            self.pan_y = 0;
-        }
-        
-        if (mouse_in_view) {
+        if (self.MouseOverCanvas()) {
             set_cursor_sprite_auto();
         }
     }, emu_null)
