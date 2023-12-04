@@ -211,7 +211,7 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
             }
         }
 		
-        self.callback_step(localmx, localmy);
+        self.callback_step(localmx, localmy, mx, my);
         
         var camera = camera_get_active();
         var old_state = gpu_get_state();
@@ -229,7 +229,7 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
 		camera_set_view_mat(camera, view_mat);
         camera_set_proj_mat(camera, proj_mat);
         camera_apply(camera);
-        self.callback_render(localmx, localmy);
+        self.callback_render(localmx, localmy, mx, my);
         
         gpu_set_state(old_state);
         surface_reset_target();
@@ -256,13 +256,19 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
     };
     #endregion
     
-    static MouseOverCanvas = function(x, y) {
+    static MouseOverCanvas = function(mx, my) {
         if (!self.isActiveDialog()) return false;
         
-        var x1 = self.x + x;
-        var y1 = self.y + y;
-        var mx = device_mouse_x_to_gui(0) - x1;
-        var my = device_mouse_y_to_gui(0) - y1;
+        var x1 = mx - self.width / 2 / self.zoom;
+        var y1 = my - self.height/ 2 / self.zoom;
+        var x2 = mx + self.width / 2 / self.zoom;
+        var y2 = my + self.height/ 2 / self.zoom;
+        
+        return (mx > x1 && mx < x2 && my >= y1 && my <= y2);
+    };
+    
+    static MouseOverUI = function(mx, my) {
+        if (!self.isActiveDialog()) return false;
         
         return (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
     };

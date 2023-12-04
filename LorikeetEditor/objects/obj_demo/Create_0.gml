@@ -330,7 +330,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         obj_demo.demo_palette_index = ++obj_demo.demo_palette_index % array_length(obj_demo.demo_palette.data);
     })),
 	// main image
-    new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 762, 836, function(mx, my) {
+    new EmuRenderSurface(32 + 32 + ew, EMU_BASE, 762, 836, function(mx, my, screenmx, screenmy) {
         // render
         draw_clear_alpha(c_black, 0);
         
@@ -352,18 +352,16 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         
         var index_under_cursor = -1000;
         
-        if (mx > 0 && my > 0 && mx < self.width && my < self.height && self.isActiveDialog()) {
+        if (self.MouseOverCanvas(mx, my)) {
             if (mouse_check_button(mb_right)) {
                 obj_demo.demo_edit_cell = -1;
             }
             
-            var c = surface_getpixel_ext(self.surface, mx, my);
+            var c = surface_getpixel_ext(self.surface, screenmx, screenmy);
             var idx = colour_get_red(c);
             var g = colour_get_green(c);
             var b = colour_get_blue(c);
-            var cc = make_colour_rgb(idx, g, b);
-            
-            var a = int64(c) & 0x00ffffff;
+            var a = int64(c) >> 24;
             
             if (a > 0) {
                 var palette = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
@@ -414,11 +412,12 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 obj_demo.demo_copied_color = self.value;
             });
             
-            if (self.MouseOverCanvas(mx, my)) {
+            if (mx > 1 && my > self.height - size + 1 && mx < size - 1 && my < self.height - 1) {
                 if (mouse_check_button_pressed(mb_left)) {
                     picker.value = obj_demo.demo_copied_color;
                     picker.ShowPickerDialog().SetActiveShade(0);
                 }
+                set_cursor_sprite_auto();
             }
             
             draw_set_font(fnt_emu_default_sdf);
