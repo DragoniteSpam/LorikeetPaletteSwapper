@@ -153,27 +153,12 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
             show_debug_message("extended the palette array");
         }
         
-        for (var i = 0, n = array_length(self.data); i < n; i++) {
+        for (var i = 0; i < palette_count; i++) {
             self.data[i][self.palette_used_size] = color;
         }
         self.palette_used_size++;
         
-        var used_size = array_length(self.data[0]);
-        
-        var palette_buffer = buffer_create(used_size * 4, buffer_fixed, 4);
-        for (var i = 0; i < palette_count; i++) {
-            for (var j = 0, n = used_size; j < n; j++) {
-                buffer_write(palette_buffer, buffer_u32, self.data[i][j]);
-            }
-        }
-        
-        if (sprite_exists(self.palette)) sprite_delete(self.palette);
-        
-        var palette_surface = surface_create(used_size, palette_count);
-        buffer_set_surface(palette_buffer, palette_surface, 0);
-        self.palette = sprite_create_from_surface(palette_surface, 0, 0, used_size, palette_count, false, false, 0, 0);
-        buffer_delete(palette_buffer);
-        surface_free(palette_surface);
+        self.RegeneratePaletteFromData();
     };
     
     static Refresh = function() {
@@ -268,6 +253,26 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         buffer_delete(sprite_data);
         
         return color_sprite;
+    };
+    
+    static RegeneratePaletteFromData = function() {
+        var palette_count = array_length(self.data);
+        var palette_size = array_length(self.data[0]);
+        
+        var palette_buffer = buffer_create(palette_count * palette_size * 4, buffer_fixed, 4);
+        for (var i = 0; i < palette_count; i++) {
+            for (var j = 0; j < palette_size; j++) {
+                buffer_write(palette_buffer, buffer_u32, self.data[i][j]);
+            }
+        }
+        
+        if (sprite_exists(self.palette)) sprite_delete(self.palette);
+        
+        var palette_surface = surface_create(palette_size, palette_count);
+        buffer_set_surface(palette_buffer, palette_surface, 0);
+        self.palette = sprite_create_from_surface(palette_surface, 0, 0, palette_size, palette_count, false, false, 0, 0);
+        buffer_delete(palette_buffer);
+        surface_free(palette_surface);
     };
     
     if (source_palette != undefined && sprite_exists(source_palette)) {
