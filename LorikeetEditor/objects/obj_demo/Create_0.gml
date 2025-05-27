@@ -716,20 +716,38 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var ew = 480;
         var eh = 32;
         
-        var dialog = new EmuDialog(32 + 32 + ew, 240, "Generate Outline")
-            .SetActiveShade(0)
-            .AddContent([
-            ])
-            .AddDefaultConfirmCancelButtons("Done", function() {
-                self.root.Close();
-            }, "Cancel", function() {
-                obj_demo.demo_palette.data[obj_demo.demo_palette_index] = self.root.original_data;
-                obj_demo.demo_palette.Refresh();
-                self.root.Close();
-            });
+        var palette_length = array_length(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);
         
-        dialog.palette_data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
-        dialog.original_data = json_parse(json_stringify(obj_demo.demo_palette.data[obj_demo.demo_palette_index]));
+        if (palette_length == 256) {
+            new EmuDialog(ew, 240, "Hey!")
+                .AddContent([
+                    new EmuText(32, eh / 3, ew - 32 - 32, 160, "Automatic outlines are only available if the palette has fewer than 256 colors")
+                        .SetAlign(fa_center, fa_middle)
+                ])
+                .AddDefaultCloseButton()
+                .CenterInWindow();
+        } else {
+            var dialog = new EmuDialog(32 + 32 + ew, 240, "Generate Outline")
+                .SetActiveShade(0)
+                .AddContent([
+                    new EmuColorPicker(ew, EMU_AUTO, ew, eh, "Outline color:", c_black, function() {
+                        self.root.outline_color = self.value;
+                    })
+                ])
+                .SetCloseButton(false)
+                .AddDefaultConfirmCancelButtons("Done", function() {
+                    self.root.Close();
+                }, "Cancel", function() {
+                    obj_demo.demo_palette.data[obj_demo.demo_palette_index] = self.root.original_data;
+                    obj_demo.demo_palette.Refresh();
+                    self.root.Close();
+                });
+        
+            dialog.outline_color = c_black;
+            dialog.outline_index = array_length(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);
+            dialog.palette_data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
+            dialog.original_data = json_parse(json_stringify(obj_demo.demo_palette.data[obj_demo.demo_palette_index]));
+        }
     })
 ]);
 
