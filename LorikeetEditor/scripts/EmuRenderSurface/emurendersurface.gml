@@ -199,10 +199,12 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
             self.surface_begin = verify.surface;
         }
         
-        if (verify.changed) {
-            surface_set_target(self.surface_begin);
-            draw_clear_alpha(c_black, 0);
-            surface_reset_target();
+        if (surface_exists(self.surface_begin)) {
+            if (verify.changed) {
+                surface_set_target(self.surface_begin);
+                draw_clear_alpha(c_black, 0);
+                surface_reset_target();
+            }
         }
         
         if (self.surface_ui != undefined) {
@@ -210,10 +212,12 @@ function EmuRenderSurface(x, y, width, height, render, step, create) : EmuCore(x
             self.surface_ui = verify.surface;
         }
         
-        if (verify.changed) {
-            surface_set_target(self.surface_ui);
-            draw_clear_alpha(c_black, 0);
-            surface_reset_target();
+        if (surface_exists(self.surface_ui)) {
+            if (verify.changed) {
+                surface_set_target(self.surface_ui);
+                draw_clear_alpha(c_black, 0);
+                surface_reset_target();
+            }
         }
         
         if (self.getMouseHover(x1, y1, x2, y2)) {
