@@ -751,10 +751,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     if (self.root.original_indexed_sprite != obj_demo.demo_sprite_indexed) {
                         sprite_delete(self.root.original_indexed_sprite);
                     }
-                    if (self.root.index_with_diagonals != obj_demo.demo_sprite_indexed) {
+                    if (self.root.index_with_diagonals != obj_demo.demo_sprite_indexed && sprite_exists(self.root.index_with_diagonals)) {
                         sprite_delete(self.root.index_with_diagonals);
                     }
-                    if (self.root.index_without_diagonals != obj_demo.demo_sprite_indexed) {
+                    if (self.root.index_without_diagonals != obj_demo.demo_sprite_indexed && sprite_exists(self.root.index_without_diagonals)) {
                         sprite_delete(self.root.index_without_diagonals);
                     }
                     self.root.Close();
@@ -766,10 +766,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                         sprite_delete(obj_demo.demo_sprite_indexed);
                         obj_demo.demo_sprite_indexed = self.root.original_indexed_sprite;
                     }
-                    if (self.root.index_with_diagonals != obj_demo.demo_sprite_indexed) {
+                    if (self.root.index_with_diagonals != obj_demo.demo_sprite_indexed && sprite_exists(self.root.index_with_diagonals)) {
                         sprite_delete(self.root.index_with_diagonals);
                     }
-                    if (self.root.index_without_diagonals != obj_demo.demo_sprite_indexed) {
+                    if (self.root.index_without_diagonals != obj_demo.demo_sprite_indexed && sprite_exists(self.root.index_without_diagonals)) {
                         sprite_delete(self.root.index_without_diagonals);
                     }
                     self.root.Close();
