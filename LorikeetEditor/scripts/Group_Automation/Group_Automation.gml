@@ -104,10 +104,14 @@ function LorikeetAutomation() constructor {
                     self.count = json.count;
                 };
                 
-                self.Execute = function(palette) {
+                self.Execute = function(indexed, palette) {
                     repeat (self.count) {
                         operation_shift_left(palette);
                     }
+                    
+                    return {
+                        palette, indexed
+                    };
                 };
             };
             
@@ -130,10 +134,14 @@ function LorikeetAutomation() constructor {
                     };
                 };
                 
-                self.Execute = function(palette) {
+                self.Execute = function(indexed, palette) {
                     repeat (self.count) {
                         operation_shift_right(palette);
                     }
+                    
+                    return {
+                        palette, indexed
+                    };
                 };
             };
             
@@ -165,8 +173,12 @@ function LorikeetAutomation() constructor {
                     self.val = json.val;
                 };
                 
-                self.Execute = function(palette) {
+                self.Execute = function(indexed, palette) {
                     operation_update_hsv(palette, self.hue, self.sat, self.val);
+                    
+                    return {
+                        palette, indexed
+                    };
                 };
             };
             
@@ -198,8 +210,12 @@ function LorikeetAutomation() constructor {
                     self.val = json.val;
                 };
                 
-                self.Execute = function(palette) {
+                self.Execute = function(indexed, palette) {
                     operation_update_hsv_percent(palette, self.hue, self.sat, self.val);
+                    
+                    return {
+                        palette, indexed
+                    };
                 };
             };
             
@@ -231,8 +247,12 @@ function LorikeetAutomation() constructor {
                     self.b = json.b;
                 };
                 
-                self.Execute = function(palette) {
+                self.Execute = function(indexed, palette) {
                     operation_update_rgb(palette, self.r, self.g, self.b);
+                    
+                    return {
+                        palette, indexed
+                    };
                 };
             };
             
@@ -264,8 +284,12 @@ function LorikeetAutomation() constructor {
                     self.b = json.b;
                 };
                 
-                self.Execute = function(palette) {
+                self.Execute = function(indexed, palette) {
                     operation_update_rgb_percent(palette, self.r, self.g, self.b);
+                    
+                    return {
+                        palette, indexed
+                    };
                 };
             };
             
@@ -302,8 +326,12 @@ function LorikeetAutomation() constructor {
                     self.use_corners = json.use_corners;
                 };
                 
-                self.Execute = function(palette) {
+                self.Execute = function(indexed, palette) {
                     //operation_update_rgb_percent(palette, self.r, self.g, self.b);
+                    
+                    return {
+                        palette, indexed
+                    };
                 };
             };
             
@@ -317,10 +345,16 @@ function LorikeetAutomation() constructor {
                 self.StepOutline,
             ];
             
-            self.Execute = function(palette) {
+            self.Execute = function(indexed, palette) {
                 for (var i = 0, n = array_length(self.steps); i < n; i++) {
-                    self.steps[i].Execute(palette);
+                    var output = self.steps[i].Execute(palette, indexed);
+                    indexed = output.indexed;
+                    palette = output.palette;
                 }
+                
+                return {
+                    palette, indexed
+                };
             };
         };
         
@@ -335,16 +369,20 @@ function LorikeetAutomation() constructor {
             array_delete(self.indices, index, 1);
         };
         
-        self.Execute = function(source_palette) {
+        self.Execute = function(indexed, source_palette) {
             var new_palette = array_create(array_length(self.indices));
             
             for (var i = 0, n = array_length(self.indices); i < n; i++) {
                 new_palette[i] = array_create(array_length(source_palette));
                 array_copy(new_palette[i], 0, source_palette, 0, array_length(source_palette));
-                self.indices[i].Execute(new_palette[i]);
+                var output = self.indices[i].Execute(indexed, new_palette[i]);
+                indexed = output.indexed;
             }
             
-            return new_palette;
+            return {
+                palette: new_palette,
+                indexed
+            };
         };
     };
     

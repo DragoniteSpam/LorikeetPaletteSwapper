@@ -420,9 +420,10 @@ function emu_dialog_show_automation() {
         .AddDefaultConfirmCancelButtons("Apply", function() {
             var type = self.GetSibling("TYPE LIST").GetSelectedItem();
             if (type) {
-                var new_palette = type.Execute(obj_demo.demo_palette.data[0]);
-                obj_demo.demo_palette.data = new_palette;
+                var output = type.Execute(obj_demo.demo_sprite_indexed, obj_demo.demo_palette.data[0]);
+                obj_demo.demo_palette.data = output.palette;
                 obj_demo.demo_palette.Refresh();
+                obj_demo.demo_sprite_indexed = output.indexed;
             }
             self.root.Close();
         }, "Close", function() {
@@ -447,7 +448,9 @@ function emu_dialog_show_automation() {
         
                                     if (sprite_exists(image)) {
                                         var sprite_indexed = palette_manager.ExtractPalette(image, 0, obj_demo.demo_force_full_palettes);
-                                        palette_manager.data = self.root.type.Execute(palette_manager.data[0]);
+                                        var output = self.root.type.Execute(sprite_indexed, palette_manager.data[0]);
+                                        palette_manager.data = output.palette;
+                                        sprite_indexed = output.indexed;
                                         palette_manager.Refresh();
                                         sprite_save(sprite_indexed, 0, output_path + "idx_" + filename_name(file));
                                         sprite_save(palette_manager.palette, 0, output_path + "pal_" + filename_name(file));
