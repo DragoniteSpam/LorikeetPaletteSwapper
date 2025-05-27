@@ -272,8 +272,11 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
     new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Save Palette", function() {
         obj_demo.SavePaletteSprite();
     }),
-    new EmuButton(32, EMU_AUTO, ew, eh, "Save RGB or Slices", function() {
+    new EmuButton(32, EMU_AUTO, ew / 2, eh, "Save RGB or Slices", function() {
         obj_demo.ShowAllSaveOptions();
+    }),
+    new EmuButton(32 + ew / 2, EMU_INLINE, ew / 2, eh, "Process Folder", function() {
+        //obj_demo.ProcessFolder();
     }),
     new EmuButton(32, EMU_AUTO, ew / 2, eh, "Reset Sprite", function() {
         obj_demo.ResetSprite();
