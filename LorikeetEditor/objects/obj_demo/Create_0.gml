@@ -455,20 +455,22 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             };
         }),
 	// palette contents
-    new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_AUTO, 384, 704, function(mx, my) {
+    new EmuRenderSurface(32 + 32 + 32 + ew + 762, EMU_AUTO, 384, 384, function(mx, my) {
         // render
         var palette = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
         
         draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
         
-        var step = 32;
+        var step = 24;
         var hcells = self.width div step;
         var index = -1;
         
         for (var i = 0, n = array_length(palette); i < n; i++) {
             var c = palette[i];
             if (c == -1) break;
-            draw_rectangle_color((i % hcells) * step, (i div hcells) * step, ((i % hcells) + 1) * step, ((i div hcells) + 1) * step, c, c, c, c, false);
+            var xx = (i % hcells);
+            var yy = (i div hcells);
+            draw_rectangle_color(xx * step, yy * step, (xx + 1) * step, (yy + 1) * step, c, c, c, c, false);
         }
         
         var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
@@ -479,20 +481,22 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             mcx = index % hcells;
             mcy = index div hcells;
             
-            draw_sprite(spr_tile_selector, 0, mcx * step, mcy * step);
+            draw_sprite_stretched(spr_tile_selector, 0, mcx * step, mcy * step, step, step);
         }
         
         if (index != obj_demo.demo_edit_cell && obj_demo.demo_edit_cell != -1) {
             mcx = obj_demo.demo_edit_cell % hcells;
             mcy = obj_demo.demo_edit_cell div hcells;
-            draw_sprite(spr_tile_selector, 0, mcx * step, mcy * step);
+            draw_sprite_stretched(spr_tile_selector, 0, mcx * step, mcy * step, step, step);
         }
         
         var max_row = ceil(array_length(palette) / hcells);
         var max_column = array_length(palette) % hcells;
         
         draw_set_alpha(0.5);
-        draw_rectangle_colour(max_column * step, (max_row - 1) * step, self.width, max_row * step, c_black, c_black, c_black, c_black, false);
+        if (max_column > 0) {
+            draw_rectangle_colour(max_column * step, (max_row - 1) * step, self.width, max_row * step, c_black, c_black, c_black, c_black, false);
+        }
         draw_rectangle_colour(0, max_row * step, self.width, self.height, c_black, c_black, c_black, c_black, false);
         draw_set_alpha(1);
         
@@ -512,7 +516,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
         if (!mouse_in_view) return;
         
-        var step = 32;
+        var step = 24;
         var hcells = self.width div step;
         var mcx = mx div step;
         var mcy = my div step;
