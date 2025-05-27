@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "EmuRenderSurfaceSliceViewer",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Widgets",
-    "path": "folders/Editor/Widgets.yy",
+  "$GMScript":"v1",
+  "%Name":"EmuRenderSurfaceSliceViewer",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"EmuRenderSurfaceSliceViewer",
+  "parent":{
+    "name":"Widgets",
+    "path":"folders/Editor/Widgets.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

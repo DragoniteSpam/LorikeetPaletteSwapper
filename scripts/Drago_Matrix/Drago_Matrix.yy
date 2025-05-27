@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "Drago_Matrix",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Math",
-    "path": "folders/Drago3D/Math.yy",
+  "$GMScript":"v1",
+  "%Name":"Drago_Matrix",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Drago_Matrix",
+  "parent":{
+    "name":"Math",
+    "path":"folders/Drago3D/Math.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

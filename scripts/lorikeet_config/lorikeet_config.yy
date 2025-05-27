@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "lorikeet_config",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Lorikeet",
-    "path": "folders/Lorikeet.yy",
+  "$GMScript":"v1",
+  "%Name":"lorikeet_config",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lorikeet_config",
+  "parent":{
+    "name":"Lorikeet",
+    "path":"folders/Lorikeet.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

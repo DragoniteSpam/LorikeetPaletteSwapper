@@ -1,6 +1,6 @@
 {
-  "FolderOrderSettings": [],
-  "ResourceOrderSettings": [
+  "FolderOrderSettings":[],
+  "ResourceOrderSettings":[
     {"name":"ts_ground","order":1,"path":"tilesets/ts_ground/ts_ground.yy",},
     {"name":"input_system_export","order":9,"path":"scripts/input_system_export/input_system_export.yy",},
     {"name":"input_check_double_released","order":3,"path":"scripts/input_check_double_released/input_check_double_released.yy",},

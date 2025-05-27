@@ -1,10 +1,12 @@
 {
-  "resourceType": "GMShader",
-  "resourceVersion": "1.0",
-  "name": "shd_lorikeet_preview",
-  "parent": {
-    "name": "Editor",
-    "path": "folders/Editor.yy",
+  "$GMShader":"",
+  "%Name":"shd_lorikeet_preview",
+  "name":"shd_lorikeet_preview",
+  "parent":{
+    "name":"Editor",
+    "path":"folders/Editor.yy",
   },
-  "type": 1,
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
 }

@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "SpriteSliceData",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Sprite Sheet Cutter",
-    "path": "folders/Sprite Sheet Cutter.yy",
+  "$GMScript":"v1",
+  "%Name":"SpriteSliceData",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SpriteSliceData",
+  "parent":{
+    "name":"Sprite Sheet Cutter",
+    "path":"folders/Sprite Sheet Cutter.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

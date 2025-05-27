@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "set_cursor_sprite_auto",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Editor",
-    "path": "folders/Editor.yy",
+  "$GMScript":"v1",
+  "%Name":"set_cursor_sprite_auto",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"set_cursor_sprite_auto",
+  "parent":{
+    "name":"Editor",
+    "path":"folders/Editor.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

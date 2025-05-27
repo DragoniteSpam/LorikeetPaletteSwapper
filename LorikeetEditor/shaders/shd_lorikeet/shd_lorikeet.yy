@@ -1,10 +1,12 @@
 {
-  "resourceType": "GMShader",
-  "resourceVersion": "1.0",
-  "name": "shd_lorikeet",
-  "parent": {
-    "name": "Lorikeet",
-    "path": "folders/Lorikeet.yy",
+  "$GMShader":"",
+  "%Name":"shd_lorikeet",
+  "name":"shd_lorikeet",
+  "parent":{
+    "name":"Lorikeet",
+    "path":"folders/Lorikeet.yy",
   },
-  "type": 1,
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
 }
