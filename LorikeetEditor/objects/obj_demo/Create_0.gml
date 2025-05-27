@@ -398,6 +398,8 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexCount"), array_length(obj_demo.demo_palette.data[0]));
         draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 1, 1, 0, c_white, 1);
         shader_reset();
+        
+        draw_rectangle_colour(0, 0, sprite_get_width(obj_demo.demo_sprite_indexed) - 1, sprite_get_height(obj_demo.demo_sprite_indexed) - 1, c_black, c_black, c_black, c_black, true);
     }, emu_null, emu_null)
         .SetRenderBegin(function(mx, my) {
             draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
