@@ -712,6 +712,25 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             obj_demo.demo_palette.Refresh();
         });
     }),
+    new EmuButton(32 + 32 + 32 + ew + 762/* + 384 / 2*/, EMU_AUTO, 384 / 2, eh, "Generate Outline", function() {
+        var ew = 480;
+        var eh = 32;
+        
+        var dialog = new EmuDialog(32 + 32 + ew, 240, "Generate Outline")
+            .SetActiveShade(0)
+            .AddContent([
+            ])
+            .AddDefaultConfirmCancelButtons("Done", function() {
+                self.root.Close();
+            }, "Cancel", function() {
+                obj_demo.demo_palette.data[obj_demo.demo_palette_index] = self.root.original_data;
+                obj_demo.demo_palette.Refresh();
+                self.root.Close();
+            });
+        
+        dialog.palette_data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
+        dialog.original_data = json_parse(json_stringify(obj_demo.demo_palette.data[obj_demo.demo_palette_index]));
+    })
 ]);
 
 self.ui.DroppedFileHandler = method(self.ui, function(files) {
