@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shd_colors_reduce",
+  "name":"shd_colors_reduce",
+  "parent":{
+    "name":"Editor",
+    "path":"folders/Editor.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

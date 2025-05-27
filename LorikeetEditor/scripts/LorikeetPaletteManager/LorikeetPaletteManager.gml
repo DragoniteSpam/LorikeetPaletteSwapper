@@ -276,39 +276,6 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         surface_free(palette_surface);
     };
     
-    static ExtendIndexColors = function(sprite, frame) {
-        var sw = sprite_get_width(sprite);
-        var sh = sprite_get_height(sprite);
-        var surface = surface_create(sw, sh);
-        surface_set_target(surface);
-        draw_clear_alpha(c_black, 0);
-        var bm = gpu_get_blendmode();
-        gpu_set_blendmode(bm_add);
-        draw_sprite(sprite, frame, sprite_get_xoffset(sprite), sprite_get_yoffset(sprite));
-        gpu_set_blendmode(bm);
-        surface_reset_target();
-        var buffer = buffer_create(sw * sh * 2, buffer_fixed, 1);
-        buffer_get_surface(buffer, surface, 0);
-        
-        for (var i = 0, n = sw * sh; i < n; i += 4) {
-            var color = buffer_peek(buffer, i, buffer_u32);
-            var aa = color >> 24;
-            var rr = color_get_red(color) div 2;
-            var gg = color_get_green(color) div 2;
-            var bb = color_get_blue(color) div 2;
-            color = aa || make_color_rgb(rr, gg, bb);
-            buffer_poke(buffer, i, buffer_u32, color);
-        }
-        
-        buffer_set_surface(buffer, surface, 0);
-        buffer_delete(buffer);
-        
-        var reduced_sprite = sprite_create_from_surface(surface, 0, 0, sw, sh, false, false, sprite_get_xoffset(sprite), sprite_get_yoffset(sprite));
-        surface_free(surface);
-        
-        return reduced_sprite;
-    };
-    
     if (source_palette != undefined && sprite_exists(source_palette)) {
         self.FromImage(source_palette);
     }

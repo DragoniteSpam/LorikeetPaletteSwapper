@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"extend_indexed_colors",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"extend_indexed_colors",
+  "parent":{
+    "name":"Editor",
+    "path":"folders/Editor.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
