@@ -261,7 +261,9 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         var palette_buffer = buffer_create(palette_count * palette_size * 4, buffer_fixed, 4);
         for (var i = 0; i < palette_count; i++) {
             for (var j = 0; j < palette_size; j++) {
-                buffer_write(palette_buffer, buffer_u32, self.data[i][j]);
+                var value = self.data[i][j];
+                if (value == -1) continue;
+                buffer_write(palette_buffer, buffer_u32, value | 0xff000000);
             }
         }
         
