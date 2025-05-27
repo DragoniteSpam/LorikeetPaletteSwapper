@@ -146,17 +146,17 @@ function EmuDialog(w, h, title, callback = function() { EmuOverlay.Pop(); }) : E
         var tx = x1 + self.offset;
         var ty = floor(mean(y1, y1 + self.header_height));
         
-        var cbx1 = x2 - sprite_get_width(self.sprite_close);
-        var cbx2 = x2;
-        var cby1 = y1;
-        var cby2 = y1 + sprite_get_height(self.sprite_close);
+        cbx1 = x2 - sprite_get_width(self.sprite_close);
+        cbx2 = x2;
+        cby1 = y1;
+        cby2 = y1 + sprite_get_height(self.sprite_close);
         
         // tint the screen behind the active dialog (but only once per frame)
-        if (active && (self.drawn_dialog_shade_time != current_time)) {
+        if (active && (self.drawn_dialog_shade_time != global.emu_frame_count)) {
             draw_set_alpha(self.active_shade);
             draw_rectangle_colour(0, 0, window_get_width(), window_get_height(), EMU_DIALOG_SHADE_COLOR, EMU_DIALOG_SHADE_COLOR, EMU_DIALOG_SHADE_COLOR, EMU_DIALOG_SHADE_COLOR, false);
             draw_set_alpha(1);
-            self.drawn_dialog_shade_time = current_time;
+            self.drawn_dialog_shade_time = global.emu_frame_count;
         }
         
         draw_sprite_stretched_ext(self.sprite_nineslice, 1, x1, y1, x2 - x1, y2 - y1, self.color_back(), 1);
@@ -197,3 +197,6 @@ function EmuDialog(w, h, title, callback = function() { EmuOverlay.Pop(); }) : E
 function emu_dialog_close_auto() {
     self.root.Close();
 }
+
+global.emu_frame_count = 0;
+call_later(1, time_source_units_frames, function() { global.emu_frame_count++; }, true);
