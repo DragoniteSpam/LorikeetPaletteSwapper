@@ -2,7 +2,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
     self.palette = undefined;
     self.data = undefined;
     
-    self.ExtractPalette = function(sprite, index = 0, force_full_palette = false) {
+    static ExtractPalette = function(sprite, index = 0, force_full_palette = false) {
         if (self.palette != undefined) sprite_delete(self.palette);
         var t = get_timer();
         
@@ -84,7 +84,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         return indexed_sprite;
     };
     
-    self.FromImage = function(palette_sprite) {
+    static FromImage = function(palette_sprite) {
         if (self.palette != undefined && sprite_exists(self.palette)) sprite_delete(self.palette);
         
         var s = surface_create(sprite_get_width(palette_sprite), sprite_get_height(palette_sprite));
@@ -114,7 +114,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         self.data = data;
     };
     
-    self.Modify = function(x, y, color) {
+    static Modify = function(x, y, color) {
         if (color == self.data[y][x]) return;
         self.data[y][x] = color;
         var s = surface_create(sprite_get_width(self.palette), sprite_get_height(self.palette));
@@ -135,7 +135,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         surface_free(s);
     };
     
-    self.Refresh = function() {
+    static Refresh = function() {
         var s = surface_create(power(2, ceil(log2(array_length(self.data[0])))), array_length(self.data));
         surface_set_target(s);
         draw_clear(c_white);
@@ -153,7 +153,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         surface_free(s);
     };
     
-    self.AddPaletteRow = function(source_row = -1) {
+    static AddPaletteRow = function(source_row = -1) {
         source_row = (source_row == -1) ? (array_length(self.data) - 1) : source_row;
         var final_row = self.data[source_row];
         var new_row = array_create(array_length(final_row));
@@ -179,7 +179,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         surface_free(s);
     };
     
-    self.RemovePaletteRow = function(row = array_length(self.data) - 1) {
+    static RemovePaletteRow = function(row = array_length(self.data) - 1) {
         if (array_length(self.data) == 1) return;
         array_delete(self.data, row, 1);
         var s = surface_create(sprite_get_width(self.palette), sprite_get_height(self.palette) - 1);
@@ -199,7 +199,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         surface_free(s);
     };
     
-    self.GetRGBSprite = function(sprite, palette_index) {
+    static GetRGBSprite = function(sprite, palette_index) {
         var s = array_length(self.data[palette_index]);
         var w = sprite_get_width(sprite);
         var h = sprite_get_height(sprite);
