@@ -736,12 +736,26 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     new EmuColorPicker(32, EMU_AUTO, ew, eh, "Outline color:", c_black, function() {
                         self.root.outline_color = self.value;
                         self.root.palette_data[self.root.outline_index] = self.value;
+                        var palette = obj_demo.demo_palette;
+                        for (var i = 0, n = array_length(palette.data); i < n; i++) {
+                            palette.data[i][self.root.outline_index] = self.value;
+                        }
+                        palette.RegeneratePaletteFromData();
+                    }),
+                    new EmuCheckbox(32, EMU_AUTO, ew, eh, "Corner outlines?", true, function() {
+                        obj_demo.demo_sprite_indexed = self.value ? self.root.index_with_diagonals : self.root.index_without_diagonals;
                     })
                 ])
                 .SetCloseButton(false)
                 .AddDefaultConfirmCancelButtons("Done", function() {
                     if (self.root.original_indexed_sprite != obj_demo.demo_sprite_indexed) {
                         sprite_delete(self.root.original_indexed_sprite);
+                    }
+                    if (self.root.index_with_diagonals != obj_demo.demo_sprite_indexed) {
+                        sprite_delete(self.root.index_with_diagonals);
+                    }
+                    if (self.root.index_without_diagonals != obj_demo.demo_sprite_indexed) {
+                        sprite_delete(self.root.index_without_diagonals);
                     }
                     self.root.Close();
                 }, "Cancel", function() {
@@ -751,6 +765,12 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     if (self.root.original_indexed_sprite != obj_demo.demo_sprite_indexed) {
                         sprite_delete(obj_demo.demo_sprite_indexed);
                         obj_demo.demo_sprite_indexed = self.root.original_indexed_sprite;
+                    }
+                    if (self.root.index_with_diagonals != obj_demo.demo_sprite_indexed) {
+                        sprite_delete(self.root.index_with_diagonals);
+                    }
+                    if (self.root.index_without_diagonals != obj_demo.demo_sprite_indexed) {
+                        sprite_delete(self.root.index_without_diagonals);
                     }
                     self.root.Close();
                 });
@@ -771,7 +791,10 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 obj_demo.demo_sprite_indexed = new_demo_sprite;
             }
             
-            obj_demo.demo_sprite_indexed = index_generate_outlines(obj_demo.demo_sprite_indexed, dialog.outline_index / array_length(dialog.palette_data));
+            dialog.index_without_diagonals = index_generate_outlines(obj_demo.demo_sprite_indexed, dialog.outline_index / array_length(dialog.palette_data), false);
+            dialog.index_with_diagonals = index_generate_outlines(obj_demo.demo_sprite_indexed, dialog.outline_index / array_length(dialog.palette_data), true);
+             
+            obj_demo.demo_sprite_indexed = dialog.index_with_diagonals;
         }
     })
 ]);

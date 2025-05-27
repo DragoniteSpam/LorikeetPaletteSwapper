@@ -17,7 +17,7 @@ function index_extend_colors(sprite, frame) {
     return reduced_sprite;
 }
 
-function index_generate_outlines(sprite, outline_value) {
+function index_generate_outlines(sprite, outline_value, use_diagonals) {
     var w = sprite_get_width(sprite);
     var h = sprite_get_height(sprite);
     var xo = sprite_get_xoffset(sprite);
@@ -50,6 +50,7 @@ function index_generate_outlines(sprite, outline_value) {
     draw_clear_alpha(c_black, 0);
     shader_set(shd_bake_outline);
     shader_set_uniform_f(shader_get_uniform(shd_bake_outline, "u_outline_value"), outline_value);
+    shader_set_uniform_f(shader_get_uniform(shd_bake_outline, "u_use_diagonals"), use_diagonals);
     draw_surface(surface_base_size, 0, 0);
     shader_reset();
     surface_reset_target();
