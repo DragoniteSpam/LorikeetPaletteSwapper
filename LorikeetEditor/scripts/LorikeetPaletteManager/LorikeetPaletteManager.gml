@@ -1,5 +1,6 @@
 function LorikeetPaletteManager(source_palette = undefined) constructor {
     self.palette = undefined;
+    self.palette_used_size = 0;
     self.data = undefined;
     
     static ExtractPalette = function(sprite, index = 0, force_full_palette = false) {
@@ -22,7 +23,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         buffer_seek(buffer_sprite, buffer_seek_start, 0);
         
         var palette_array = array_create(256, 0);
-        var palette_count = 0;
+        self.palette_used_size = 0;
         
         var step = buffer_sizeof(buffer_u32);
         // address = (x + (y * width)) * size
@@ -32,7 +33,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
                 if ((cc >> 24) == 0) continue;
                 cc &= 0x00ffffff;
                 var cname = string(cc);
-                map[$ cname] ??= palette_count++;
+                map[$ cname] ??= self.palette_used_size++;
                 palette_array[map[$ cname]] = cc;
             }
         }
@@ -42,11 +43,11 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         // least common but that seemed to introduce some randomness into how
         // the colors were extracted which i don't feel like fixing now
         
-        var palette_size = force_full_palette ? 256 : min(256, power(2, ceil(log2(palette_count))));
+        var palette_size = force_full_palette ? 256 : min(256, power(2, ceil(log2(self.palette_used_size))));
         array_resize(palette_array, palette_size);
         
         // zero out the unused parts of the palette array
-        for (var i = palette_count, n = array_length(palette_array); i < n; i++) {
+        for (var i = self.palette_used_size, n = array_length(palette_array); i < n; i++) {
             palette_array[i] = -1;
         }
         
@@ -133,6 +134,46 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         if (self.palette != undefined && sprite_exists(self.palette)) sprite_delete(self.palette);
         self.palette = sprite_create_from_surface(s, 0, 0, surface_get_width(s), surface_get_height(s), false, false, 0, 0);
         surface_free(s);
+    };
+    
+    static AddPaletteColor = function(color) {
+        if (self.palette_used_size == 256)
+            return;
+        
+        var palette_count = array_length(self.data);
+        
+        if (frac(log2(self.palette_used_size)) == 0 && array_length(self.data[0]) < 256) {
+            array_foreach(self.data, function(palette) {
+                var size = array_length(palette);
+                array_resize(palette, size * 2);
+                array_map_ext(palette, function(value, index) {
+                    return -1;
+                }, size, size);
+            });
+            show_debug_message("extended the palette array");
+        }
+        
+        for (var i = 0, n = array_length(self.data); i < n; i++) {
+            self.data[i][self.palette_used_size] = color;
+        }
+        self.palette_used_size++;
+        
+        var used_size = array_length(self.data[0]);
+        
+        var palette_buffer = buffer_create(used_size * 4, buffer_fixed, 4);
+        for (var i = 0; i < palette_count; i++) {
+            for (var j = 0, n = used_size; j < n; j++) {
+                buffer_write(palette_buffer, buffer_u32, self.data[i][j]);
+            }
+        }
+        
+        if (sprite_exists(self.palette)) sprite_delete(self.palette);
+        
+        var palette_surface = surface_create(used_size, palette_count);
+        buffer_set_surface(palette_buffer, palette_surface, 0);
+        self.palette = sprite_create_from_surface(palette_surface, 0, 0, used_size, palette_count, false, false, 0, 0);
+        buffer_delete(palette_buffer);
+        surface_free(palette_surface);
     };
     
     static Refresh = function() {
