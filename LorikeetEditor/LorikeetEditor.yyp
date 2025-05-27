@@ -161,6 +161,7 @@
     {"id":{"name":"__shd_scribble_bake_shadow","path":"shaders/__shd_scribble_bake_shadow/__shd_scribble_bake_shadow.yy",},},
     {"id":{"name":"__shd_scribble_msdf","path":"shaders/__shd_scribble_msdf/__shd_scribble_msdf.yy",},},
     {"id":{"name":"__shd_scribble","path":"shaders/__shd_scribble/__shd_scribble.yy",},},
+    {"id":{"name":"shd_bake_outline","path":"shaders/shd_bake_outline/shd_bake_outline.yy",},},
     {"id":{"name":"shd_colors_reduce","path":"shaders/shd_colors_reduce/shd_colors_reduce.yy",},},
     {"id":{"name":"shd_emu_color_buckets","path":"shaders/shd_emu_color_buckets/shd_emu_color_buckets.yy",},},
     {"id":{"name":"shd_lorikeet_preview","path":"shaders/shd_lorikeet_preview/shd_lorikeet_preview.yy",},},

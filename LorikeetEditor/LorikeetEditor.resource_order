@@ -108,6 +108,7 @@
     {"name":"__shd_scribble_bake_outline_8dir","order":2,"path":"shaders/__shd_scribble_bake_outline_8dir/__shd_scribble_bake_outline_8dir.yy",},
     {"name":"__shd_scribble_bake_shadow","order":4,"path":"shaders/__shd_scribble_bake_shadow/__shd_scribble_bake_shadow.yy",},
     {"name":"__shd_scribble_msdf","order":5,"path":"shaders/__shd_scribble_msdf/__shd_scribble_msdf.yy",},
+    {"name":"shd_bake_outline","order":19,"path":"shaders/shd_bake_outline/shd_bake_outline.yy",},
     {"name":"shd_colors_reduce","order":18,"path":"shaders/shd_colors_reduce/shd_colors_reduce.yy",},
     {"name":"shd_emu_color_buckets","order":3,"path":"shaders/shd_emu_color_buckets/shd_emu_color_buckets.yy",},
     {"name":"shd_lorikeet_preview","order":10,"path":"shaders/shd_lorikeet_preview/shd_lorikeet_preview.yy",},
