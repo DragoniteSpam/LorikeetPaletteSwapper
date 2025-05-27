@@ -24,28 +24,40 @@ function index_generate_outlines(sprite, outline_value) {
     var yo = sprite_get_yoffset(sprite);
     
     var cropped = sprite_get_cropped_dimensions(sprite);
-    var pad_left = cropped.xmin == 0;
-    var pad_top = cropped.ymin == 0;
-    var pad_right = cropped.xmax == w;
-    var pad_bottom = cropped.ymax == h;
+    var pad_left = cropped.xmin == 1;
+    var pad_top = cropped.ymin == 1;
+    var pad_right = cropped.xmax == w - 1;
+    var pad_bottom = cropped.ymax == h - 1;
     
     var output_width = w + pad_left + pad_right;
     var output_height = h + pad_top + pad_bottom;
-    var output_xoffset = xo + pad_left;
-    var output_yoffset = yo + pad_top;
+    var output_xoffset = pad_left;
+    var output_yoffset = pad_top;
     
-    var surface = surface_create(output_width, output_height);
-    surface_set_target(surface);
     gpu_set_blendmode(bm_add);
-    shader_set(shd_bake_outline);
-    shader_set_uniform_f(shader_get_uniform(shd_bake_outline, "u_outline_value"), outline_value);
-    draw_sprite(sprite, 0, xo, yo);
-    shader_reset();
-    gpu_set_blendmode(bm_normal);
+    
+    // draw the sprite onto a surface of the new size first, so that any extra pixels around
+    // the edge will be properly accounted for
+    var surface_base_size = surface_create(output_width, output_height);
+    draw_clear_alpha(c_black, 0);
+    surface_set_target(surface_base_size);
+    draw_sprite(sprite, 0, output_xoffset, output_yoffset);
     surface_reset_target();
     
-    var output_sprite = sprite_create_from_surface(surface, 0, 0, output_width, output_height, false, false, output_xoffset, output_yoffset);
-    surface_free(surface);
+    // bake the outlines using the surface with a potentially larger size
+    var surface_outline = surface_create(output_width, output_height);
+    surface_set_target(surface_outline);
+    draw_clear_alpha(c_black, 0);
+    shader_set(shd_bake_outline);
+    shader_set_uniform_f(shader_get_uniform(shd_bake_outline, "u_outline_value"), outline_value);
+    draw_surface(surface_base_size, 0, 0);
+    shader_reset();
+    surface_reset_target();
+    
+    var output_sprite = sprite_create_from_surface(surface_outline, 0, 0, output_width, output_height, false, false, 0, 0);
+    surface_free(surface_outline);
+    surface_free(surface_base_size);
+    gpu_set_blendmode(bm_normal);
     
     return output_sprite;
 }
