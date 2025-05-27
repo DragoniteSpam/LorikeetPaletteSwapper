@@ -138,7 +138,7 @@ self.SaveFullSprite = function(index = -1) {
     }
 };
 
-self.ShowAllSaveOptions = function() {
+self.SaveRGBSpriteOrSlices = function() {
     var dw = 1280;
     var dh = 720;
     var ew = 320;
