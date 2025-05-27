@@ -729,24 +729,45 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         } else {
             var dialog = new EmuDialog(32 + 32 + ew, 240, "Generate Outline")
                 .SetActiveShade(0)
+                .CenterInWindow()
                 .AddContent([
-                    new EmuColorPicker(ew, EMU_AUTO, ew, eh, "Outline color:", c_black, function() {
+                    new EmuColorPicker(32, EMU_AUTO, ew, eh, "Outline color:", c_black, function() {
                         self.root.outline_color = self.value;
+                        self.root.palette_data[self.root.outline_index] = self.value;
                     })
                 ])
                 .SetCloseButton(false)
                 .AddDefaultConfirmCancelButtons("Done", function() {
+                    if (self.root.original_indexed_sprite != obj_demo.demo_sprite_indexed) {
+                        sprite_delete(self.root.original_indexed_sprite);
+                    }
                     self.root.Close();
                 }, "Cancel", function() {
                     obj_demo.demo_palette.data[obj_demo.demo_palette_index] = self.root.original_data;
+                    obj_demo.demo_palette.palette_used_size = self.root.original_used_size;
                     obj_demo.demo_palette.Refresh();
+                    if (self.root.original_indexed_sprite != obj_demo.demo_sprite_indexed) {
+                        sprite_delete(obj_demo.demo_sprite_indexed);
+                        obj_demo.demo_sprite_indexed = self.root.original_indexed_sprite;
+                    }
                     self.root.Close();
                 });
         
             dialog.outline_color = c_black;
-            dialog.outline_index = array_length(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);
+            dialog.outline_index = obj_demo.demo_palette.palette_used_size;
             dialog.palette_data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
-            dialog.original_data = json_parse(json_stringify(obj_demo.demo_palette.data[obj_demo.demo_palette_index]));
+            dialog.original_data = variable_clone(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);
+            dialog.original_used_size = obj_demo.demo_palette.palette_used_size;
+            dialog.original_indexed_sprite = obj_demo.demo_sprite_indexed;
+            
+            var old_size = array_length(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);
+            obj_demo.demo_palette.AddPaletteColor(c_black);
+            var new_size = array_length(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);
+            
+            if (new_size != old_size) {
+                var new_demo_sprite = extend_indexed_colors(obj_demo.demo_sprite_indexed, 0);
+                obj_demo.demo_sprite_indexed = new_demo_sprite;
+            }
         }
     })
 ]);
