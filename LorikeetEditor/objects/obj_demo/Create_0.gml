@@ -765,7 +765,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             var new_size = array_length(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);
             
             if (new_size != old_size) {
-                var new_demo_sprite = extend_indexed_colors(obj_demo.demo_sprite_indexed, 0);
+                var new_demo_sprite = index_extend_colors(obj_demo.demo_sprite_indexed, 0);
                 obj_demo.demo_sprite_indexed = new_demo_sprite;
             }
         }

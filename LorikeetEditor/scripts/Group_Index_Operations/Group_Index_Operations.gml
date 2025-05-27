@@ -1,4 +1,4 @@
-function extend_indexed_colors(sprite, frame) {
+function index_extend_colors(sprite, frame) {
     var sw = sprite_get_width(sprite);
     var sh = sprite_get_height(sprite);
     var surface = surface_create(sw, sh);
