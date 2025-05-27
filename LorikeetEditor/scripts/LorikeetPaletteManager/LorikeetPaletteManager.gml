@@ -43,7 +43,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         // least common but that seemed to introduce some randomness into how
         // the colors were extracted which i don't feel like fixing now
         
-        var palette_size = force_full_palette ? 256 : min(256, power(2, ceil(log2(self.palette_used_size))));
+        var palette_size = force_full_palette ? 256 : clamp(power(2, ceil(log2(self.palette_used_size))), 1, 256);
         array_resize(palette_array, palette_size);
         
         // zero out the unused parts of the palette array
