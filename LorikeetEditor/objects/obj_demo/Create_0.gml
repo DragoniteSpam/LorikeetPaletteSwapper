@@ -761,13 +761,15 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             dialog.original_indexed_sprite = obj_demo.demo_sprite_indexed;
             
             var old_size = array_length(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);
-            obj_demo.demo_palette.AddPaletteColor(c_black);
+            obj_demo.demo_palette.AddPaletteColor(dialog.outline_color);
             var new_size = array_length(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);
             
             if (new_size != old_size) {
                 var new_demo_sprite = index_extend_colors(obj_demo.demo_sprite_indexed, 0);
                 obj_demo.demo_sprite_indexed = new_demo_sprite;
             }
+            
+            obj_demo.demo_sprite_indexed = index_generate_outlines(obj_demo.demo_sprite_indexed, dialog.outline_index / array_length(dialog.palette_data));
         }
     })
 ]);
