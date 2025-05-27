@@ -160,6 +160,7 @@ function emu_dialog_show_automation() {
                 self.GetSibling("PANEL:HSVPERCENT").SetEnabled(false);
                 self.GetSibling("PANEL:COLORS").SetEnabled(false);
                 self.GetSibling("PANEL:COLORSPERCENT").SetEnabled(false);
+                self.GetSibling("PANEL:OUTLINE").SetEnabled(false);
                     
                 switch (self.value) {
                     case EAutomationStepTypes.SHIFT_LEFT: self.GetSibling("PANEL:SHIFT").SetEnabled(true).Refresh(refresh_data); break;
@@ -168,10 +169,17 @@ function emu_dialog_show_automation() {
                     case EAutomationStepTypes.HSV_PERCENT: self.GetSibling("PANEL:HSVPERCENT").SetEnabled(true).Refresh(refresh_data); break;
                     case EAutomationStepTypes.COLOR: self.GetSibling("PANEL:COLORS").SetEnabled(true).Refresh(refresh_data); break;
                     case EAutomationStepTypes.COLOR_PERCENT: self.GetSibling("PANEL:COLORSPERCENT").SetEnabled(true).Refresh(refresh_data); break;
+                    case EAutomationStepTypes.OUTLINE: self.GetSibling("PANEL:OUTLINE").SetEnabled(true).Refresh(refresh_data); break;
                 }
             }))
                 .AddOptions([
-                    "Shift Left", "Shift Right", "Edit HSV", "Edit HSV (Percent)", "Edit Colors", "Edit Colors (Percent)",
+                    "Shift Left",
+                    "Shift Right",
+                    "Edit HSV",
+                    "Edit HSV (Percent)",
+                    "Edit Colors",
+                    "Edit Colors (Percent)",
+                    "Outline"
                 ])
                 .SetRefresh(function(data) {
                     self.SetInteractive(false);
@@ -379,6 +387,34 @@ function emu_dialog_show_automation() {
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:COLORSPERCENT"),
+            (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+                .AddContent([
+                    (new EmuColorPicker(c1, EMU_BASE, ew, eh, "Color", c_black, function() {
+                        self.data.color = self.value;
+                    }))
+                    .SetID("OUTLINE C")
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "data")) {
+                            self.data = data.data;
+                            self.SetValue(self.data.color);
+                        }
+                    }),
+                    (new EmuCheckbox(c1, EMU_AUTO, ew, eh, "Corners?", false, function() {
+                        self.data.use_corners = self.value;
+                    }))
+                    .SetID("OUTLINE CORNER")
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "data")) {
+                            self.data = data.data;
+                            self.SetValue(self.data.use_corners);
+                        }
+                    })
+                ])
+                .SetRefresh(function() {
+                    self.override_root_check = true;
+                })
+                .SetEnabled(false)
+                .SetID("PANEL:OUTLINE"),
             #endregion
         ])
         .AddDefaultConfirmCancelButtons("Apply", function() {

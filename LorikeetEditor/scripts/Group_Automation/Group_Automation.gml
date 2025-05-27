@@ -269,6 +269,44 @@ function LorikeetAutomation() constructor {
                 };
             };
             
+            self.StepOutline = function() constructor {
+                self.color = c_black;
+                self.use_corners = false;
+                self.id = EAutomationStepTypes.OUTLINE;
+                
+                self.toString = function() {
+                    static color_to_string = function(color) {
+                        if (color == 0) return "#000000";
+                        var rr = color_get_red(color);
+                        var gg = color_get_green(color);
+                        var bb = color_get_blue(color);
+                        color = make_color_rgb(bb, gg, rr);
+                        var hex = string(ptr(color));
+                        return string_copy(hex, 11, 6);
+                    };
+                    return "Outline: " +
+                        color_to_string(self.color) + "/" +
+                        (self.use_corners ? "corners" : "no corners");
+                };
+                
+                self.Save = function() {
+                    return {
+                        id: self.id,
+                        color: self.color,
+                        use_corners: self.use_corners
+                    };
+                };
+                
+                self.Load = function(json) {
+                    self.color = json.color;
+                    self.use_corners = json.use_corners;
+                };
+                
+                self.Execute = function(palette) {
+                    //operation_update_rgb_percent(palette, self.r, self.g, self.b);
+                };
+            };
+            
             self.choices = [
                 self.StepShiftLeft,
                 self.StepShiftRight,
@@ -276,6 +314,7 @@ function LorikeetAutomation() constructor {
                 self.StepHSVPercent,
                 self.StepColor,
                 self.StepColorPercent,
+                self.StepOutline,
             ];
             
             self.Execute = function(palette) {
@@ -328,4 +367,5 @@ enum EAutomationStepTypes {
     HSV_PERCENT,
     COLOR,
     COLOR_PERCENT,
+    OUTLINE
 }
