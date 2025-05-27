@@ -1,4 +1,5 @@
 function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurface(x, y, width, height, function(mx, my) {
+    // render callback
 		draw_sprite_tiled(spr_palette_checker, 0, 0, 0);
 		lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index, 0, shd_lorikeet_preview);
 		shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexUnderCursor"), -100);
@@ -35,7 +36,7 @@ function EmuRenderSurfaceSliceCutter(x, y, width, height) : EmuRenderSurface(x, 
             draw_line_width_colour(xo, i + yo, sprw + xo, i + yo, 2, line_color, line_color);
         }
     }, function(mx, my) {
-        // update
+        // update callback
         if (!sprite_exists(obj_demo.demo_sprite))
             return;
         
