@@ -1,13 +1,44 @@
 function sprite_auto_crop(sprite, w, h) {
-	var xmin = 0;
-	var ymin = 0;
-	var xmax = w;
-	var ymax = h;
 	var frames = sprite_get_number(sprite);
 	
 	gpu_set_blendmode(bm_add);
 	
-	// write the pixel data of every frame to a buffer
+	var cropped_dimensions = sprite_get_cropped_dimensions(sprite);
+	
+	var cw = cropped_dimensions.xmax - cropped_dimensions.xmin;
+	var ch = cropped_dimensions.ymax - cropped_dimensions.ymin;
+	
+	var cropped_surface = surface_create(frames * cw, ch);
+	surface_set_target(cropped_surface);
+	draw_clear_alpha(c_black, 0);
+	
+	for (var i = 0; i < frames; i++) {
+		var xx = i * cw;
+		draw_sprite_part(sprite, i, cropped_dimensions.xmin, cropped_dimensions.ymin, cw, ch, xx, 0);
+	}
+	
+	surface_reset_target();
+	var cropped_sprite = sprite_create_from_surface(cropped_surface, 0, 0, surface_get_width(cropped_surface), surface_get_height(cropped_surface), false, false, 0, 0);
+	
+	surface_free(cropped_surface);
+	gpu_set_blendmode(bm_normal);
+	
+	return cropped_sprite;
+}
+
+function sprite_get_cropped_dimensions(sprite) {
+    var w = sprite_get_width(sprite);
+    var h = sprite_get_height(sprite);
+	var xmin = 0;
+	var ymin = 0;
+	var xmax = w;
+	var ymax = h;
+    
+    var frames = sprite_get_number(sprite);
+    
+    gpu_set_blendmode(bm_add);
+    
+    // write the pixel data of every frame to a buffer
 	var buffers = array_create_ext(frames, method({ xmax, ymax, sprite }, function(i) {
 		var surface = surface_create(self.xmax, self.ymax);
 		surface_set_target(surface);
@@ -75,28 +106,15 @@ function sprite_auto_crop(sprite, w, h) {
 		if (found) break;
 		ymax--;
 	}
-	
-	var cw = xmax - xmin;
-	var ch = ymax - ymin;
-	
-	var cropped_surface = surface_create(frames * cw, ch);
-	surface_set_target(cropped_surface);
-	draw_clear_alpha(c_black, 0);
-	
-	for (var i = 0; i < frames; i++) {
-		var xx = i * cw;
-		draw_sprite_part(sprite, i, xmin, ymin, cw, ch, xx, 0);
-	}
-	
-	surface_reset_target();
-	var cropped_sprite = sprite_create_from_surface(cropped_surface, 0, 0, surface_get_width(cropped_surface), surface_get_height(cropped_surface), false, false, 0, 0);
-	
-	surface_free(cropped_surface);
-	gpu_set_blendmode(bm_normal);
-	
-	array_foreach(buffers, function(buffer) {
-		buffer_delete(buffer);
-	});
-	
-	return cropped_sprite;
+    
+	array_foreach(buffers, buffer_delete);
+    
+    gpu_set_blendmode(bm_normal);
+    
+    return {
+        xmin,
+        xmax,
+        ymin,
+        ymax
+    };
 }
