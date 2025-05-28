@@ -104,9 +104,9 @@ function LorikeetAutomation() constructor {
                     self.count = json.count;
                 };
                 
-                self.Execute = function(indexed, palette) {
+                self.Execute = function(indexed, palette, row) {
                     repeat (self.count) {
-                        operation_shift_left(palette.data[0]);
+                        operation_shift_left(palette.data[row]);
                     }
                     
                     return {
@@ -134,9 +134,9 @@ function LorikeetAutomation() constructor {
                     };
                 };
                 
-                self.Execute = function(indexed, palette) {
+                self.Execute = function(indexed, palette, row) {
                     repeat (self.count) {
-                        operation_shift_right(palette.data[0]);
+                        operation_shift_right(palette.data[row]);
                     }
                     
                     return {
@@ -173,8 +173,8 @@ function LorikeetAutomation() constructor {
                     self.val = json.val;
                 };
                 
-                self.Execute = function(indexed, palette) {
-                    operation_update_hsv(palette.data[0], self.hue, self.sat, self.val);
+                self.Execute = function(indexed, palette, row) {
+                    operation_update_hsv(palette.data[row], self.hue, self.sat, self.val);
                     
                     return {
                         palette, indexed
@@ -210,8 +210,8 @@ function LorikeetAutomation() constructor {
                     self.val = json.val;
                 };
                 
-                self.Execute = function(indexed, palette) {
-                    operation_update_hsv_percent(palette.data[0], self.hue, self.sat, self.val);
+                self.Execute = function(indexed, palette, row) {
+                    operation_update_hsv_percent(palette.data[row], self.hue, self.sat, self.val);
                     
                     return {
                         palette, indexed
@@ -247,8 +247,8 @@ function LorikeetAutomation() constructor {
                     self.b = json.b;
                 };
                 
-                self.Execute = function(indexed, palette) {
-                    operation_update_rgb(palette.data[0], self.r, self.g, self.b);
+                self.Execute = function(indexed, palette, row) {
+                    operation_update_rgb(palette.data[row], self.r, self.g, self.b);
                     
                     return {
                         palette, indexed
@@ -284,8 +284,8 @@ function LorikeetAutomation() constructor {
                     self.b = json.b;
                 };
                 
-                self.Execute = function(indexed, palette) {
-                    operation_update_rgb_percent(palette.data[0], self.r, self.g, self.b);
+                self.Execute = function(indexed, palette, row) {
+                    operation_update_rgb_percent(palette.data[row], self.r, self.g, self.b);
                     
                     return {
                         palette, indexed
@@ -326,10 +326,10 @@ function LorikeetAutomation() constructor {
                     self.use_corners = json.use_corners;
                 };
                 
-                self.Execute = function(indexed, palette) {
+                self.Execute = function(indexed, palette, row) {
                     var outline_index = palette.palette_used_size;
                     palette.AddPaletteColor(self.color);
-                    var outline_value = outline_index / array_length(palette.data[0]);
+                    var outline_value = outline_index / array_length(palette.data[row]);
                     var outlined_sprite = index_generate_outlines(indexed, outline_value, self.use_corners);
                     sprite_delete(indexed);
                     
@@ -349,9 +349,9 @@ function LorikeetAutomation() constructor {
                 self.StepOutline,
             ];
             
-            self.Execute = function(indexed, palette) {
+            self.Execute = function(indexed, palette, row) {
                 for (var i = 0, n = array_length(self.steps); i < n; i++) {
-                    var output = self.steps[i].Execute(indexed, palette);
+                    var output = self.steps[i].Execute(indexed, palette, row);
                     indexed = output.indexed;
                 }
                 
@@ -373,10 +373,16 @@ function LorikeetAutomation() constructor {
         };
         
         self.Execute = function(indexed, palette) {
+            var template_row = array_length(palette.data) - 1;
             for (var i = 0, n = array_length(self.indices); i < n; i++) {
-                var output = self.indices[i].Execute(indexed, palette);
+                palette.AddPaletteRow(template_row);
+                var output = self.indices[i].Execute(indexed, palette, array_length(palette.data) - 1);
                 indexed = output.indexed;
             }
+            
+            // the last row before the automation chain is the "template" row,
+            // and gets removed at the end
+            palette.RemovePaletteRow(template_row);
             
             return {
                 palette, indexed
