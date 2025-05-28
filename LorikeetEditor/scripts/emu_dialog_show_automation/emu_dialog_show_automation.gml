@@ -161,6 +161,7 @@ function emu_dialog_show_automation() {
                 self.GetSibling("PANEL:COLORS").SetEnabled(false);
                 self.GetSibling("PANEL:COLORSPERCENT").SetEnabled(false);
                 self.GetSibling("PANEL:OUTLINE").SetEnabled(false);
+                self.GetSibling("PANEL:SETCOLOR").SetEnabled(false);
                     
                 switch (self.value) {
                     case EAutomationStepTypes.SHIFT_LEFT: self.GetSibling("PANEL:SHIFT").SetEnabled(true).Refresh(refresh_data); break;
@@ -445,7 +446,7 @@ function emu_dialog_show_automation() {
                     self.override_root_check = true;
                 })
                 .SetEnabled(false)
-                .SetID("PANEL:OUTLINE"),
+                .SetID("PANEL:SETCOLOR"),
             #endregion
         ])
         .AddDefaultConfirmCancelButtons("Apply", function() {

@@ -380,6 +380,9 @@ function LorikeetAutomation() constructor {
                 };
                 
                 self.Execute = function(indexed, palette, row) {
+                    var active_index = (self.index >= 0) ? self.index : (palette.palette_used_size + self.index);
+                    palette.data[row][active_index] = self.color;
+                    
                     return {
                         palette, indexed
                     };
