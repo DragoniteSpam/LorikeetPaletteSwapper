@@ -1,6 +1,6 @@
 #macro DEMO_PLAY_SPEED_FPS          8
 #macro C_BUTTON_SELECTED            c_yellow
-#macro SAVE_FILE_AUTOMATION         "automation.json"
+#macro SAVE_FILE_AUTOMATION         (game_save_id + "automation.json")
 #macro SAVE_FILE_AUTOMATION_DEF     "automation-defaults.json"
 
 scribble_font_bake_outline_8dir("fnt_emu_default", "fnt_emu_default_outline", c_black, false);
