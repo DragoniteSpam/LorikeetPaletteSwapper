@@ -282,4 +282,10 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
     if (source_palette != undefined && sprite_exists(source_palette)) {
         self.FromImage(source_palette);
     }
+    
+    static Destroy = function() {
+        if (sprite_exists(self.palette)) {
+            sprite_delete(self.palette);
+        }
+    }
 }

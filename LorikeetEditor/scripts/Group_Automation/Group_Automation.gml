@@ -106,7 +106,7 @@ function LorikeetAutomation() constructor {
                 
                 self.Execute = function(indexed, palette) {
                     repeat (self.count) {
-                        operation_shift_left(palette);
+                        operation_shift_left(palette.data[0]);
                     }
                     
                     return {
@@ -136,7 +136,7 @@ function LorikeetAutomation() constructor {
                 
                 self.Execute = function(indexed, palette) {
                     repeat (self.count) {
-                        operation_shift_right(palette);
+                        operation_shift_right(palette.data[0]);
                     }
                     
                     return {
@@ -174,7 +174,7 @@ function LorikeetAutomation() constructor {
                 };
                 
                 self.Execute = function(indexed, palette) {
-                    operation_update_hsv(palette, self.hue, self.sat, self.val);
+                    operation_update_hsv(palette.data[0], self.hue, self.sat, self.val);
                     
                     return {
                         palette, indexed
@@ -211,7 +211,7 @@ function LorikeetAutomation() constructor {
                 };
                 
                 self.Execute = function(indexed, palette) {
-                    operation_update_hsv_percent(palette, self.hue, self.sat, self.val);
+                    operation_update_hsv_percent(palette.data[0], self.hue, self.sat, self.val);
                     
                     return {
                         palette, indexed
@@ -248,7 +248,7 @@ function LorikeetAutomation() constructor {
                 };
                 
                 self.Execute = function(indexed, palette) {
-                    operation_update_rgb(palette, self.r, self.g, self.b);
+                    operation_update_rgb(palette.data[0], self.r, self.g, self.b);
                     
                     return {
                         palette, indexed
@@ -285,7 +285,7 @@ function LorikeetAutomation() constructor {
                 };
                 
                 self.Execute = function(indexed, palette) {
-                    operation_update_rgb_percent(palette, self.r, self.g, self.b);
+                    operation_update_rgb_percent(palette.data[0], self.r, self.g, self.b);
                     
                     return {
                         palette, indexed
@@ -327,10 +327,14 @@ function LorikeetAutomation() constructor {
                 };
                 
                 self.Execute = function(indexed, palette) {
-                    //operation_update_rgb_percent(palette, self.r, self.g, self.b);
+                    var outline_index = palette.palette_used_size;
+                    palette.AddPaletteColor(self.color);
+                    var outline_value = outline_index / array_length(palette.data[0]);
+                    var outlined_sprite = index_generate_outlines(indexed, outline_value, self.use_corners);
+                    sprite_delete(indexed);
                     
                     return {
-                        palette, indexed
+                        palette, indexed: outlined_sprite
                     };
                 };
             };
@@ -349,7 +353,6 @@ function LorikeetAutomation() constructor {
                 for (var i = 0, n = array_length(self.steps); i < n; i++) {
                     var output = self.steps[i].Execute(indexed, palette);
                     indexed = output.indexed;
-                    palette = output.palette;
                 }
                 
                 return {
@@ -369,19 +372,14 @@ function LorikeetAutomation() constructor {
             array_delete(self.indices, index, 1);
         };
         
-        self.Execute = function(indexed, source_palette) {
-            var new_palette = array_create(array_length(self.indices));
-            
+        self.Execute = function(indexed, palette) {
             for (var i = 0, n = array_length(self.indices); i < n; i++) {
-                new_palette[i] = array_create(array_length(source_palette));
-                array_copy(new_palette[i], 0, source_palette, 0, array_length(source_palette));
-                var output = self.indices[i].Execute(indexed, new_palette[i]);
+                var output = self.indices[i].Execute(indexed, palette);
                 indexed = output.indexed;
             }
             
             return {
-                palette: new_palette,
-                indexed
+                palette, indexed
             };
         };
     };

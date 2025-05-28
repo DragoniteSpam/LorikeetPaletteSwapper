@@ -420,8 +420,7 @@ function emu_dialog_show_automation() {
         .AddDefaultConfirmCancelButtons("Apply", function() {
             var type = self.GetSibling("TYPE LIST").GetSelectedItem();
             if (type) {
-                var output = type.Execute(obj_demo.demo_sprite_indexed, obj_demo.demo_palette.data[0]);
-                obj_demo.demo_palette.data = output.palette;
+                var output = type.Execute(obj_demo.demo_sprite_indexed, obj_demo.demo_palette);
                 obj_demo.demo_palette.Refresh();
                 obj_demo.demo_sprite_indexed = output.indexed;
             }
@@ -437,8 +436,6 @@ function emu_dialog_show_automation() {
                     var dialog = new EmuDialog(480, 240, "Hey!").AddContent([
                         new EmuText(480 / 2, 32, 480 - 32 - 32, 120, "[fa_center]Would you like to perform the automation [c_aqua]" + type.name + "[/c] on " + ((array_length(files) == 1) ? ("[c_aqua]" + filename_name(files[0]) + "[/c]") : ("these " + string(array_length(files)) + " files")) + "?")
                     ]).AddDefaultConfirmCancelButtons("Yes", function() {
-                        static palette_manager = new LorikeetPaletteManager();
-                        
                         var output_path = filename_path(get_save_filename("Image files|*.png", "Save everything here"));
                         if (output_path != "") {
                             for (var i = 0, n = array_length(self.root.files); i < n; i++) {
@@ -447,15 +444,16 @@ function emu_dialog_show_automation() {
                                     var image = sprite_add(file, 0, false, false, 0, 0);
         
                                     if (sprite_exists(image)) {
+                                        var palette_manager = new LorikeetPaletteManager();
                                         var sprite_indexed = palette_manager.ExtractPalette(image, 0, obj_demo.demo_force_full_palettes);
-                                        var output = self.root.type.Execute(sprite_indexed, palette_manager.data[0]);
-                                        palette_manager.data = output.palette;
+                                        var output = self.root.type.Execute(sprite_indexed, palette_manager);
                                         sprite_indexed = output.indexed;
                                         palette_manager.Refresh();
                                         sprite_save(sprite_indexed, 0, output_path + "idx_" + filename_name(file));
                                         sprite_save(palette_manager.palette, 0, output_path + "pal_" + filename_name(file));
                                         sprite_delete(image);
                                         sprite_delete(sprite_indexed);
+                                        palette_manager.Destroy();
                                     }
                                 }
                             }
