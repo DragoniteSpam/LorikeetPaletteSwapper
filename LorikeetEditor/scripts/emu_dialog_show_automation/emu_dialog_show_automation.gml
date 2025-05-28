@@ -395,6 +395,7 @@ function emu_dialog_show_automation() {
                     (new EmuColorPicker(c1, EMU_BASE, ew, eh, "Color", c_black, function() {
                         self.data.color = self.value;
                     }))
+                    .SetAlphaUsed(true)
                     .SetID("OUTLINE C")
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
@@ -423,6 +424,7 @@ function emu_dialog_show_automation() {
                     (new EmuColorPicker(c1, EMU_BASE, ew, eh, "Color", c_black, function() {
                         self.data.color = self.value;
                     }))
+                    .SetAlphaUsed(true)
                     .SetID("SET COLOR C")
                     .SetRefresh(function(data) {
                         if (variable_struct_exists(data, "data")) {
