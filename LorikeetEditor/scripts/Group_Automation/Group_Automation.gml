@@ -347,7 +347,7 @@ function LorikeetAutomation() constructor {
             
             self.Execute = function(indexed, palette) {
                 for (var i = 0, n = array_length(self.steps); i < n; i++) {
-                    var output = self.steps[i].Execute(palette, indexed);
+                    var output = self.steps[i].Execute(indexed, palette);
                     indexed = output.indexed;
                     palette = output.palette;
                 }
