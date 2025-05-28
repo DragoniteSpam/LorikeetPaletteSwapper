@@ -328,8 +328,17 @@ function LorikeetAutomation() constructor {
                 
                 self.Execute = function(indexed, palette, row) {
                     var outline_index = palette.palette_used_size;
+                    var original_size = array_length(palette.data[row]);
                     palette.AddPaletteColor(self.color);
+                    var new_size = array_length(palette.data[row]);
                     var outline_value = outline_index / array_length(palette.data[row]);
+                    
+                    if (original_size != new_size) {
+                        var extended = index_extend_colors(indexed, 0);
+                        sprite_delete(indexed);
+                        indexed = extended;
+                    }
+                    
                     var outlined_sprite = index_generate_outlines(indexed, outline_value, self.use_corners);
                     sprite_delete(indexed);
                     
