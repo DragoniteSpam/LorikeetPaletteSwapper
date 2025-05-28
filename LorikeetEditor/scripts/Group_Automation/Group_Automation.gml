@@ -348,6 +348,44 @@ function LorikeetAutomation() constructor {
                 };
             };
             
+            self.StepSetColor = function() constructor {
+                self.color = c_black;
+                self.index = 0;
+                self.id = EAutomationStepTypes.SET_COLOR;
+                
+                self.toString = function() {
+                    static color_to_string = function(color) {
+                        if (color == 0) return "#000000";
+                        var rr = color_get_red(color);
+                        var gg = color_get_green(color);
+                        var bb = color_get_blue(color);
+                        color = make_color_rgb(bb, gg, rr);
+                        var hex = string(ptr(color));
+                        return string_copy(hex, 11, 6);
+                    };
+                    return $"Set Color: {color_to_string(self.color)} to index {self.index}";
+                };
+                
+                self.Save = function() {
+                    return {
+                        id: self.id,
+                        color: self.color,
+                        index: self.index
+                    };
+                };
+                
+                self.Load = function(json) {
+                    self.color = json.color;
+                    self.index = json.index;
+                };
+                
+                self.Execute = function(indexed, palette, row) {
+                    return {
+                        palette, indexed
+                    };
+                };
+            };
+            
             self.choices = [
                 self.StepShiftLeft,
                 self.StepShiftRight,
@@ -356,6 +394,7 @@ function LorikeetAutomation() constructor {
                 self.StepColor,
                 self.StepColorPercent,
                 self.StepOutline,
+                self.StepSetColor
             ];
             
             self.Execute = function(indexed, palette, row) {
@@ -418,5 +457,6 @@ enum EAutomationStepTypes {
     HSV_PERCENT,
     COLOR,
     COLOR_PERCENT,
-    OUTLINE
+    OUTLINE,
+    SET_COLOR
 }

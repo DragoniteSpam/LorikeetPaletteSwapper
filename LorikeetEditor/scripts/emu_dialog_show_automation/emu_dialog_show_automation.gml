@@ -170,6 +170,7 @@ function emu_dialog_show_automation() {
                     case EAutomationStepTypes.COLOR: self.GetSibling("PANEL:COLORS").SetEnabled(true).Refresh(refresh_data); break;
                     case EAutomationStepTypes.COLOR_PERCENT: self.GetSibling("PANEL:COLORSPERCENT").SetEnabled(true).Refresh(refresh_data); break;
                     case EAutomationStepTypes.OUTLINE: self.GetSibling("PANEL:OUTLINE").SetEnabled(true).Refresh(refresh_data); break;
+                    case EAutomationStepTypes.SET_COLOR: self.GetSibling("PANEL:SETCOLOR").SetEnabled(true).Refresh(refresh_data); break;
                 }
             }))
                 .AddOptions([
@@ -179,7 +180,8 @@ function emu_dialog_show_automation() {
                     "Edit HSV (Percent)",
                     "Edit Colors",
                     "Edit Colors (Percent)",
-                    "Outline"
+                    "Outline",
+                    "Set Color"
                 ])
                 .SetRefresh(function(data) {
                     self.SetInteractive(false);
@@ -407,6 +409,35 @@ function emu_dialog_show_automation() {
                         if (variable_struct_exists(data, "data")) {
                             self.data = data.data;
                             self.SetValue(self.data.use_corners);
+                        }
+                    })
+                ])
+                .SetRefresh(function() {
+                    self.override_root_check = true;
+                })
+                .SetEnabled(false)
+                .SetID("PANEL:OUTLINE"),
+            (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+                .AddContent([
+                    (new EmuColorPicker(c1, EMU_BASE, ew, eh, "Color", c_black, function() {
+                        self.data.color = self.value;
+                    }))
+                    .SetID("SET COLOR C")
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "data")) {
+                            self.data = data.data;
+                            self.SetValue(self.data.color);
+                        }
+                    }),
+                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Index", 0, "Index (negative for relative)", 4, E_InputTypes.INT, function() {
+                        self.data.index = real(self.value);
+                    }))
+                    .SetRealNumberBounds(-256, 256)
+                    .SetID("SET COLOR INDEX")
+                    .SetRefresh(function(data) {
+                        if (variable_struct_exists(data, "data")) {
+                            self.data = data.data;
+                            self.SetValue(self.data.index);
                         }
                     })
                 ])
