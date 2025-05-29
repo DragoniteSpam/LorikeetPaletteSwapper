@@ -54,6 +54,17 @@ function EmuDialog(w, h, title, callback = function() { EmuOverlay.Pop(); }) : E
                 .SetID("DEFAULT CLOSE")
         ]);
     };
+    
+    self.AddDefaultThreeOptionButtons = function(confirm_name, confirm_callback, cancel_name, cancel_callback, third_name, third_callback) {
+        return self.AddContent([
+            new EmuButton(self.width / 2 - EMU_DEFAULT_CLOSE_BUTTON_WIDTH * 1.5 - 16, self.height - 48, EMU_DEFAULT_CLOSE_BUTTON_WIDTH, EMU_DEFAULT_CLOSE_BUTTON_HEIGHT, confirm_name, confirm_callback)
+                .SetID("DEFAULT CONFIRM"),
+            new EmuButton(self.width / 2 - EMU_DEFAULT_CLOSE_BUTTON_WIDTH * 0.5, self.height - 48, EMU_DEFAULT_CLOSE_BUTTON_WIDTH, EMU_DEFAULT_CLOSE_BUTTON_HEIGHT, cancel_name, cancel_callback)
+                .SetID("DEFAULT CLOSE"),
+            new EmuButton(self.width / 2 + EMU_DEFAULT_CLOSE_BUTTON_WIDTH * 0.5 + 16, self.height - 48, EMU_DEFAULT_CLOSE_BUTTON_WIDTH, EMU_DEFAULT_CLOSE_BUTTON_HEIGHT, third_name, third_callback)
+                .SetID("DEFAULT THIRD")
+        ]);
+    };
     #endregion
     
     #region mutators

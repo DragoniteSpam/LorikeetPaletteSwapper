@@ -451,7 +451,7 @@ function emu_dialog_show_automation() {
                 .SetID("PANEL:SETCOLOR"),
             #endregion
         ])
-        .AddDefaultConfirmCancelButtons("Apply", function() {
+        .AddDefaultThreeOptionButtons("Apply", function() {
             var type = self.GetSibling("TYPE LIST").GetSelectedItem();
             if (type) {
                 var output = type.Execute(obj_demo.demo_sprite_indexed, obj_demo.demo_palette);
@@ -459,6 +459,8 @@ function emu_dialog_show_automation() {
                 obj_demo.demo_sprite_indexed = output.indexed;
             }
             self.root.Close();
+        }, "Select Folder", function() {
+            
         }, "Close", function() {
             obj_demo.SaveAutomation();
             self.root.Close();
