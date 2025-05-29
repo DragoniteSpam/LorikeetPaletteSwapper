@@ -460,7 +460,42 @@ function emu_dialog_show_automation() {
             }
             self.root.Close();
         }, "Select Folder", function() {
+            var type = self.GetSibling("TYPE LIST").GetSelectedItem();
+            if (type == undefined) {
+                var ew = 480;
+                var eh = 32;
+                
+                new EmuDialog(ew, 240, "Hey!")
+                    .AddContent([
+                        new EmuText(32, eh / 3, ew - 32 - 32, 160, "please select an automation routine first")
+                            .SetAlign(fa_center, fa_middle)
+                    ])
+                    .AddDefaultCloseButton()
+                    .CenterInWindow();
+                return;
+            }
             
+            var input_path = filename_path(get_open_filename("Image files|*.png", "Use all these"));
+            if (input_path = "") return;
+            
+            static list = ds_list_create();
+            ds_list_clear(list);
+            
+            var file = file_find_first($"{input_path}*.png", 0);
+            while (file_exists(input_path + file)) {
+                ds_list_add(list, input_path + file);
+                file = file_find_next();
+            }
+            
+            file_find_close();
+            
+            // because appending to an array is still slow in gm >:(
+            var files = array_create(ds_list_size(list));
+            for (var i = 0, n = ds_list_size(list); i < n; i++) {
+                files[i] = list[| i];
+            }
+            
+            emu_dialog_show_batch_automation(files, type);
         }, "Close", function() {
             obj_demo.SaveAutomation();
             self.root.Close();
