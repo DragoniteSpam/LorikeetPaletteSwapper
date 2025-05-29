@@ -77,6 +77,7 @@
     {"id":{"name":"draw_text_scribble","path":"scripts/draw_text_scribble/draw_text_scribble.yy",},},
     {"id":{"name":"Emu_Core","path":"scripts/Emu_Core/Emu_Core.yy",},},
     {"id":{"name":"emu_dialog_show_automation","path":"scripts/emu_dialog_show_automation/emu_dialog_show_automation.yy",},},
+    {"id":{"name":"emu_dialog_show_batch_automation","path":"scripts/emu_dialog_show_batch_automation/emu_dialog_show_batch_automation.yy",},},
     {"id":{"name":"emu_init","path":"scripts/emu_init/emu_init.yy",},},
     {"id":{"name":"EmuBitfield","path":"scripts/EmuBitfield/EmuBitfield.yy",},},
     {"id":{"name":"EmuButton_Image","path":"scripts/EmuButton_Image/EmuButton_Image.yy",},},

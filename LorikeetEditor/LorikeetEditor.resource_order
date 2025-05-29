@@ -33,6 +33,7 @@
     {"name":"__scribble_system","order":9,"path":"scripts/__scribble_system/__scribble_system.yy",},
     {"name":"draw_text_scribble_ext","order":1,"path":"scripts/draw_text_scribble_ext/draw_text_scribble_ext.yy",},
     {"name":"emu_dialog_show_automation","order":1,"path":"scripts/emu_dialog_show_automation/emu_dialog_show_automation.yy",},
+    {"name":"emu_dialog_show_batch_automation","order":20,"path":"scripts/emu_dialog_show_batch_automation/emu_dialog_show_batch_automation.yy",},
     {"name":"emu_init","order":3,"path":"scripts/emu_init/emu_init.yy",},
     {"name":"EmuBitfield","order":1,"path":"scripts/EmuBitfield/EmuBitfield.yy",},
     {"name":"EmuButton_Image","order":3,"path":"scripts/EmuButton_Image/EmuButton_Image.yy",},
