@@ -1,10 +1,13 @@
 {
   "FolderOrderSettings":[
     {"name":"Widgets","order":16,"path":"folders/Editor/Widgets.yy",},
+    {"name":"Extensions","order":2,"path":"folders/Extensions.yy",},
+    {"name":"SpriteAtlas","order":1,"path":"folders/Extensions/SpriteAtlas.yy",},
     {"name":"Sprite Sheet Cutter","order":1,"path":"folders/Sprite Sheet Cutter.yy",},
   ],
   "ResourceOrderSettings":[
     {"name":"FileDropper","order":3,"path":"extensions/FileDropper/FileDropper.yy",},
+    {"name":"SpriteAtlas","order":4,"path":"extensions/SpriteAtlas/SpriteAtlas.yy",},
     {"name":"fnt_emu_default_sdf","order":15,"path":"fonts/fnt_emu_default_sdf/fnt_emu_default_sdf.yy",},
     {"name":"fnt_emu_default","order":2,"path":"fonts/fnt_emu_default/fnt_emu_default.yy",},
     {"name":"scribble_fallback_font","order":11,"path":"fonts/scribble_fallback_font/scribble_fallback_font.yy",},
@@ -103,6 +106,9 @@
     {"name":"scribble_typists_add_event","order":9,"path":"scripts/scribble_typists_add_event/scribble_typists_add_event.yy",},
     {"name":"scribble","order":7,"path":"scripts/scribble/scribble.yy",},
     {"name":"set_cursor_sprite_auto","order":11,"path":"scripts/set_cursor_sprite_auto/set_cursor_sprite_auto.yy",},
+    {"name":"sprite_atlas_pack_dll","order":2,"path":"scripts/sprite_atlas_pack_dll/sprite_atlas_pack_dll.yy",},
+    {"name":"sprite_atlas_pack","order":1,"path":"scripts/sprite_atlas_pack/sprite_atlas_pack.yy",},
+    {"name":"sprite_atlas_version","order":3,"path":"scripts/sprite_atlas_version/sprite_atlas_version.yy",},
     {"name":"sprite_auto_crop","order":1,"path":"scripts/sprite_auto_crop/sprite_auto_crop.yy",},
     {"name":"__shd_scribble_bake_outline_4dir","order":1,"path":"shaders/__shd_scribble_bake_outline_4dir/__shd_scribble_bake_outline_4dir.yy",},
     {"name":"__shd_scribble_bake_outline_8dir_2px","order":3,"path":"shaders/__shd_scribble_bake_outline_8dir_2px/__shd_scribble_bake_outline_8dir_2px.yy",},
