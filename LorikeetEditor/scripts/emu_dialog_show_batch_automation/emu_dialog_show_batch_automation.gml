@@ -35,3 +35,6 @@ function emu_dialog_show_batch_automation(files, type) {
     dialog.type = type;
     dialog.files = files;
 }
+
+function emu_dialog_show_batch_automation_fused(files, type) {
+}
