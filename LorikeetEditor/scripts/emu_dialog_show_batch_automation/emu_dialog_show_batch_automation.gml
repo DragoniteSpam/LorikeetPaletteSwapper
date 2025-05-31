@@ -53,7 +53,11 @@ function emu_dialog_show_batch_automation_fused(files, type) {
         return sprite_exists(sprite);
     });
     
-    var atlas = sprite_atlas_pack(sprites, 2, 4, false);
+    var atlas = sprite_atlas_pack_dll(sprites, 2, 4, false);
+    
+    if (DEBUG) {
+        show_debug_message($"{count} sprites atlased to {sprite_get_width(atlas.atlas)} x {sprite_get_height(atlas.atlas)}");
+    }
     
     var palette_manager = new LorikeetPaletteManager();
     var sprite_indexed = palette_manager.ExtractPalette(atlas.atlas, 0, obj_demo.demo_force_full_palettes);
