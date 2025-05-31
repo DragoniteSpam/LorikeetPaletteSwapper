@@ -74,12 +74,14 @@ function emu_dialog_show_batch_automation_fused(files, type) {
     
     for (var i = 0; i < count; i++) {
         var data = atlas.uvs[i];
-        surface_save_part(surface, output_path + "idx_" + filename_name(files[i]), data.x, data.y, data.w, data.h);
+        surface_save_part(surface, $"{output_path}idx_{filename_name(files[i])}", data.x, data.y, data.w, data.h);
     }
     
+    sprite_save(atlas.atlas, 0, output_path + $"pal_{filename_name(output_file)}.png");
+    
     if (DEBUG) {
-        sprite_save(sprite_indexed, 0, output_path + "idx_" + filename_name(output_file));
-        sprite_save(palette_manager.palette, 0, output_path + "pal_" + filename_name(output_file));
+        sprite_save(sprite_indexed, 0, $"{output_path}idx_{filename_name(output_file)}");
+        sprite_save(palette_manager.palette, 0, $"{output_path}pal_{filename_name(output_file)}");
     }
     
     surface_free(surface);
