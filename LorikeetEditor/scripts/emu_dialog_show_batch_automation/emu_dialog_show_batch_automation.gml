@@ -37,8 +37,11 @@ function emu_dialog_show_batch_automation(files, type) {
 }
 
 function emu_dialog_show_batch_automation_fused(files, type) {
-    var output_path = filename_path(get_save_filename("Image files|*.png", "Save everything here"));
+    var output_file = get_save_filename("Image files|*.png", "output.png");
+    var output_path = filename_path(output_file);
     if (output_path = "") return;
+    
+    var count = array_length(files);
     
     var sprites = array_filter(array_map(files, function(filename) {
         if (file_exists(filename)) {
@@ -57,8 +60,23 @@ function emu_dialog_show_batch_automation_fused(files, type) {
     sprite_indexed = type.Execute(sprite_indexed, palette_manager).indexed;
     palette_manager.Refresh();
     
+    var surface = surface_create(sprite_get_width(sprite_indexed), sprite_get_height(sprite_indexed));
+    surface_set_target(surface);
+    draw_clear_alpha(c_black, 0);
+    gpu_set_blendmode(bm_add);
+    draw_sprite(sprite_indexed, 0, 0, 0);
+    gpu_set_blendmode(bm_normal);
+    surface_reset_target();
     
+    for (var i = 0; i < count; i++) {
+        var data = atlas.uvs[i];
+        surface_save_part(surface, output_path + "idx_" + filename_name(files[i]), data.x, data.y, data.w, data.h);
+    }
     
+    sprite_save(sprite_indexed, 0, output_path + "idx_" + filename_name(output_file));
+    sprite_save(palette_manager.palette, 0, output_path + "pal_" + filename_name(output_file));
+    
+    surface_free(surface);
     sprite_delete(sprite_indexed);
     palette_manager.Destroy();
     
