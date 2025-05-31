@@ -44,6 +44,12 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         // the colors were extracted which i don't feel like fixing now
         
         var palette_size = force_full_palette ? 256 : clamp(power(2, ceil(log2(self.palette_used_size))), 1, 256);
+        
+        // i've seen a few cases where palettes of size 128 run into precision
+        // issues when processing the sprites; if a palette would need 128
+        // slots we'll just force it to the full size to make our lives easier
+        if (palette_size >= 128) palette_size = 256;
+        
         array_resize(palette_array, palette_size);
         
         // zero out the unused parts of the palette array
