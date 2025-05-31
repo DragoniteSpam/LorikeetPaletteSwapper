@@ -37,4 +37,31 @@ function emu_dialog_show_batch_automation(files, type) {
 }
 
 function emu_dialog_show_batch_automation_fused(files, type) {
+    var output_path = filename_path(get_save_filename("Image files|*.png", "Save everything here"));
+    if (output_path = "") return;
+    
+    var sprites = array_filter(array_map(files, function(filename) {
+        if (file_exists(filename)) {
+            return sprite_add(filename, 0, false, false, 0, 0);
+        }
+        
+        return undefined;
+    }), function(sprite) {
+        return sprite_exists(sprite);
+    });
+    
+    var atlas = sprite_atlas_pack(sprites, 2, 4, false);
+    
+    var palette_manager = new LorikeetPaletteManager();
+    var sprite_indexed = palette_manager.ExtractPalette(atlas.atlas, 0, obj_demo.demo_force_full_palettes);
+    sprite_indexed = type.Execute(sprite_indexed, palette_manager).indexed;
+    palette_manager.Refresh();
+    
+    
+    
+    sprite_delete(sprite_indexed);
+    palette_manager.Destroy();
+    
+    sprite_delete(atlas.atlas);
+    array_foreach(sprites, sprite_delete);
 }

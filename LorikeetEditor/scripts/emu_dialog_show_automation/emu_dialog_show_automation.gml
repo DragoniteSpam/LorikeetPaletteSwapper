@@ -45,6 +45,8 @@ function emu_dialog_show_automation() {
                 })
                 .SetInteractive(false)
                 .SetID("TYPE NAME"),
+            new EmuCheckbox(c1, EMU_AUTO, ew, eh, "Combine Batch", false, emu_null)
+                .SetID("COMBINE"),
             #endregion
             #region column 2
             (new EmuList(c2, EMU_BASE, ew, eh, "Palette indices:", eh, 10, function() {
@@ -461,6 +463,8 @@ function emu_dialog_show_automation() {
             self.root.Close();
         }, "Select Folder", function() {
             var type = self.GetSibling("TYPE LIST").GetSelectedItem();
+            var fused = self.GetSibling("COMBINE").value;
+            
             if (type == undefined) {
                 var ew = 480;
                 var eh = 32;
@@ -495,14 +499,24 @@ function emu_dialog_show_automation() {
                 files[i] = list[| i];
             }
             
-            emu_dialog_show_batch_automation(files, type);
+            if (fused) {
+                emu_dialog_show_batch_automation_fused(files, type);
+            } else {
+                emu_dialog_show_batch_automation(files, type);
+            }
         }, "Close", function() {
             obj_demo.SaveAutomation();
             self.root.Close();
         })
         .SetDroppedFileHandler(function(files) {
             var type = self.GetChild("TYPE LIST").GetSelectedItem();
-            emu_dialog_show_batch_automation(files, type);
+            var fused = self.GetChild("COMBINE").value;
+            
+            if (fused) {
+                emu_dialog_show_batch_automation_fused(files, type);
+            } else {
+                emu_dialog_show_batch_automation(files, type);
+            }
         })
         .GetChild("DEFAULT CONFIRM")
         .SetInteractive(array_length(obj_demo.demo_palette.data) == 1);
