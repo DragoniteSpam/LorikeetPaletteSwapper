@@ -1,3 +1,4 @@
+#macro DEBUG                        (os_get_config() == "debug")
 #macro DEMO_PLAY_SPEED_FPS          8
 #macro C_BUTTON_SELECTED            c_yellow
 #macro SAVE_FILE_AUTOMATION         (game_save_id + "automation.json")

@@ -73,8 +73,10 @@ function emu_dialog_show_batch_automation_fused(files, type) {
         surface_save_part(surface, output_path + "idx_" + filename_name(files[i]), data.x, data.y, data.w, data.h);
     }
     
-    sprite_save(sprite_indexed, 0, output_path + "idx_" + filename_name(output_file));
-    sprite_save(palette_manager.palette, 0, output_path + "pal_" + filename_name(output_file));
+    if (DEBUG) {
+        sprite_save(sprite_indexed, 0, output_path + "idx_" + filename_name(output_file));
+        sprite_save(palette_manager.palette, 0, output_path + "pal_" + filename_name(output_file));
+    }
     
     surface_free(surface);
     sprite_delete(sprite_indexed);
