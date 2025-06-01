@@ -300,13 +300,9 @@ function LorikeetAutomation() constructor {
                 
                 self.toString = function() {
                     static color_to_string = function(color) {
-                        if ((color & 0x00ffffff) == 0) return $"#000000 @ {(color >> 24) / 255}%";
-                        var rr = color_get_red(color);
-                        var gg = color_get_green(color);
-                        var bb = color_get_blue(color);
-                        color = make_color_rgb(bb, gg, rr);
+                        if ((color & 0x00ffffff) == 0) return $"#000000@{floor(((color >> 24) / 255) * 100)}%";
                         var hex = string(ptr(color));
-                        return $"{string_copy(hex, 11, 6)} @ {(color >> 24) / 255}%";
+                        return $"{string_copy(hex, 11, 6)}@{floor(((color >> 24) / 255) * 100)}%";
                     };
                     return "Outline: " +
                         color_to_string(self.color) + "/" +
@@ -355,13 +351,9 @@ function LorikeetAutomation() constructor {
                 
                 self.toString = function() {
                     static color_to_string = function(color) {
-                        if (color == 0) return "#000000";
-                        var rr = color_get_red(color);
-                        var gg = color_get_green(color);
-                        var bb = color_get_blue(color);
-                        color = make_color_rgb(bb, gg, rr);
+                        if ((color & 0x00ffffff) == 0) return $"#000000@{floor(((color >> 24) / 255) * 100)}%";
                         var hex = string(ptr(color));
-                        return string_copy(hex, 11, 6);
+                        return $"{string_copy(hex, 11, 6)}@{floor(((color >> 24) / 255) * 100)}%";
                     };
                     return $"Set Color: {color_to_string(self.color)} to index {self.index}";
                 };
