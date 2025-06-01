@@ -1,10 +1,10 @@
 function sprite_atlas_cheap(sprites) {
     array_sort(sprites, function(a, b) {
-        return sprite_get_width(b) - sprite_get_width(a);
+        return sprite_get_width(b.sprite) - sprite_get_width(a.sprite);
     });
     
     var count = array_length(sprites);
-    var positions = array_create(count);
+    var uvs = array_create(count);
     
     var xx = 0;
     var yy = 0;
@@ -15,13 +15,14 @@ function sprite_atlas_cheap(sprites) {
     var limit = 4096;
     
     for (var i = 0; i < count; i++) {
-        var sprite = sprites[i];
-        positions[i] = {
+        var sprite = sprites[i].sprite;
+        uvs[i] = {
             x: xx,
             y: yy,
             w: sprite_get_width(sprite),
             h: sprite_get_height(sprite),
-            sprite: sprites[i]
+            sprite,
+            filename: sprites[i].filename
         };
         
         maxw = max(maxw, xx + sprite_get_width(sprite) + padding);
@@ -41,7 +42,7 @@ function sprite_atlas_cheap(sprites) {
     draw_clear_alpha(c_black, 0);
     gpu_set_blendmode(bm_add);
     
-    array_foreach(positions, function(data) {
+    array_foreach(uvs, function(data) {
         draw_sprite(data.sprite, 0, data.x, data.y);
     });
     
@@ -52,7 +53,7 @@ function sprite_atlas_cheap(sprites) {
     surface_free(surface);
     
     return {
-        atlas: atlas,
-        uvs: positions
+        atlas,
+        uvs
     };
 }

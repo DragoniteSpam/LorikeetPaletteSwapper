@@ -45,12 +45,15 @@ function emu_dialog_show_batch_automation_fused(files, type) {
     
     var sprites = array_filter(array_map(files, function(filename) {
         if (file_exists(filename)) {
-            return sprite_add(filename, 0, false, false, 0, 0);
+            return {
+                filename,
+                sprite: sprite_add(filename, 0, false, false, 0, 0)
+            };
         }
         
         return undefined;
-    }), function(sprite) {
-        return sprite_exists(sprite);
+    }), function(data) {
+        return data != undefined;
     });
     
     var atlas = sprite_atlas_cheap(sprites);
@@ -74,7 +77,7 @@ function emu_dialog_show_batch_automation_fused(files, type) {
     
     for (var i = 0; i < count; i++) {
         var data = atlas.uvs[i];
-        surface_save_part(surface, $"{output_path}idx_{filename_name(files[i])}", data.x, data.y, data.w, data.h);
+        surface_save_part(surface, $"{output_path}idx_{filename_name(data.filename)}", data.x, data.y, data.w, data.h);
     }
     
     sprite_save(palette_manager.palette, 0, $"{output_path}pal_{filename_name(output_file)}");
@@ -89,5 +92,7 @@ function emu_dialog_show_batch_automation_fused(files, type) {
     palette_manager.Destroy();
     
     sprite_delete(atlas.atlas);
-    array_foreach(sprites, sprite_delete);
+    array_foreach(sprites, function(data) {
+        sprite_delete(data.sprite);
+    });
 }
