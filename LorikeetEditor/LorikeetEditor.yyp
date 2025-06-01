@@ -159,6 +159,7 @@
     {"id":{"name":"scribble_typists_add_event","path":"scripts/scribble_typists_add_event/scribble_typists_add_event.yy",},},
     {"id":{"name":"scribble","path":"scripts/scribble/scribble.yy",},},
     {"id":{"name":"set_cursor_sprite_auto","path":"scripts/set_cursor_sprite_auto/set_cursor_sprite_auto.yy",},},
+    {"id":{"name":"sprite_atlas_cheap","path":"scripts/sprite_atlas_cheap/sprite_atlas_cheap.yy",},},
     {"id":{"name":"sprite_atlas_internals","path":"scripts/sprite_atlas_internals/sprite_atlas_internals.yy",},},
     {"id":{"name":"sprite_atlas_pack_dll","path":"scripts/sprite_atlas_pack_dll/sprite_atlas_pack_dll.yy",},},
     {"id":{"name":"sprite_atlas_pack","path":"scripts/sprite_atlas_pack/sprite_atlas_pack.yy",},},

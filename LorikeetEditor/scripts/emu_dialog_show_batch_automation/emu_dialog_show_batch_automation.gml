@@ -53,7 +53,7 @@ function emu_dialog_show_batch_automation_fused(files, type) {
         return sprite_exists(sprite);
     });
     
-    var atlas = sprite_atlas_pack_dll(sprites, 2, 4, false, false);
+    var atlas = sprite_atlas_cheap(sprites);
     
     if (DEBUG) {
         show_debug_message($"{count} sprites atlased to {sprite_get_width(atlas.atlas)} x {sprite_get_height(atlas.atlas)}");

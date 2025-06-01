@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"sprite_atlas_cheap",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"sprite_atlas_cheap",
+  "parent":{
+    "name":"Editor",
+    "path":"folders/Editor.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

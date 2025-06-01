@@ -106,6 +106,7 @@
     {"name":"scribble_typists_add_event","order":9,"path":"scripts/scribble_typists_add_event/scribble_typists_add_event.yy",},
     {"name":"scribble","order":7,"path":"scripts/scribble/scribble.yy",},
     {"name":"set_cursor_sprite_auto","order":11,"path":"scripts/set_cursor_sprite_auto/set_cursor_sprite_auto.yy",},
+    {"name":"sprite_atlas_cheap","order":21,"path":"scripts/sprite_atlas_cheap/sprite_atlas_cheap.yy",},
     {"name":"sprite_atlas_pack_dll","order":2,"path":"scripts/sprite_atlas_pack_dll/sprite_atlas_pack_dll.yy",},
     {"name":"sprite_atlas_pack","order":1,"path":"scripts/sprite_atlas_pack/sprite_atlas_pack.yy",},
     {"name":"sprite_atlas_version","order":3,"path":"scripts/sprite_atlas_version/sprite_atlas_version.yy",},

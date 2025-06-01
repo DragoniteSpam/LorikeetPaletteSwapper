@@ -1,4 +1,4 @@
-/// Based on: https://jsfiddle.net/cey0nfux/
+/// Based on: https://jsfiddle.net/jLchftot/
 /// Explanation: https://gamedev.net/forums/topic/683912-sprite-packing-algorithm-explained-with-example-code/5320030/
 function sprite_atlas_pack(sprite_array, padding, stride = 4, force_po2 = false, draw_borders = true) {
     enum SpritePackData {
