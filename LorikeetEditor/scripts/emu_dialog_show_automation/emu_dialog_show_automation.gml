@@ -1,11 +1,13 @@
 function emu_dialog_show_automation() {
-    var ew = 320;
+    var ew = 360;
     var eh = 32;
+    var ew_short = 240;
     var c1 = 32;
-    var c2 = 32 + 320 + 32;
-    var c3 = 32 + 320 + 32 + 320 + 32;
-    var c4 = 32 + 320 + 32 + 320 + 32 + 320 + 32;
-    (new EmuDialog(c4 + 320 + 32, 544, "Palette Automation"))
+    var c2 = 32 + ew + 32;
+    var c3 = 32 + ew + 32 + ew + 32;
+    var c4 = 32 + ew + 32 + ew + 32 + ew + 32;
+    (new EmuDialog(c4 + ew_short + 32, 544, "Palette Automation"))
+        .CenterInWindow()
         .SetCloseButton(false)
         .AddContent([
             #region column 1
@@ -145,7 +147,7 @@ function emu_dialog_show_automation() {
                 .SetID("DELETE STEP"),
             #endregion
             #region column 4
-            (new EmuRadioArray(c4, EMU_BASE, ew, eh, "Operation type:", 0, function() {
+            (new EmuRadioArray(c4, EMU_BASE, ew_short, eh, "Operation type:", 0, function() {
                 var slot = self.GetSibling("SLOTS").GetSelectedItem();
                 if (!slot) return;
                 var step_number = self.GetSibling("STEPS").GetSelection();
@@ -197,9 +199,9 @@ function emu_dialog_show_automation() {
                 })
                 .SetInteractive(false)
                 .SetID("SLOT OPERATION TYPE"),
-            (new EmuCore(c4 - 32, EMU_AUTO, ew, ew))
+            (new EmuCore(c4 - 32, EMU_AUTO, ew_short, ew))
                 .AddContent([
-                    (new EmuInput(c1, EMU_BASE, ew, eh, "Places:", 0, "Number of places to shift", 3, E_InputTypes.INT, function() {
+                    (new EmuInput(c1, EMU_BASE, ew_short, eh, "Places:", 0, "Number of places to shift", 3, E_InputTypes.INT, function() {
                         self.data.count = real(self.value);
                         self.data.name = ((self.data.id == EAutomationStepTypes.SHIFT_LEFT) ? "Shift Left " : "Shift Right ") + string(self.value);
                     }))
@@ -216,9 +218,9 @@ function emu_dialog_show_automation() {
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:SHIFT"),
-            (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+            (new EmuCore(c4 - 32, EMU_INLINE, ew_short, ew))
                 .AddContent([
-                    (new EmuInput(c1, EMU_BASE, ew, eh, "Hue:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
+                    (new EmuInput(c1, EMU_BASE, ew_short, eh, "Hue:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
                         self.data.hue = real(self.value);
                     }))
                     .SetID("H H")
@@ -230,7 +232,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(self.data.hue);
                         }
                     }),
-                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "-100 to +100", 4, E_InputTypes.INT, function() {
+                    (new EmuInput(c1, EMU_AUTO, ew_short, eh, "Saturation:", 0, "-100 to +100", 4, E_InputTypes.INT, function() {
                         self.data.sat = real(self.value);
                     }))
                     .SetID("H S")
@@ -242,7 +244,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(self.data.sat);
                         }
                     }),
-                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
+                    (new EmuInput(c1, EMU_AUTO, ew_short, eh, "Value:", 0, "-180 to +180", 4, E_InputTypes.INT, function() {
                         self.data.val = real(self.value);
                     }))
                     .SetID("H V")
@@ -260,9 +262,9 @@ function emu_dialog_show_automation() {
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:HSV"),
-            (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+            (new EmuCore(c4 - 32, EMU_INLINE, ew_short, ew))
                 .AddContent([
-                    (new EmuInput(c1, EMU_BASE, ew, eh, "Hue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                    (new EmuInput(c1, EMU_BASE, ew_short, eh, "Hue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.hue = real(self.value);
                     }))
                     .SetID("HP H")
@@ -274,7 +276,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(string_format(self.data.hue, 1, 2));
                         }
                     }),
-                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Saturation:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                    (new EmuInput(c1, EMU_AUTO, ew_short, eh, "Saturation:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.sat = real(self.value);
                     }))
                     .SetID("HP S")
@@ -286,7 +288,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(string_format(self.data.sat, 1, 2));
                         }
                     }),
-                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Value:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                    (new EmuInput(c1, EMU_AUTO, ew_short, eh, "Value:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.val = real(self.value);
                     }))
                     .SetID("HP V")
@@ -304,9 +306,9 @@ function emu_dialog_show_automation() {
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:HSVPERCENT"),
-            (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+            (new EmuCore(c4 - 32, EMU_INLINE, ew_short, ew))
                 .AddContent([
-                    (new EmuInput(c1, EMU_BASE, ew, eh, "Red:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
+                    (new EmuInput(c1, EMU_BASE, ew_short, eh, "Red:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
                         self.data.r = real(self.value);
                     }))
                     .SetID("C R")
@@ -318,7 +320,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(self.data.r);
                         }
                     }),
-                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Green:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
+                    (new EmuInput(c1, EMU_AUTO, ew_short, eh, "Green:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
                         self.data.g = real(self.value);
                     }))
                     .SetID("C G")
@@ -330,7 +332,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(self.data.g);
                         }
                     }),
-                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Blue:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
+                    (new EmuInput(c1, EMU_AUTO, ew_short, eh, "Blue:", 0, "-255 to +255", 4, E_InputTypes.INT, function() {
                         self.data.b = real(self.value);
                     }))
                     .SetID("C B")
@@ -348,9 +350,9 @@ function emu_dialog_show_automation() {
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:COLORS"),
-            (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+            (new EmuCore(c4 - 32, EMU_INLINE, ew_short, ew))
                 .AddContent([
-                    (new EmuInput(c1, EMU_BASE, ew, eh, "Red:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                    (new EmuInput(c1, EMU_BASE, ew_short, eh, "Red:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.r = real(self.value);
                     }))
                     .SetID("CP R")
@@ -362,7 +364,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(string_format(self.data.r, 1, 2));
                         }
                     }),
-                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Green:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                    (new EmuInput(c1, EMU_AUTO, ew_short, eh, "Green:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.g = real(self.value);
                     }))
                     .SetID("CP G")
@@ -374,7 +376,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(string_format(self.data.g, 1, 2));
                         }
                     }),
-                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Blue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
+                    (new EmuInput(c1, EMU_AUTO, ew_short, eh, "Blue:", 0, "0.0x to 10.0x", 4, E_InputTypes.REAL, function() {
                         self.data.b = real(self.value);
                     }))
                     .SetID("CP B")
@@ -392,9 +394,9 @@ function emu_dialog_show_automation() {
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:COLORSPERCENT"),
-            (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+            (new EmuCore(c4 - 32, EMU_INLINE, ew_short, ew))
                 .AddContent([
-                    (new EmuColorPicker(c1, EMU_BASE, ew, eh, "Color", c_black, function() {
+                    (new EmuColorPicker(c1, EMU_BASE, ew_short, eh, "Color", c_black, function() {
                         self.data.color = self.value;
                     }))
                     .SetAlphaUsed(true)
@@ -405,7 +407,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(self.data.color);
                         }
                     }),
-                    (new EmuCheckbox(c1, EMU_AUTO, ew, eh, "Corners?", false, function() {
+                    (new EmuCheckbox(c1, EMU_AUTO, ew_short, eh, "Corners?", false, function() {
                         self.data.use_corners = self.value;
                     }))
                     .SetID("OUTLINE CORNER")
@@ -421,9 +423,9 @@ function emu_dialog_show_automation() {
                 })
                 .SetEnabled(false)
                 .SetID("PANEL:OUTLINE"),
-            (new EmuCore(c4 - 32, EMU_INLINE, ew, ew))
+            (new EmuCore(c4 - 32, EMU_INLINE, ew_short, ew))
                 .AddContent([
-                    (new EmuColorPicker(c1, EMU_BASE, ew, eh, "Color", c_black, function() {
+                    (new EmuColorPicker(c1, EMU_BASE, ew_short, eh, "Color", c_black, function() {
                         self.data.color = self.value;
                     }))
                     .SetAlphaUsed(true)
@@ -434,7 +436,7 @@ function emu_dialog_show_automation() {
                             self.SetValue(self.data.color);
                         }
                     }),
-                    (new EmuInput(c1, EMU_AUTO, ew, eh, "Index", 0, "Index (negative for relative)", 4, E_InputTypes.INT, function() {
+                    (new EmuInput(c1, EMU_AUTO, ew_short, eh, "Index", 0, "Index (negative for relative)", 4, E_InputTypes.INT, function() {
                         self.data.index = real(self.value);
                     }))
                     .SetRealNumberBounds(-256, 256)
