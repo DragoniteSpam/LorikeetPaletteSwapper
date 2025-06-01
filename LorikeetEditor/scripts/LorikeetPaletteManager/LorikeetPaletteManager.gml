@@ -132,6 +132,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         draw_set_alpha(1);
         draw_sprite(self.palette, 0, 0, 0);
         gpu_set_blendmode(bm_normal);
+        draw_set_alpha((color >> 24) / 0xff);
         draw_point_colour(x, y, color);
         gpu_set_blendmode(bm);
         draw_set_alpha(a);
@@ -268,7 +269,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
             for (var j = 0; j < palette_size; j++) {
                 var value = self.data[i][j];
                 if (value == -1) {
-                    buffer_write(palette_buffer, buffer_u32, 0xff000000);
+                    buffer_write(palette_buffer, buffer_u32, 0x00000000);
                 } else {
                     buffer_write(palette_buffer, buffer_u32, value);
                 }

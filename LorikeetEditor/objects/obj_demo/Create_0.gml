@@ -26,7 +26,7 @@ enum EOperationModes {
     BUCKET,
 }
 
-self.demo_copied_color = c_black;
+self.demo_copied_color = 0xff000000;
 self.demo_edit_cell = -1;
 
 self.automations = new LorikeetAutomation();
@@ -397,7 +397,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
         lorikeet_set(obj_demo.demo_palette.palette, obj_demo.demo_palette_index, 0, shd_lorikeet_preview);
         shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexUnderCursor"), obj_demo.demo_highlight_selection ? index_under_cursor : -100);
         shader_set_uniform_f(shader_get_uniform(shd_lorikeet_preview, "u_IndexCount"), array_length(obj_demo.demo_palette.data[0]));
-        draw_sprite_ext(obj_demo.demo_sprite_indexed, 0, 0, 0, 1, 1, 0, c_white, 1);
+        draw_sprite(obj_demo.demo_sprite_indexed, 0, 0, 0);
         shader_reset();
         
         draw_rectangle_colour(0, 0, sprite_get_width(obj_demo.demo_sprite_indexed) - 1, sprite_get_height(obj_demo.demo_sprite_indexed) - 1, c_black, c_black, c_black, c_black, true);
@@ -410,13 +410,16 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             draw_clear_alpha(c_black, 0);
             
             var size = 64;
+            draw_set_alpha((obj_demo.demo_copied_color >> 24) / 0xff);
             draw_rectangle_colour(1, self.height - size + 1, size - 1, self.height - 1, obj_demo.demo_copied_color, obj_demo.demo_copied_color, obj_demo.demo_copied_color, obj_demo.demo_copied_color, false);
+            draw_set_alpha(1);
             draw_sprite_stretched(spr_tile_selector, 0, 1, self.height - size + 1, size - 2, size - 2);
             draw_sprite(spr_modes, 2, size / 2, self.height - size / 2);
             
-            static picker = new EmuColorPicker(0, 0, 0, 0, "", c_black, function() {
+            static picker = new EmuColorPicker(0, 0, 0, 0, "", 0xff000000, function() {
                 obj_demo.demo_copied_color = self.value;
-            });
+            })
+                .SetAlphaUsed(true);
             
             if (mx > 1 && my > self.height - size + 1 && mx < size - 1 && my < self.height - 1) {
                 if (mouse_check_button_pressed(mb_left)) {

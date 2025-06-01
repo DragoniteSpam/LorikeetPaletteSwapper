@@ -73,7 +73,7 @@ function EmuColorPicker(x, y, width, height, text, value, callback) : EmuCallbac
     };
     
     self.ShowPickerDialog = function() {
-        var dialog = new EmuDialog(480, 400, "Pick a col_main");
+        var dialog = new EmuDialog(480, 400, "Pick a color");
         dialog.base_color_element = self;
                     
         var ew = 256;
