@@ -31,7 +31,6 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
             for (var j = 0; j < sh; j++) {
                 var cc = buffer_peek(buffer_sprite, (i + j * sw) * step, buffer_u32);
                 if ((cc >> 24) == 0) continue;
-                cc &= 0x00ffffff;
                 var cname = string(cc);
                 map[$ cname] ??= self.palette_used_size++;
                 palette_array[map[$ cname]] = cc;
@@ -71,7 +70,7 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
         for (var i = 0, n = buffer_get_size(buffer_sprite); i < n; i += step) {
             var cc = buffer_peek(buffer_sprite, i, buffer_u32);
             if ((cc >> 24) == 0) continue;
-            var idx = map[$ string(cc & 0x00ffffff)] * palette_color_spacing;
+            var idx = map[$ string(cc)] * palette_color_spacing;
             buffer_poke(buffer_sprite, i, buffer_u32, (cc & 0xff000000) | make_colour_rgb(idx, idx, idx));
         }
         
@@ -269,9 +268,9 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
             for (var j = 0; j < palette_size; j++) {
                 var value = self.data[i][j];
                 if (value == -1) {
-                    buffer_write(palette_buffer, buffer_u32, 0);
+                    buffer_write(palette_buffer, buffer_u32, 0xff000000);
                 } else {
-                    buffer_write(palette_buffer, buffer_u32, value | 0xff000000);
+                    buffer_write(palette_buffer, buffer_u32, value);
                 }
             }
         }

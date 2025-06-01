@@ -473,8 +473,11 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
             if (c == -1) break;
             var xx = (i % hcells);
             var yy = (i div hcells);
+            draw_set_alpha((c >> 24) / 0xff);
             draw_rectangle_color(xx * step, yy * step, (xx + 1) * step, (yy + 1) * step, c, c, c, c, false);
         }
+        
+        draw_set_alpha(1);
         
         var mouse_in_view = (mx >= 0 && mx <= self.width && my >= 0 && my <= self.height);
         if (mouse_in_view) {
@@ -734,7 +737,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                 .SetActiveShade(0)
                 .CenterInWindow()
                 .AddContent([
-                    new EmuColorPicker(32, EMU_AUTO, ew, eh, "Outline color:", c_black, function() {
+                    new EmuColorPicker(32, EMU_AUTO, ew, eh, "Outline color:", 0xff000000, function() {
                         self.root.outline_color = self.value;
                         self.root.palette_data[self.root.outline_index] = self.value;
                         var palette = obj_demo.demo_palette;
@@ -742,7 +745,8 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                             palette.data[i][self.root.outline_index] = self.value;
                         }
                         palette.RegeneratePaletteFromData();
-                    }),
+                    })
+                        .SetAlphaUsed(true),
                     new EmuCheckbox(32, EMU_AUTO, ew, eh, "Corner outlines?", true, function() {
                         obj_demo.demo_sprite_indexed = self.value ? self.root.index_with_diagonals : self.root.index_without_diagonals;
                     })
@@ -776,7 +780,7 @@ self.ui = (new EmuCore(0, 0, window_get_width(), window_get_height())).AddConten
                     self.root.Close();
                 });
         
-            dialog.outline_color = c_black;
+            dialog.outline_color = 0xff000000;
             dialog.outline_index = obj_demo.demo_palette.palette_used_size;
             dialog.palette_data = obj_demo.demo_palette.data[obj_demo.demo_palette_index];
             dialog.original_data = variable_clone(obj_demo.demo_palette.data[obj_demo.demo_palette_index]);

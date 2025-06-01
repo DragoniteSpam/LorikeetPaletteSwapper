@@ -294,19 +294,19 @@ function LorikeetAutomation() constructor {
             };
             
             self.StepOutline = function() constructor {
-                self.color = c_black;
+                self.color = 0xff000000;
                 self.use_corners = false;
                 self.id = EAutomationStepTypes.OUTLINE;
                 
                 self.toString = function() {
                     static color_to_string = function(color) {
-                        if (color == 0) return "#000000";
+                        if ((color & 0x00ffffff) == 0) return $"#000000 @ {(color >> 24) / 255}%";
                         var rr = color_get_red(color);
                         var gg = color_get_green(color);
                         var bb = color_get_blue(color);
                         color = make_color_rgb(bb, gg, rr);
                         var hex = string(ptr(color));
-                        return string_copy(hex, 11, 6);
+                        return $"{string_copy(hex, 11, 6)} @ {(color >> 24) / 255}%";
                     };
                     return "Outline: " +
                         color_to_string(self.color) + "/" +

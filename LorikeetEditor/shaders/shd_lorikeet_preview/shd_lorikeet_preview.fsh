@@ -42,7 +42,9 @@ vec4 GetColor(vec4 data) {
         c2 = mix(c2, 1.0 - c2, d);
     }
     
-    return vec4(mix(c1, c2, fract(u_PaletteSlot)).rgb, data.a);
+    vec4 sampled = mix(c1, c2, fract(u_PaletteSlot));
+    sampled.a *= data.a;
+    return sampled;
 }
 
 void main() {
