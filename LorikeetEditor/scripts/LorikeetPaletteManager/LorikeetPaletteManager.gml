@@ -169,14 +169,18 @@ function LorikeetPaletteManager(source_palette = undefined) constructor {
     static Refresh = function() {
         var s = surface_create(power(2, ceil(log2(array_length(self.data[0])))), array_length(self.data));
         surface_set_target(s);
-        draw_clear(c_white);
+        draw_clear_alpha(c_black, 0);
+        gpu_set_blendmode(bm_add);
         var a = draw_get_alpha();
         draw_set_alpha(1);
         for (var i = 0, n = array_length(self.data); i < n; i++) {
             for (var j = 0, n2 = array_length(self.data[i]); j < n2; j++) {
-                draw_point_colour(j, i, self.data[i][j]);
+                var value = self.data[i][j];
+                draw_set_alpha((value >> 24) / 0xff);
+                draw_point_colour(j, i, value);
             }
         }
+        gpu_set_blendmode(bm_normal);
         draw_set_alpha(a);
         surface_reset_target();
         if (sprite_exists(self.palette)) sprite_delete(self.palette);
