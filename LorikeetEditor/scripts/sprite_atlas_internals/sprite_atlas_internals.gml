@@ -39,7 +39,7 @@ function __spal__setup(data_buffer, sprite_array, padding) {
     return sprite_lookup;
 }
 
-function __spal__cleanup(data_buffer, sprite_lookup, padding, maxx, maxy) {
+function __spal__cleanup(data_buffer, sprite_lookup, padding, maxx, maxy, draw_borders) {
     static warned = false;
     if (max(maxx, maxy) > 0x4000 && !warned) {
         warned = true;
@@ -62,7 +62,7 @@ function __spal__cleanup(data_buffer, sprite_lookup, padding, maxx, maxy) {
         var i = index++ * 16;
         var xx = buffer_peek(data_buffer, i + SpritePackData.X, buffer_s32);
         var yy = buffer_peek(data_buffer, i + SpritePackData.Y, buffer_s32);
-        if (padding > 0) {
+        if (draw_borders && padding > 0) {
             draw_sprite_general(sprite, sub, 0, 0, sprite_get_width(sprite), 1, xx + padding, yy, 1, padding, 0, c_white, c_white, c_white, c_white, 1);
             draw_sprite_general(sprite, sub, 0, 0, 1, sprite_get_height(sprite), xx, yy + padding, padding, 1, 0, c_white, c_white, c_white, c_white, 1);
             draw_sprite_general(sprite, sub, 0, sprite_get_height(sprite) - 1, sprite_get_width(sprite), 1, xx + padding, yy + padding + sprite_get_height(sprite), 1, padding, 0, c_white, c_white, c_white, c_white, 1);

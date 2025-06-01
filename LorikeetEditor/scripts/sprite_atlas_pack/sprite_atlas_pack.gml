@@ -1,6 +1,6 @@
 /// Based on: https://jsfiddle.net/cey0nfux/
 /// Explanation: https://gamedev.net/forums/topic/683912-sprite-packing-algorithm-explained-with-example-code/5320030/
-function sprite_atlas_pack(sprite_array, padding, stride = 4, force_po2 = false) {
+function sprite_atlas_pack(sprite_array, padding, stride = 4, force_po2 = false, draw_borders = true) {
     enum SpritePackData {
         X = 0,
         Y = 4,
@@ -88,7 +88,7 @@ function sprite_atlas_pack(sprite_array, padding, stride = 4, force_po2 = false)
         maxy = 1 << ceil(log2(maxy));
     }
     
-    var results = __spal__cleanup(data_buffer, sprite_lookup, padding, maxx, maxy);
+    var results = __spal__cleanup(data_buffer, sprite_lookup, padding, maxx, maxy, draw_borders);
     buffer_delete(data_buffer);
     return results;
 }

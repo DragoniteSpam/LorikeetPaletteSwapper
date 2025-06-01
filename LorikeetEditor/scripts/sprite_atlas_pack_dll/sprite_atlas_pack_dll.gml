@@ -1,4 +1,4 @@
-function sprite_atlas_pack_dll(sprite_array, padding, stride = 4, force_po2 = false) {
+function sprite_atlas_pack_dll(sprite_array, padding, stride = 4, force_po2 = false, draw_borders = true) {
     static additional_bytes = 8;
     
     // each sprite is represented by four 4-byte floats
@@ -11,7 +11,7 @@ function sprite_atlas_pack_dll(sprite_array, padding, stride = 4, force_po2 = fa
     var maxx = buffer_peek(data_buffer, buffer_get_size(data_buffer) - 8, buffer_s32);
     var maxy = buffer_peek(data_buffer, buffer_get_size(data_buffer) - 4, buffer_s32);
     
-    var results = __spal__cleanup(data_buffer, sprite_lookup, padding, maxx, maxy);
+    var results = __spal__cleanup(data_buffer, sprite_lookup, padding, maxx, maxy, draw_borders);
     buffer_delete(data_buffer);
     return results;
 }
