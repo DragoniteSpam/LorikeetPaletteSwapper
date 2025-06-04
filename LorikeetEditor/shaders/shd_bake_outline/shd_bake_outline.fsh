@@ -22,9 +22,9 @@ void main() {
                 texture2D(gm_BaseTexture, v_vTexcoord + vec2( duv.x, -duv.y)).a +
                 texture2D(gm_BaseTexture, v_vTexcoord + vec2( duv.x,  duv.y)).a +
                 
+                texture2D(gm_BaseTexture, v_vTexcoord - vec2(duv.x, 0)).a +
                 texture2D(gm_BaseTexture, v_vTexcoord + vec2(duv.x, 0)).a +
-                texture2D(gm_BaseTexture, v_vTexcoord + vec2(duv.x, 0)).a +
-                texture2D(gm_BaseTexture, v_vTexcoord + vec2(0, duv.y)).a +
+                texture2D(gm_BaseTexture, v_vTexcoord - vec2(0, duv.y)).a +
                 texture2D(gm_BaseTexture, v_vTexcoord + vec2(0, duv.y)).a;
         } else {
             adjacent_alpha =
