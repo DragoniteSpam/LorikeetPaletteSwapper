@@ -2,7 +2,7 @@
   "$GMProject":"v1",
   "%Name":"LorikeetEditor",
   "AudioGroups":[
-    {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
   "configs":{
     "children":[
@@ -18,8 +18,6 @@
     {"$GMFolder":"","%Name":"Core","folderPath":"folders/Emu/Core.yy","name":"Core","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Graphics","folderPath":"folders/Emu/Graphics.yy","name":"Graphics","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"slices","folderPath":"folders/Emu/Graphics/slices.yy","name":"slices","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Extensions","folderPath":"folders/Extensions.yy","name":"Extensions","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"SpriteAtlas","folderPath":"folders/Extensions/SpriteAtlas.yy","name":"SpriteAtlas","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"File Dropper","folderPath":"folders/File Dropper.yy","name":"File Dropper","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Lorikeet","folderPath":"folders/Lorikeet.yy","name":"Lorikeet","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Scribble","folderPath":"folders/Scribble.yy","name":"Scribble","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -34,6 +32,7 @@
     {"$GMFolder":"","%Name":"Miscellaneous","folderPath":"folders/Scribble/Miscellaneous.yy","name":"Miscellaneous","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Superfonts","folderPath":"folders/Scribble/Superfonts.yy","name":"Superfonts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Sprite Sheet Cutter","folderPath":"folders/Sprite Sheet Cutter.yy","name":"Sprite Sheet Cutter","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"SpriteAtlas","folderPath":"folders/SpriteAtlas.yy","name":"SpriteAtlas","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
@@ -42,7 +41,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.13.1.193",
+    "IDEVersion":"2024.14.1.208",
   },
   "name":"LorikeetEditor",
   "resources":[

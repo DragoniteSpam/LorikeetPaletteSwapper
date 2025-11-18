@@ -1,9 +1,8 @@
 {
   "FolderOrderSettings":[
     {"name":"Widgets","order":16,"path":"folders/Editor/Widgets.yy",},
-    {"name":"Extensions","order":2,"path":"folders/Extensions.yy",},
-    {"name":"SpriteAtlas","order":1,"path":"folders/Extensions/SpriteAtlas.yy",},
     {"name":"Sprite Sheet Cutter","order":1,"path":"folders/Sprite Sheet Cutter.yy",},
+    {"name":"SpriteAtlas","order":2,"path":"folders/SpriteAtlas.yy",},
   ],
   "ResourceOrderSettings":[
     {"name":"FileDropper","order":3,"path":"extensions/FileDropper/FileDropper.yy",},
