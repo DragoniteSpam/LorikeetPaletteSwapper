@@ -24,8 +24,8 @@ function index_generate_outlines(sprite, outline_value, use_diagonals) {
     var yo = sprite_get_yoffset(sprite);
     
     var cropped = sprite_get_cropped_dimensions(sprite);
-    var pad_left = cropped.xmin == 1;
-    var pad_top = cropped.ymin == 1;
+    var pad_left = cropped.xmin == 0;
+    var pad_top = cropped.ymin == 0;
     var pad_right = cropped.xmax == w - 1;
     var pad_bottom = cropped.ymax == h - 1;
     

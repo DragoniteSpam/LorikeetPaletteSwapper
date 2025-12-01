@@ -34,14 +34,16 @@
     {"$GMFolder":"","%Name":"Sprite Sheet Cutter","folderPath":"folders/Sprite Sheet Cutter.yy","name":"Sprite Sheet Cutter","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"SpriteAtlas","folderPath":"folders/SpriteAtlas.yy","name":"SpriteAtlas","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
-  "ForcedPrefabProjectReferences":[],
+  "ForcedPrefabProjectReferences":[
+    {"link":"io.gamemaker.sdfshaders-1.0.0","name":"io.gamemaker.sdfshaders-1.0.0","path":"io.gamemaker.sdfshaders-1.0.0.yyp",},
+  ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"automation-defaults.json","CopyToMask":-1,"filePath":"datafiles","name":"automation-defaults.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.1.208",
+    "IDEVersion":"2024.14.1.210",
   },
   "name":"LorikeetEditor",
   "resources":[
